@@ -1,0 +1,38 @@
+[
+  {
+    "slug": {
+      "type": "string"
+    },
+    "title": "Hello World",
+    "description": "This is our first blog post. Really cool",
+    "date": "2024-03-06T00:00:00.000Z",
+    "published": true,
+    "tags": [
+      "code",
+      "blog"
+    ],
+    "body": "const{Fragment:e,jsx:n,jsxs:o}=arguments[0];function _createMdxContent(r){const t={a:\"a\",code:\"code\",h1:\"h1\",h3:\"h3\",p:\"p\",...r.components},{Callout:l}=t;return l||function(e,n){throw new Error(\"Expected \"+(n?\"component\":\"object\")+\" `\"+e+\"` to be defined: you likely forgot to import, pass, or provide it.\")}(\"Callout\",!0),o(e,{children:[n(l,{type:\"warning\",children:\"Hello I am a callout\"}),\"\\n\",n(t.h1,{id:\"hello-world\",children:n(t.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#hello-world\",children:\"Hello World\"})}),\"\\n\",o(t.p,{children:[\"Welcome to my blog \",n(t.code,{children:\"inline code\"})]}),\"\\n\",n(t.h3,{id:\"header-3\",children:n(t.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#header-3\",children:\"Header 3\"})})]})}return{default:function(e={}){const{wrapper:o}=e.components||{};return o?n(o,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+    "slugAsParams": "hello-world",
+    "path": {
+      "type": "string"
+    }
+  },
+  {
+    "slug": {
+      "type": "string"
+    },
+    "title": "Hello Worlds",
+    "description": "This is our first blog post. Really cool",
+    "date": "2024-03-06T00:00:00.000Z",
+    "published": true,
+    "tags": [
+      "code",
+      "blog"
+    ],
+    "body": "const{Fragment:e,jsx:n,jsxs:o}=arguments[0];function _createMdxContent(r){const t={a:\"a\",code:\"code\",h1:\"h1\",h3:\"h3\",p:\"p\",...r.components},{Callout:l}=t;return l||function(e,n){throw new Error(\"Expected \"+(n?\"component\":\"object\")+\" `\"+e+\"` to be defined: you likely forgot to import, pass, or provide it.\")}(\"Callout\",!0),o(e,{children:[n(l,{type:\"warning\",children:\"Hello I am a callout\"}),\"\\n\",n(t.h1,{id:\"hello-world\",children:n(t.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#hello-world\",children:\"Hello World\"})}),\"\\n\",o(t.p,{children:[\"Welcome to my blog \",n(t.code,{children:\"inline code\"})]}),\"\\n\",n(t.h3,{id:\"header-3\",children:n(t.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#header-3\",children:\"Header 3\"})})]})}return{default:function(e={}){const{wrapper:o}=e.components||{};return o?n(o,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+    "slugAsParams": "hello-worlds",
+    "path": {
+      "type": "string"
+    }
+  }
+]
