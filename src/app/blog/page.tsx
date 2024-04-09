@@ -24,9 +24,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     POSTS_PER_PAGE * currentPage
   );
   return (
-    <>
+    <main className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 min-h-screen">
       <Navigation />
-      <div className="container mx-auto max-w-4xl py-6 lg:py-10 text-zinc-50 mt-[8rem]">
+      <div className="container mx-auto max-w-4xl py-6 lg:py-10 text-zinc-50 pt-[8rem]">
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-y-4">
             <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
@@ -79,6 +79,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <p>No posts published.</p>
         )}
       </div>
-    </>
+    </main>
   );
 }
