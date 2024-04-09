@@ -1,7 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
 import { posts } from "#site/content";
-import { compareDesc } from "date-fns";
+import Link from "next/link";
 
 import { formatDate, sortPosts } from "@/lib/utils";
 import { Navigation } from "../components/nav";
