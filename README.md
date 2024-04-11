@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Personal Project Portfolio Website
 
 This is a personal project portfolio website that I created to showcase my work and share my thoughts.
@@ -20,3 +21,6 @@ The website has the following features:
 ## License
 
 This website is open-sourced under the MIT License. See the LICENSE file for more details.
+=======
+Personal Portfolio
+>>>>>>> 3437c77bd7b6cd1b5331d8954ad01d06bd83b43e
