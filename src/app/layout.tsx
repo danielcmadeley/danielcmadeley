@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "mxdeley.com",
+    default: "Daniel Madeley",
     template: "%s | mxdeley.com",
   },
   description: "Co-founder of unkey.dev and founder of planetfall.io",

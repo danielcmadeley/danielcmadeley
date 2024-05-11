@@ -4,6 +4,7 @@ import Particles from "@/components/Particles";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Blog", href: "/blog" },
+  { name: "CV", href: "/cv" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -11,7 +12,7 @@ export default function Home() {
   return (
     <>
       <nav className="my-16 animate-fade-in fixed top-[15rem] mx-auto w-full">
-        <ul className="flex items-center justify-center gap-4">
+        <ul className="flex items-center justify-center gap-6">
           {navigation.map((item) => (
             <Link
               key={item.href}
@@ -36,9 +37,11 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       </div>
-      <h1 className="my-16 animate-fade-in fixed bottom-[15rem] w-full text-center text-zinc-500 hover:text-zinc-300 text-sm duration-500">
-        Structural Engineer
-      </h1>
+      <div className="my-16 animate-fade-in fixed bottom-[15rem] mx-auto w-full">
+        <h1 className="text-center text-zinc-500 hover:text-zinc-300 text-sm duration-500">
+          Structural Engineer
+        </h1>
+      </div>
     </>
   );
 }
