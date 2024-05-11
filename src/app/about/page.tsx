@@ -6,7 +6,7 @@ const About = () => {
     <div>
       <div className="flex flex-col items-center justify-center gap-6 bg-zinc-800 p-6 rounded-xl">
         <h1 className="text-start w-full text-xl font-bold">
-          Shipping code daily.
+          👨‍💻 Shipping code daily.
         </h1>
         <Code code="git add ." />
         <Code code='git commit -m "add"' />
