@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 export default function ProjectsLayout({
@@ -9,6 +10,7 @@ export default function ProjectsLayout({
     <div className="max-w-4xl mx-auto w-full text-zinc-200">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }

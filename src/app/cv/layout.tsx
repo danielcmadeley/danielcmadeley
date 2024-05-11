@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 export default function CVLayout({ children }: { children: React.ReactNode }) {
@@ -5,6 +6,7 @@ export default function CVLayout({ children }: { children: React.ReactNode }) {
     <div className="max-w-4xl mx-auto w-full text-zinc-200">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }
