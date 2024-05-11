@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 
-export default function ProjectsLayout({
+export default function AboutLayout({
   children,
 }: {
   children: React.ReactNode;

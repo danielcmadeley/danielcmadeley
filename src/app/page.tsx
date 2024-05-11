@@ -2,6 +2,7 @@ import Link from "next/link";
 import Particles from "@/components/Particles";
 
 const navigation = [
+  { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Blog", href: "/blog" },
   { name: "CV", href: "/cv" },
