@@ -3,13 +3,13 @@ import Particles from "@/components/Particles";
 
 const navigation = [
   { name: "Projects", href: "/projects" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Home() {
   return (
     <>
-      {" "}
       <nav className="my-16 animate-fade-in fixed top-[15rem] mx-auto w-full">
         <ul className="flex items-center justify-center gap-4">
           {navigation.map((item) => (
@@ -30,26 +30,15 @@ export default function Home() {
           quantity={100}
         />
 
-        <h1 className="z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text pb-4">
+        <h1 className="z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text pb-[22px]">
           mxdeley
         </h1>
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-
-        {/* <div className="my-16 text-center animate-fade-in">
-        <h2 className="text-sm text-zinc-500 ">
-          I&apos;m currently building{" "}
-          <Link
-            target="_blank"
-            href="https://cameltracks.tech"
-            className="underline duration-500 hover:text-zinc-300"
-          >
-            camel tracks
-          </Link>{" "}
-          a solopreneur finance tracker.
-        </h2>
-      </div> */}
       </div>
+      <h1 className="my-16 animate-fade-in fixed bottom-[15rem] w-full text-center text-zinc-500 hover:text-zinc-300 text-sm duration-500">
+        Structural Engineer
+      </h1>
     </>
   );
 }
