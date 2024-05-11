@@ -16,7 +16,7 @@ function TrackPageView() {
     const env = process.env.NODE_ENV;
     if (env !== "production") return;
 
-    load("PXHBYOCN", {
+    load("PHWVZBTJ", {
       auto: false,
       // Optional but I like to explicitly choose the domains to track:
       includedDomains: [
