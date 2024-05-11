@@ -147,7 +147,6 @@ const config = {
           "80%": {
             opacity: "100%",
           },
-
           "100%": {
             "line-height": "125%",
             opacity: "100%",
