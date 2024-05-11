@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Hello world",
+    "slug": "hello-world",
+    "date": "1992-02-25T13:22:00.000Z",
+    "metadata": {
+      "readingTime": 1,
+      "wordCount": 12
+    },
+    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse",
+    "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse</p>",
+    "permalink": "/blog/hello-world"
+  }
+]
