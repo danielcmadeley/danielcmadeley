@@ -12,6 +12,7 @@ interface Item {
 
 export function GridLayout() {
   const [shuffledItems, setShuffledItems] = useState<Item[]>([]);
+  const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
     setShuffledItems(shuffleArray([...items]));
@@ -25,21 +26,28 @@ export function GridLayout() {
     return array;
   }
 
+  const filteredItems = filter
+    ? shuffledItems.filter((item) => item.category === filter)
+    : shuffledItems;
+
   return (
-    <BentoGrid className="max-w-4xl mx-auto">
-      {shuffledItems.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          category={item.category}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-        />
-      ))}
-    </BentoGrid>
+    <div className="">
+      <BentoGrid className="max-w-4xl mx-auto">
+        {filteredItems.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            category={item.category}
+            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          />
+        ))}
+      </BentoGrid>
+    </div>
   );
 }
+
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br  from-neutral-900 to-neutral-800 "></div>
 );
