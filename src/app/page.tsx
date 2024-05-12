@@ -4,7 +4,7 @@ import Particles from "@/components/Particles";
 const navigation = [
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
+  { name: "Newsletter", href: "https://mxdeley.beehiiv.com/subscribe" },
   { name: "CV", href: "/cv" },
   { name: "Contact", href: "/contact" },
 ];

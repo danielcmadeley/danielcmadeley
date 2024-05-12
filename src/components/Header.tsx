@@ -8,7 +8,7 @@ const Header = () => {
         <Link href={"/"}>Home</Link>
         <Link href={"/about"}>About</Link>
         <Link href={"/projects"}>Projects</Link>
-        <Link href={"/blog"}>Blog</Link>
+        <Link href={"https://mxdeley.beehiiv.com/subscribe"}>Newsletter</Link>
         <Link href={"/cv"}>CV</Link>
         <Link href={"/contact"}>Contact</Link>
       </nav>
