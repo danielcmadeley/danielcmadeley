@@ -21,6 +21,10 @@ const About = () => {
           the side. I am currently working in South-Wales as an Assistant
           Structural Engineer and Freelance Web Developer.
         </p>
+        <p className="text-sm">
+          My goal is to merge both my skillsets and become a computational
+          designer.
+        </p>
         <Button
           variant="default"
           className="w-fit bg-zinc-950 hover:bg-zinc-950/70"
