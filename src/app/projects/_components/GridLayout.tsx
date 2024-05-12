@@ -1,9 +1,33 @@
+"use client";
+
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { useEffect, useState } from "react";
+
+interface Item {
+  title: string;
+  description: string;
+  header: JSX.Element;
+  category: string;
+}
 
 export function GridLayout() {
+  const [shuffledItems, setShuffledItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    setShuffledItems(shuffleArray([...items]));
+  }, []);
+
+  function shuffleArray(array: Item[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   return (
     <BentoGrid className="max-w-4xl mx-auto">
-      {items.map((item, i) => (
+      {shuffledItems.map((item, i) => (
         <BentoGridItem
           key={i}
           title={item.title}
@@ -61,6 +85,13 @@ const items = [
   },
   {
     title: "Paddle Steamer, Cardiff",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    category: "Structures",
+  },
+  {
+    title: "Berner Street",
     description:
       "Understand the impact of effective communication in our lives.",
     header: <Skeleton />,
