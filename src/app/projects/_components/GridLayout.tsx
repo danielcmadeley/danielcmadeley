@@ -1,15 +1,4 @@
-import { cn } from "@/lib/utils";
-import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  IconArrowWaveRightUp,
-  IconBoxAlignRightFilled,
-  IconBoxAlignTopLeft,
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
-} from "@tabler/icons-react";
 
 export function GridLayout() {
   return (
@@ -55,5 +44,26 @@ const items = [
       "Understand the impact of effective communication in our lives.",
     header: <Skeleton />,
     category: "Software",
+  },
+  {
+    title: "Cardiff Bay Train Station",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    category: "Structures",
+  },
+  {
+    title: "Porthcawl Metro Link",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    category: "Structures",
+  },
+  {
+    title: "Paddle Steamer, Cardiff",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    category: "Structures",
   },
 ];

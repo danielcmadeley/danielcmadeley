@@ -32,6 +32,12 @@ export const BentoGridItem = ({
   header?: React.ReactNode;
   category?: React.ReactNode;
 }) => {
+  const getCategoryColor = () => {
+    if (category === "Structures") return "bg-red-500";
+    if (category === "Software") return "bg-blue-500";
+    return "bg-gray-500"; // default color if category doesn't match
+  };
+
   return (
     <div
       className={cn(
@@ -41,13 +47,15 @@ export const BentoGridItem = ({
     >
       {header}
       <div className="group-hover/bento:translate-x-2 transition duration-200">
-        <div className="text-xs bg-blue-500 w-fit h-fit px-2 py-1 rounded-xl">
+        <div
+          className={`text-xs ${getCategoryColor()} w-fit h-fit px-2 py-1 rounded-xl`}
+        >
           {category}
         </div>
         <div className="font-sans font-bold text-neutral-200 mb-2 mt-2">
           {title}
         </div>
-        <div className="font-sans font-normal  text-xs text-neutral-300">
+        <div className="font-sans font-normal text-xs text-neutral-300">
           {description}
         </div>
       </div>
