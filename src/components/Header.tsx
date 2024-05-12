@@ -9,7 +9,6 @@ const Header = () => {
         <Link href={"/about"}>About</Link>
         <Link href={"/projects"}>Projects</Link>
         <Link href={"https://mxdeley.beehiiv.com/subscribe"}>Newsletter</Link>
-        <Link href={"/contact"}>Contact</Link>
       </nav>
     </header>
   );
