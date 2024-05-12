@@ -1,7 +1,26 @@
 [
   {
+    "slug": "projects/CamelTracks",
+    "title": "Camel Tracks",
+    "description": "This is a sample project to demonstrate the structure of an MDX document based on the defined schema.",
+    "category": "Software"
+  },
+  {
+    "slug": "projects/CardiffBay",
+    "title": "Cardiff Bay",
+    "description": "This is a sample project to demonstrate the structure of an MDX document based on the defined schema.",
+    "category": "Structures"
+  },
+  {
+    "slug": "projects/DigitalDino",
+    "title": "The Digital Dino",
+    "description": "This is a sample project to demonstrate the structure of an MDX document based on the defined schema.",
+    "category": "Software"
+  },
+  {
     "slug": "projects/Structopia",
     "title": "Structopia",
-    "description": "This is a sample project to demonstrate the structure of an MDX document based on the defined schema."
+    "description": "This is a sample project to demonstrate the structure of an MDX document based on the defined schema.",
+    "category": "Software"
   }
 ]

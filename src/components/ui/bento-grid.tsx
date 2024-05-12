@@ -1,4 +1,6 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { projects as allProjects } from "#site/content";
 
 export const BentoGrid = ({
   className,
@@ -7,10 +9,12 @@ export const BentoGrid = ({
   className?: string;
   children?: React.ReactNode;
 }) => {
+  const projects = allProjects;
+
   return (
     <div
       className={cn(
-        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
+        "grid  grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
         className
       )}
     >
@@ -23,13 +27,11 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
   category,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  header?: React.ReactNode;
   category?: React.ReactNode;
 }) => {
   const getCategoryColor = () => {
@@ -45,14 +47,13 @@ export const BentoGridItem = ({
         className
       )}
     >
-      {header}
       <div className="group-hover/bento:translate-x-2 transition duration-200">
         <div
           className={`text-xs ${getCategoryColor()} w-fit h-fit px-2 py-1 rounded-xl`}
         >
           {category}
         </div>
-        <div className="font-sans font-bold text-neutral-200 mb-2 mt-2">
+        <div className="font-sans text-xl font-bold text-neutral-200 mb-2 mt-2">
           {title}
         </div>
         <div className="font-sans font-normal text-xs text-neutral-300">
