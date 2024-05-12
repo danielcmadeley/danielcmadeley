@@ -22,8 +22,6 @@ export function Filter() {
         <Button variant="outline">Filter</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-        <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
           <DropdownMenuRadioItem value="top">All</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="bottom">
