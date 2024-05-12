@@ -5,7 +5,6 @@ const navigation = [
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Newsletter", href: "https://mxdeley.beehiiv.com/subscribe" },
-  { name: "CV", href: "/cv" },
   { name: "Contact", href: "/contact" },
 ];
 
