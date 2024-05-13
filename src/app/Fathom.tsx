@@ -14,10 +14,7 @@ function TrackPageView() {
 
     load("PHWVZBTJ", {
       auto: false,
-      includedDomains: [
-        "https://mxdeley.vercel.app/",
-        "https://www.mxdeley.com/",
-      ],
+      includedDomains: ["mxdeley.vercel.app", "www.mxdeley.com"],
     });
   }, []);
 
