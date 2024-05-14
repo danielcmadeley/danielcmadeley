@@ -11,9 +11,6 @@ const About = () => {
       <StructuralWorkflow />
       <TechStack />
       <Github />
-      <RadialGradient origin="left" />
-      <RadialGradient origin="top right" />
-      <RadialGradient origin="bottom right" />
     </div>
   );
 };

@@ -5,12 +5,12 @@ import { defineCollection, defineConfig, s } from "velite";
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
-  slugAsParams: data.slug.split("/").slice(1).join("/").toLocaleLowerCase(),
+  slugAsParams: data.slug.split("/").slice(1).join("/"),
 });
 
-const posts = defineCollection({
-  name: "Post",
-  pattern: "blog/**/*.mdx",
+const projects = defineCollection({
+  name: "Project",
+  pattern: "projects/**/*.mdx",
   schema: s
     .object({
       slug: s.path(),
@@ -24,33 +24,6 @@ const posts = defineCollection({
     })
     .transform(computedFields),
 });
-
-const authors = defineCollection({
-  name: "Author",
-  pattern: "authors/**/*.mdx",
-  schema: s
-    .object({
-      slug: s.path(),
-      title: s.string().max(99),
-      description: s.string().max(999).optional(),
-      avatar: s.string().max(99),
-      twitter: s.string().max(99),
-      body: s.mdx(),
-    })
-    .transform(computedFields),
-});
-
-const projects = defineCollection({
-  name: "Project",
-  pattern: "projects/**/*.mdx",
-  schema: s.object({
-    slug: s.path(),
-    title: s.string().max(99),
-    description: s.string().max(999).optional(),
-    category: s.string().max(99),
-  }),
-});
-
 export default defineConfig({
   root: "content",
   output: {
@@ -60,7 +33,7 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { posts, projects, authors },
+  collections: { projects },
   mdx: {
     rehypePlugins: [
       rehypeSlug as any,
