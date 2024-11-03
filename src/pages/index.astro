@@ -1,26 +1,8 @@
 ---
-
+import Layout from '../layouts/Layout.astro'
+import Navbar from '../components/Navbar.astro'
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body class="bg-neutral-900 flex flex-col items-start justify-center h-screen">
-		<div class="flex-1"/>
-		<div class="p-4 flex justify-between w-full items-end">
-			<div>
-				<h2 class="text-neutral-500 text-xs">Computational Engineer</h2>
-				<h1 class="text-neutral-50 text-xl">Daniel Charles Madeley</h1>
-			</div>
-			<div class="flex gap-2">
-				<a href="https://github.com/mxdeley" class="text-neutral-500 text-xs hover:text-neutral-50">GitHub</a>
-				<a href="https://www.x.com/danielcmadeley/" class="text-neutral-500 text-xs hover:text-neutral-50">X</a>
-			</div>
-		</div>
-	</body>
-</html>
+<Layout title="Daniel C Madeley">
+	<Navbar />
+</Layout>
