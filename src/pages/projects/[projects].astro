@@ -1,6 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import Navbar from '../../components/Navbar.astro'
+import ContentLayout from '../../layouts/ContentLayout.astro'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 
@@ -16,20 +15,10 @@ const { project } = Astro.props as { project: CollectionEntry<'projects'> }
 const { Content } = await project.render()
 ---
 
-<Layout title={project.data.title}>
-    <Navbar />
-    <main class="max-w-3xl mx-auto p-4">
-        <a href="/projects" class="text-neutral-500 hover:text-neutral-50 text-xs mb-4 inline-block">
-            ← Back to Projects
-        </a>
-        <article class="prose prose-invert prose-sm max-w-none 
-            prose-headings:text-neutral-50
-            prose-p:text-neutral-500
-            prose-a:text-neutral-500 prose-a:hover:text-neutral-50
-            prose-strong:text-neutral-200
-            prose-ul:text-neutral-500
-            prose-li:text-neutral-500">
-            <Content />
-        </article>
-    </main>
-</Layout>
+<ContentLayout 
+  title={project.data.title}
+  backUrl="/projects"
+  backText="Back to Projects"
+>
+  <Content />
+</ContentLayout>

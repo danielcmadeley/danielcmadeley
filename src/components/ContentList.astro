@@ -1,0 +1,23 @@
+---
+interface Props {
+  items: any[];
+  title: string;
+}
+
+const { items, title } = Astro.props;
+---
+
+<h1 class="text-lg font-bold text-neutral-50 text-left pb-4">{title}</h1>
+
+<div class="flex flex-col w-full">
+  {items.map((item) => (
+    <article class="border-b-[1px] border-neutral-50/50 p-4 hover:shadow-lg transition-shadow">
+      <a href={`/${title.toLowerCase()}/${item.slug}`}>
+        <h2 class="mb-2 text-neutral-200 text-sm">{item.data.title}</h2>
+        {item.data.description && (
+          <p class="text-neutral-500 text-xs">{item.data.description}</p>
+        )}
+      </a>
+    </article>
+  ))}
+</div>

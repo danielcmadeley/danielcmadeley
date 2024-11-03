@@ -1,0 +1,28 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  backUrl: string;
+  backText: string;
+}
+
+const { title, backUrl, backText } = Astro.props;
+---
+
+<BaseLayout 
+  title={title}
+  showBackButton={true}
+  backUrl={backUrl}
+  backText={backText}
+>
+  <article class="prose prose-invert prose-sm max-w-none 
+    prose-headings:text-neutral-50
+    prose-p:text-neutral-500
+    prose-a:text-neutral-500 prose-a:hover:text-neutral-50
+    prose-strong:text-neutral-200
+    prose-ul:text-neutral-500
+    prose-li:text-neutral-500">
+    <slot />
+  </article>
+</BaseLayout>
