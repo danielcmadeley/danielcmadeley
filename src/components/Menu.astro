@@ -2,6 +2,12 @@
 import { Menu as MenuIcon, X as XIcon } from 'lucide-astro';
 ---
 
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>
+
 <div x-data="{ isOpen: false }" class="relative">
   <!-- Menu button -->
   <button
@@ -10,11 +16,12 @@ import { Menu as MenuIcon, X as XIcon } from 'lucide-astro';
     aria-label="Toggle menu"
   >
     <MenuIcon x-show="!isOpen" class="w-5 h-5" />
-    <XIcon x-show="isOpen" class="w-5 h-5" />
+    <XIcon x-cloak x-show="isOpen" class="w-5 h-5" />
   </button>
 
   <!-- Navigation links -->
   <nav
+    x-cloak
     x-show="isOpen"
     x-transition:enter="transition ease-out duration-200"
     x-transition:enter-start="opacity-0 transform translate-y-[-10px]"

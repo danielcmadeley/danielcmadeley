@@ -1,11 +1,24 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Navbar from '../components/Navbar.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
-<Layout title="About">
-	<Navbar />
-	<main class="flex flex-col items-center justify-center max-w-4xl mx-auto ">
-		<h1>About</h1>
-	</main>
-</Layout>
+<BaseLayout title="About">
+  <div class="flex flex-col w-full">
+    <h1 class="text-lg font-bold text-neutral-50 text-left pb-4">About</h1>
+    
+    <article class="prose prose-invert text-sm max-w-none flex flex-col gap-2 
+      text-neutral-500
+     ">
+      <p>
+        I am a computational engineer with a passion for using computers to solve complex problems within the built environment. 
+        I currently work in London for OCSC.
+      </p>
+      
+      <p>
+        I studied civil engineering at Leeds Beckett University between the years 2019 and 2021. 
+        During this time I built a strong foundation in mathematics and programming, and developed 
+        a passion for using computers to solve complex problems.
+      </p>
+    </article>
+  </div>
+</BaseLayout>
