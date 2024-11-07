@@ -1,6 +1,6 @@
 ---
-import '@fontsource/poppins'
-import Navbar from '../components/Navbar.astro'
+import "@fontsource/poppins";
+import Navbar from "../components/Navbar.astro";
 
 interface Props {
   title: string;
@@ -10,12 +10,12 @@ interface Props {
   backText?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   maxWidth = "3xl",
   showBackButton = false,
   backUrl = "",
-  backText = "Back"
+  backText = "Back",
 } = Astro.props;
 ---
 
@@ -27,14 +27,21 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-neutral-900 font-poppins">
+  <body class="bg-neutral-50 dark:bg-neutral-900 font-poppins">
     <Navbar />
-    <main class={`flex flex-col items-start justify-center max-w-${maxWidth} mx-auto p-4`}>
-      {showBackButton && (
-        <a href={backUrl} class="text-neutral-500 hover:text-neutral-50 text-xs inline-block">
-          ← {backText}
-        </a>
-      )}
+    <main
+      class={`flex flex-col items-start justify-center max-w-${maxWidth} mx-auto p-4`}
+    >
+      {
+        showBackButton && (
+          <a
+            href={backUrl}
+            class="text-neutral-500 hover:text-neutral-50 text-xs inline-block"
+          >
+            ← {backText}
+          </a>
+        )
+      }
       <slot />
     </main>
   </body>
