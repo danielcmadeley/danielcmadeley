@@ -2,6 +2,8 @@
 import ContentLayout from '../../layouts/ContentLayout.astro'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
+import { MoveLeft } from 'lucide-astro';
+
 
 export async function getStaticPaths() {
     const projects: CollectionEntry<'projects'>[] = await getCollection('projects')
@@ -17,8 +19,10 @@ const { Content } = await project.render()
 
 <ContentLayout 
   title={project.data.title}
-  backUrl="/projects"
-  backText="Back to Projects"
+ 
 >
+<a href="/projects" class="text-neutral-500 hover:text-neutral-50 text-xs mb-4 z-50">
+  <h2> <MoveLeft class="w-4 h-4 inline-block" /> Back to Projects</h2>
+</a>
   <Content />
 </ContentLayout>
