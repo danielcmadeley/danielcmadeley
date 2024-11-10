@@ -9,6 +9,15 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const guides = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    date: z.date().optional(),
+  }),
+});
+
 const thoughts = defineCollection({
   type: "content",
   schema: z.object({
