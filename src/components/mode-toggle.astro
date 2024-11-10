@@ -2,13 +2,13 @@
   <!-- Light Mode Button -->
   <button
     @click="$store.theme.setTheme('light')"
-    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-    :class="{ 'text-yellow-500': $store.theme.current === 'light', 'text-gray-400': $store.theme.current !== 'light' }"
+    class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800"
+    :class="{ 'text-yellow-500': $store.theme.current === 'light', 'text-neutral-400': $store.theme.current !== 'light' }"
     aria-label="Light Mode"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5"
+      class="h-4 w-4"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -25,13 +25,13 @@
   <!-- Dark Mode Button -->
   <button
     @click="$store.theme.setTheme('dark')"
-    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-    :class="{ 'text-blue-500': $store.theme.current === 'dark', 'text-gray-400': $store.theme.current !== 'dark' }"
+    class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800"
+    :class="{ 'text-blue-500': $store.theme.current === 'dark', 'text-neutral-400': $store.theme.current !== 'dark' }"
     aria-label="Dark Mode"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5"
+      class="h-4 w-4"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -48,13 +48,13 @@
   <!-- System Mode Button -->
   <button
     @click="$store.theme.setTheme('system')"
-    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-    :class="{ 'text-green-500': $store.theme.current === 'system', 'text-gray-400': $store.theme.current !== 'system' }"
+    class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800"
+    :class="{ 'text-green-500': $store.theme.current === 'system', 'text-neutral-400': $store.theme.current !== 'system' }"
     aria-label="System Mode"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5"
+      class="h-4 w-4"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

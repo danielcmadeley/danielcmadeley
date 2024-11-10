@@ -1,5 +1,6 @@
 ---
 import { Menu as MenuIcon, X as XIcon } from 'lucide-astro';
+import ModeToggle from './mode-toggle.astro';
 ---
 
 <style>
@@ -30,12 +31,14 @@ import { Menu as MenuIcon, X as XIcon } from 'lucide-astro';
     x-transition:leave-start="opacity-100 transform translate-y-0"
     x-transition:leave-end="opacity-0 transform translate-y-[-10px]"
     @click.away="isOpen = false"
-    class="absolute right-0 mt-2 w-fit flex flex-col items-end bg-neutral-900 rounded-md  border-[1px] border-neutral-50/50"
+    class="absolute right-0 mt-2 w-fit flex flex-col items-end dark:bg-neutral-900 bg-neutral-200 rounded-md  border-[1px] dark:border-neutral-50/50 border-neutral-400"
   >
     <a href="/about" class="block text-xs px-4 py-2 text-neutral-500 hover:text-neutral-50">About</a>
     <a href="/projects" class="block text-xs px-4 py-2 text-neutral-500 hover:text-neutral-50">Projects</a>
     <a href="/guides" class="block text-xs px-4 py-2 text-neutral-500 hover:text-neutral-50">Guides</a>
     <a href="/thoughts" class="block text-xs px-4 py-2 text-neutral-500 hover:text-neutral-50">Thoughts</a>
     <a href="/3d-prints" class="block text-xs px-4 py-2 text-neutral-500 hover:text-neutral-50">3D Prints</a>
+    <div class="w-full flex justify-end border-b-[1px] border-neutral-500"></div>
+    <ModeToggle />
   </nav>
 </div> 
