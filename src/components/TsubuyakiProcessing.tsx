@@ -42,11 +42,14 @@ const TsubuyakiProcessing: React.FC = () => {
       };
 
       p.draw = () => {
-        p.stroke(255, 96);
-        for (let y = 99; y < 300; y += 5) {
-          for (let x = 99; x < 300; x++) {
-            const [px, py] = a(x, y);
-            p.point(px, py);
+        p.background(23, 23, 23, 100);
+        p.stroke(255, 100);
+        for (let y = 0; y < height; y += 8) {
+          for (let x = 0; x < width; x += 8) {
+            const [px, py] = a((x / width) * 300, (y / height) * 300);
+            const mappedX = p.map(px, 0, 400, 0, width);
+            const mappedY = p.map(py, 0, 400, 0, height);
+            p.point(mappedX, mappedY);
           }
         }
         t += Math.PI / 60;
