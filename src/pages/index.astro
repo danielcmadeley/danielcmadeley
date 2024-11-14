@@ -1,8 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Navbar from '../components/Navbar.astro'
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import TsubuyakiProcessing from "../components/TsubuyakiProcessing.tsx";
 ---
 
 <Layout title="Daniel C Madeley">
-	<Navbar />
+  <Navbar />
+  <TsubuyakiProcessing client:only />
 </Layout>

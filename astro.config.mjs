@@ -16,9 +16,11 @@ import {
   transformerRenderWhitespace,
 } from "@shikijs/transformers";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), alpinejs()],
+  integrations: [tailwind(), mdx(), alpinejs(), react()],
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
