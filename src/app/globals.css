@@ -12,6 +12,11 @@ body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
     rgb(var(--background-start-rgb));
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
 }
 
 @layer base {
@@ -105,3 +110,14 @@ body {
 800  #262626   → HSL(0°, 0%, 15%)
 900  #171717   → HSL(0°, 0%, 10%)
 950  #0a0a0a   → HSL(0°, 0%, 3%) */
+
+/* Hide scrollbars while maintaining functionality */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Webkit browsers like Chrome, Safari */
+*::-webkit-scrollbar {
+  display: none;
+}
