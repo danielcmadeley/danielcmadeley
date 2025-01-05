@@ -1,12 +1,10 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
 
-import React from 'react'
-
 const Content = () => {
   return (
     <div className="col-span-2 flex flex-col max-w-3xl">
       <div className="h-[30%] "></div>
-      <div className="h-[70%] ">
+      <div className="h-[70%] pt-4 pl-2 text-neutral-300">
         <ScrollArea className="h-full text-sm">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fugit itaque quae ea quo
           illo voluptatibus, saepe quibusdam, unde consequatur quisquam beatae atque ex eos velit
