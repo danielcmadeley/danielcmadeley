@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="font-neco">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="h-screen w-screen">
+          <div className="h-screen w-screen overflow-hidden">
             <div className="mx-auto py-[40px] h-full w-full">
               <div className="h-full w-full border-t border-b border-neutral-500/20">
                 {children}
