@@ -5,11 +5,11 @@ import { ModeToggle } from './mode-toggle'
 const Sidebar = () => {
   return (
     <div className="h-full grid grid-cols-3 col-span-1">
-      <div className="col-span-2  flex flex-col justify-between space-y-4">
+      <div className="col-span-2  flex flex-col justify-between ">
         <div className="flex flex-col justify-between h-[30%] ">
           <div>
             <h1 className="text-[27px] font-bold uppercase">Daniel Charles Madeley</h1>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-sm text-neutral-500">
               <h2 className="text-sm font-bold uppercase">Design</h2>
               <div className="flex items-center space-x-6">
                 <h2>{'//'} </h2>
@@ -19,14 +19,14 @@ const Sidebar = () => {
           </div>
 
           <div>
-            <h3 className="text-xl">
+            <h3 className="text-xl pb-4 text-neutral-500">
               “BRIDGING CLASSICAL MECHANICS AND COMPUTER SCIENCE TO ENGINEER IMPACTFUL SOLUTIONS FOR
               REAL-WORLD CHALLENGES.”
             </h3>
           </div>
         </div>
-        <div className="h-[45%]">
-          <nav>
+        <div className="h-[45%] ">
+          <nav className="text-sm">
             <ul>
               <li>
                 <Link href="/">About</Link>
@@ -40,7 +40,7 @@ const Sidebar = () => {
             </ul>
           </nav>
         </div>
-        <div className="h-[25%] flex flex-col justify-end gap-4 ">
+        <div className="h-[25%] flex flex-col justify-end gap-4 text-sm">
           <div>
             <ModeToggle />
             <div>
@@ -70,11 +70,10 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="flex flex-col justify-between ">
         <div className="h-[30%] "></div>
         <div className="h-[45%] ">
-          {' '}
-          <nav>
+          <nav className="text-sm">
             <ul>
               <li>
                 <Link href="/">About</Link>

@@ -1,4 +1,4 @@
-import { ModeToggle } from '../components/mode-toggle'
+import Content from '../components/content'
 import Sidebar from '../components/sidebar'
 
 export default function Home() {
@@ -7,10 +7,7 @@ export default function Home() {
       <div className="h-full grid grid-cols-3 p-2">
         <Sidebar />
 
-        <div className="col-span-2">
-          <div className="h-[30%] bg-red-400/20"></div>
-          <div className="h-[70%] bg-blue-400/20"></div>
-        </div>
+        <Content />
       </div>
     </main>
   )
