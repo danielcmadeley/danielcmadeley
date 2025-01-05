@@ -1,8 +1,10 @@
-import React from 'react'
 import Link from 'next/link'
 import { ModeToggle } from './mode-toggle'
+import TimeDisplay from './time-display'
 
 const Sidebar = () => {
+  // Add state for current time
+
   return (
     <div className="h-full grid grid-cols-3 col-span-1">
       <div className="col-span-2 flex flex-col justify-between ">
@@ -46,11 +48,10 @@ const Sidebar = () => {
           <div className="text-sm">
             <ModeToggle />
             <div>
-              <h4>Sunday</h4>
+              <h4>{new Date().toLocaleDateString('en-US', { weekday: 'long' })}</h4>
             </div>
-            <div>
-              <h4>15:28</h4>
-            </div>
+
+            <TimeDisplay />
           </div>
           <div className="text-xs pb-6 text-neutral-500">
             <nav>
