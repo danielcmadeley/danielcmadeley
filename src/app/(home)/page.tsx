@@ -14,7 +14,7 @@ export default function Home() {
                   <h2 className="text-sm font-bold uppercase">Design</h2>
                   <div className="flex items-center space-x-6">
                     <h2>{'//'} </h2>
-                    <h2 className="text-sm font-bold uppercase">Engineering</h2>
+                    <h2 className="text-sm font-bold uppercase">Engineer</h2>
                   </div>
                 </div>
               </div>
