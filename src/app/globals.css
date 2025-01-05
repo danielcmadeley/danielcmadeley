@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96%;
+  }
+  .dark {
+    --background: 0 0% 9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  :root {
+    --terminal-glow: 0 0 2px #3f3, 0 0 4px #3f3;
+    --scan-line: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 50%);
+  }
+}
+
+.terminal-theme {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #001100;
+  color: #33ff33;
+  text-shadow: var(--terminal-glow);
+  position: relative;
+}
+
+.terminal-theme::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--scan-line);
+  background-size: 100% 4px;
+  animation: scanlines 1s linear infinite;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.terminal-theme::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 0, rgba(0, 17, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+.terminal-content {
+  animation: flicker 2s infinite;
+}
+
+/* Ensure content wraps properly */
+.terminal-content p {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Hide scrollbar but keep functionality */
+.terminal-content::-webkit-scrollbar {
+  width: 0px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Remove smooth scroll behavior from html */
+html {
+  overflow: auto;
+}
+
+/* Remove typewriter animation from content paragraphs */
+.typewriter-text {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 50   #fafafa   → HSL(0°, 0%, 98%)
+100  #f5f5f5   → HSL(0°, 0%, 96%)
+200  #e5e5e5   → HSL(0°, 0%, 90%)
+300  #d4d4d4   → HSL(0°, 0%, 83%)
+400  #a3a3a3   → HSL(0°, 0%, 64%)
+500  #737373   → HSL(0°, 0%, 45%)
+600  #525252   → HSL(0°, 0%, 32%)
+700  #404040   → HSL(0°, 0%, 25%)
+800  #262626   → HSL(0°, 0%, 15%)
+900  #171717   → HSL(0°, 0%, 10%)
+950  #0a0a0a   → HSL(0°, 0%, 3%) */
