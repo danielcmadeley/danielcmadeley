@@ -2,7 +2,6 @@
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useSearchParams } from 'next/navigation'
-import TsubuyakiProcessing from './TsubuyakiProcessing'
 
 // Content data structure
 const contentData = {
