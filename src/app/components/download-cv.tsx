@@ -6,11 +6,19 @@ const DownloadCV = () => {
 
   const handleDownload = async () => {
     try {
-      const response = await fetch('/cv/danielcmadeley-developer-cv.docx')
+      const response = await fetch('/api/cv')
       if (!response.ok) {
-        throw new Error('File not found')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'File not found')
       }
-      const blob = await response.blob()
+
+      // Follow the redirect and get the file
+      const fileResponse = await fetch(response.url)
+      if (!fileResponse.ok) {
+        throw new Error('Failed to download file')
+      }
+
+      const blob = await fileResponse.blob()
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url

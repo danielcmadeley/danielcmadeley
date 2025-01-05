@@ -53,20 +53,34 @@ const Sidebar = () => {
 
             <TimeDisplay />
           </div>
-          <div className="text-xs pb-6 text-neutral-500">
+          <div className="text-xs pb-6 text-neutral-500 ">
             <nav>
               <ul>
                 <li>
-                  <Link href="/">X</Link>
+                  <Link href="https://x.com/danielcmadeley" className="hover:text-neutral-300">
+                    X
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/">GITHUB</Link>
+                  <Link href="https://github.com/danielcmadeley" className="hover:text-neutral-300">
+                    GITHUB
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/">LINKEDIN</Link>
+                  <Link
+                    href="https://www.linkedin.com/in/daniel-madeley-4a2a59306/"
+                    className="hover:text-neutral-300"
+                  >
+                    LINKEDIN
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/">DANIEL@MADELEYDESIGNSTUDIO.ORG</Link>
+                  <Link
+                    href="mailto:daniel@madeleydesignstudio.org"
+                    className="hover:text-neutral-300"
+                  >
+                    DANIEL@MADELEYDESIGNSTUDIO.ORG
+                  </Link>
                 </li>
               </ul>
             </nav>
