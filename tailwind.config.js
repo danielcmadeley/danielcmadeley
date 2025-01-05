@@ -56,6 +56,9 @@ const config = {
           5: 'hsl(var(--chart-5))',
         },
       },
+      fontFamily: {
+        neco: ['Neco', 'sans-serif'],
+      },
     },
   },
   plugins: ['tailwindcss-animate'],

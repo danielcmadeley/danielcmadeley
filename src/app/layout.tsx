@@ -1,21 +1,24 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/app/components/theme-provider'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
-  title: 'Your App Name',
-  description: 'Your app description here',
+  title: 'Daniel Charles Madeley',
+  description: 'Design Engineer Portfolio',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-neco">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <div className="h-screen w-screen">
+            <div className="mx-auto py-[40px] h-full w-full">
+              <div className="h-full w-full border-t border-b border-neutral-500/20">
+                {children}
+              </div>
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>
