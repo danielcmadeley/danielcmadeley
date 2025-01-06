@@ -105,7 +105,7 @@ const Sidebar = () => {
             </ul>
           </nav>
         </div>
-        <div className="h-[30%] flex flex-col justify-end  gap-4 pb-2 pl-2 ">
+        <div className="h-[30%] flex flex-col justify-end  gap-4 pl-2 pb-24">
           <div className="text-sm">
             <ModeToggle />
             <DayDisplay />
