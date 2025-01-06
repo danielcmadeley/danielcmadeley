@@ -73,22 +73,14 @@ const Content = () => {
   const pathname = usePathname()
   const [currentPath, setCurrentPath] = useState<string | null>(pathname)
 
-  // Add this useEffect to handle page refresh
-  useEffect(() => {
-    // Check if we're on initial load and on a content page
-    if (pathname !== '/') {
-      window.location.href = '/'
-    }
-  }, []) // Empty dependency array means this runs once on mount
-
-  // Remove the leading slash from pathname to match contentData keys
-  const contentKey = pathname?.substring(1) || null
-  const currentContent = contentKey ? contentData[contentKey as keyof typeof contentData] : null
-
   // Update currentPath when pathname changes
   useEffect(() => {
     setCurrentPath(pathname)
   }, [pathname])
+
+  // Remove the leading slash from pathname to match contentData keys
+  const contentKey = pathname?.substring(1) || null
+  const currentContent = contentKey ? contentData[contentKey as keyof typeof contentData] : null
 
   return (
     <div className="col-span-2 flex flex-col max-w-3xl h-screen overflow-hidden">

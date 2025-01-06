@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Content from '../components/content'
-import DownloadCV from '../components/download-cv'
+import { DownloadCV } from '../components/download-cv'
 import Sidebar from '../components/sidebar'
 
 export default function Home() {

@@ -1,34 +1,18 @@
 'use client'
 import { useState } from 'react'
 
-const DownloadCV = () => {
-  const [error, setError] = useState<string | null>(null)
+export const DownloadCV = () => {
+  const handleDownload = () => {
+    // Using the public URL of the PDF
+    const pdfUrl = '/sample.pdf'
 
-  const handleDownload = async () => {
-    try {
-      const response = await fetch('/api/cv')
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'File not found')
-      }
-
-      // Follow the redirect and get the file
-      const fileResponse = await fetch(response.url)
-      if (!fileResponse.ok) {
-        throw new Error('Failed to download file')
-      }
-
-      const blob = await fileResponse.blob()
-      const url = window.URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = 'danielcmadeley-developer-cv.docx'
-      link.click()
-      window.URL.revokeObjectURL(url)
-    } catch (err) {
-      setError('Unable to download CV at this time')
-      console.error('Download failed:', err)
-    }
+    // Create a link element
+    const link = document.createElement('a')
+    link.href = pdfUrl
+    link.download = 'sample.pdf' // Suggested name for download
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -41,9 +25,6 @@ const DownloadCV = () => {
         <span>{'//'}</span>
         <h5>CV</h5>
       </div>
-      {error && <span className="text-red-500 text-xs ml-2">{error}</span>}
     </button>
   )
 }
-
-export default DownloadCV
