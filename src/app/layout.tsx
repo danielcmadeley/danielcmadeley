@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/app/components/theme-provider'
+import localFont from 'next/font/local'
+
+const neco = localFont({
+  src: '../public/fonts/Neco-Regular.ttf',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Daniel Charles Madeley',
@@ -9,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={neco.className}>
       <body className="font-neco">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="h-screen w-screen overflow-hidden">

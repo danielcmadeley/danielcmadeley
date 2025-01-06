@@ -56,12 +56,12 @@ const Sidebar = () => {
     // If clicking the same link, close it by setting to null
     if (linkTitle === activePrimaryLink) {
       setActivePrimaryLink(null)
-      // Clear both section and path parameters when closing
+      // Use clean URL structure
       window.history.pushState({}, '', '/')
     } else {
       setActivePrimaryLink(linkTitle)
-      // Update URL with only the section parameter
-      window.history.pushState({}, '', `/?section=${href.substring(1)}`)
+      // Update URL with clean structure
+      window.history.pushState({}, '', href)
     }
     // Reset secondary link when changing primary links
     setActiveSecondaryLink(null)
@@ -167,8 +167,12 @@ const Sidebar = () => {
                       {primaryLink.secondaryLinks.map((secondaryLink) => (
                         <div key={secondaryLink.href}>
                           <Link
-                            href={`/?path=${secondaryLink.href.substring(1)}`}
-                            onClick={() => setActiveSecondaryLink(secondaryLink.title)}
+                            href={secondaryLink.href}
+                            onClick={(e) => {
+                              e.preventDefault()
+                              setActiveSecondaryLink(secondaryLink.title)
+                              window.history.pushState({}, '', secondaryLink.href)
+                            }}
                             className={`hover:text-neutral-300 ${
                               activeSecondaryLink === secondaryLink.title
                                 ? 'text-neutral-50'
