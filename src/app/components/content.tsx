@@ -2,6 +2,7 @@
 
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 // Content data structure
 const contentData = {
@@ -100,12 +101,26 @@ const contentData = {
 const Content = () => {
   const searchParams = useSearchParams()
   const path = searchParams.get('path')
-  const currentContent = path ? contentData[path as keyof typeof contentData] : null
+  const [currentPath, setCurrentPath] = useState<string | null>(path)
+  const currentContent = currentPath ? contentData[currentPath as keyof typeof contentData] : null
+
+  // Update currentPath when searchParams changes
+  useEffect(() => {
+    setCurrentPath(path)
+  }, [path])
+
+  // Clear URL parameters and content on mount
+  useEffect(() => {
+    if (window.location.search) {
+      window.history.replaceState({}, '', '/')
+      setCurrentPath(null)
+    }
+  }, [])
 
   return (
     <div className="col-span-2 flex flex-col max-w-3xl h-screen overflow-hidden">
       <div className="h-[30%]"></div>
-      <div className="h-[70%] pt-4 pl-2 text-neutral-300 bg-red-400/20 overflow-hidden">
+      <div className="h-[70%] pt-4 pl-2 text-neutral-300 overflow-hidden">
         {currentContent ? (
           <ScrollArea className="h-full text-sm">
             <h2 className="text-xl font-bold mb-4">{currentContent.title}</h2>

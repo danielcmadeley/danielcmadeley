@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DayDisplay from './day-display'
 
 // Add this navigation data structure
@@ -42,6 +42,14 @@ const Sidebar = () => {
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
   // Add state for tracking active secondary link
   const [activeSecondaryLink, setActiveSecondaryLink] = useState<string | null>(null)
+
+  // Clear URL parameters on mount
+  useEffect(() => {
+    // Clear URL parameters if they exist
+    if (window.location.search) {
+      window.history.replaceState({}, '', '/')
+    }
+  }, [])
 
   // Add this handler function
   const handlePrimaryLinkClick = (linkTitle: string, href: string) => {
@@ -83,7 +91,7 @@ const Sidebar = () => {
           </div>
         </div>
         {/* Primary Links */}
-        <div className="h-[40%] pt-4 pl-2 bg-red-400/20">
+        <div className="h-[40%] pt-4 pl-2 ">
           <nav className="text-sm">
             <ul>
               {navigationLinks.map((link) => (
@@ -148,7 +156,7 @@ const Sidebar = () => {
       {/* Secondary Links */}
       <div className="flex flex-col justify-between">
         <div className="h-[30%]"></div>
-        <div className="h-[40%] pt-4 pl-2 bg-red-400/20">
+        <div className="h-[40%] pt-4 pl-2 ">
           <nav className="text-sm">
             {activePrimaryLink && (
               <ul className="space-y-6">
