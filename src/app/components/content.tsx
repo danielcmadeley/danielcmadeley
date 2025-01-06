@@ -103,9 +103,9 @@ const Content = () => {
   const currentContent = path ? contentData[path as keyof typeof contentData] : null
 
   return (
-    <div className="col-span-2 flex flex-col max-w-3xl">
-      <div className="h-[30%] "></div>
-      <div className="h-[70%] pt-4 pl-2 text-neutral-300 ">
+    <div className="col-span-2 flex flex-col max-w-3xl h-screen overflow-hidden">
+      <div className="h-[30%]"></div>
+      <div className="h-[70%] pt-4 pl-2 text-neutral-300 bg-red-400/20 overflow-hidden">
         {currentContent ? (
           <ScrollArea className="h-full text-sm">
             <h2 className="text-xl font-bold mb-4">{currentContent.title}</h2>

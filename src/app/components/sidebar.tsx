@@ -83,7 +83,7 @@ const Sidebar = () => {
           </div>
         </div>
         {/* Primary Links */}
-        <div className="h-[40%] pt-4 pl-2">
+        <div className="h-[40%] pt-4 pl-2 bg-red-400/20">
           <nav className="text-sm">
             <ul>
               {navigationLinks.map((link) => (
@@ -148,7 +148,7 @@ const Sidebar = () => {
       {/* Secondary Links */}
       <div className="flex flex-col justify-between">
         <div className="h-[30%]"></div>
-        <div className="h-[40%] pt-4 pl-2">
+        <div className="h-[40%] pt-4 pl-2 bg-red-400/20">
           <nav className="text-sm">
             {activePrimaryLink && (
               <ul className="space-y-6">
