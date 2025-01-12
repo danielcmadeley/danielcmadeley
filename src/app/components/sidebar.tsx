@@ -19,7 +19,7 @@ const Sidebar = () => {
   }, [pathname])
 
   return (
-    <div className="h-full grid grid-cols-3 col-span-1">
+    <div className="h-full grid grid-cols-3 col-span-1 ">
       <div className="col-span-2 flex flex-col justify-between ">
         <div className="flex flex-col h-[25%] pt-2 pl-2 gap-8">
           <Link href="/">
@@ -107,7 +107,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col justify-between">
         <div className="h-[25%]"></div>
-        <div className="h-[50%] pt-4 pl-2 ">
+        <div className="h-[50%] pt-4 pl-2">
           <nav className="text-sm">
             <ul>
               <li key="about">
