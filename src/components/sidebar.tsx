@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
+import { contentData } from '../app/data/content'
 
 const Sidebar = () => {
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
@@ -152,7 +153,7 @@ const Sidebar = () => {
           <nav className="text-sm">
             <ul>
               <li key="about">
-                <div className="space-y-2">
+                <div className="">
                   <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
                     <Link
                       href="/about/background"
@@ -177,43 +178,101 @@ const Sidebar = () => {
                 </div>
               </li>
               <li key="projects">
-                <div className="space-y-2">
-                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/projects/project-1"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Project 1
-                    </Link>
-                  </div>
-                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/projects/project-2"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Project 2
-                    </Link>
-                  </div>
+                <div className="">
+                  {activePrimaryLink === 'projects' && (
+                    <>
+                      <div className="mb-4">
+                        <h3 className="text-neutral-400 text-xs uppercase mb-2">Software</h3>
+                        <div className="">
+                          <div>
+                            <Link
+                              href="/projects/smart-inventory-system"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Smart Inventory System
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/predictive-maintenance-app"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Predictive Maintenance
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/blockchain-supply-chain"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Blockchain Supply Chain
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/automated-testing-framework"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Testing Framework
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 className="text-neutral-400 text-xs uppercase mb-2">Structural</h3>
+                        <div className="">
+                          <div>
+                            <Link
+                              href="/projects/bridge-structural-analysis"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Bridge Analysis
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/seismic-resistant-design"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Seismic Design
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/composite-material-structure"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Composite Structure
+                            </Link>
+                          </div>
+                          <div>
+                            <Link
+                              href="/projects/renewable-energy-structure"
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              Wind Turbine Foundation
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </li>
               <li key="journal">
                 <div className="space-y-2">
-                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/journal/entry-1"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Entry 1
-                    </Link>
-                  </div>
-                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/journal/entry-2"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Entry 2
-                    </Link>
-                  </div>
+                  {activePrimaryLink === 'journal' &&
+                    Object.entries(contentData.journal).map(([slug, entry]) => (
+                      <div key={slug} className={`block`}>
+                        <Link
+                          href={`/journal/${slug}`}
+                          className="text-neutral-500 hover:text-neutral-300"
+                        >
+                          {entry.title}
+                        </Link>
+                      </div>
+                    ))}
                 </div>
               </li>
             </ul>
