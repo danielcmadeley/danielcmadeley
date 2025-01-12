@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
 import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
@@ -10,19 +10,18 @@ import TimeDisplay from './time-display'
 const Sidebar = () => {
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
-    // Check if the current path starts with any primary routes
     if (pathname?.startsWith('/about')) {
       setActivePrimaryLink('about')
     }
-    // Add other primary routes as needed
   }, [pathname])
 
   return (
     <div className="h-full grid grid-cols-3 col-span-1">
       <div className="col-span-2 flex flex-col justify-between ">
-        <div className="flex flex-col h-[30%] pt-2 pl-2 gap-8">
+        <div className="flex flex-col h-[25%] pt-2 pl-2 gap-8">
           <Link href="/">
             <h1 className="text-[27px] font-bold uppercase">Daniel Charles Madeley</h1>
             <div className="flex justify-between text-sm text-neutral-500">
@@ -33,7 +32,6 @@ const Sidebar = () => {
               </div>
             </div>
           </Link>
-
           <div>
             <h3 className="text-md pb-16 text-neutral-500">
               “BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
@@ -43,13 +41,18 @@ const Sidebar = () => {
           </div>
         </div>
         {/* Primary Links */}
-        <div className="h-[40%] pt-4 pl-2 ">
+        <div className="h-[50%] pt-4 pl-2 ">
           <nav className="text-sm">
             <ul>
               <li key="about">
                 <button
                   onClick={() => {
-                    setActivePrimaryLink(activePrimaryLink === 'about' ? null : 'about')
+                    if (activePrimaryLink === 'about') {
+                      setActivePrimaryLink(null)
+                      router.push('/')
+                    } else {
+                      setActivePrimaryLink('about')
+                    }
                   }}
                   className={`hover:text-neutral-300 ${
                     activePrimaryLink === 'about' ? 'text-neutral-50' : 'text-neutral-500'
@@ -61,7 +64,7 @@ const Sidebar = () => {
             </ul>
           </nav>
         </div>
-        <div className="h-[30%] flex flex-col justify-end  gap-4 pl-2 pb-24">
+        <div className="h-[25%] flex flex-col justify-end gap-4 pl-2">
           <div className="text-sm">
             <ModeToggle />
             <DayDisplay />
@@ -103,37 +106,39 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col justify-between">
-        <div className="h-[30%]"></div>
-        <div className="h-[40%] pt-4 pl-2 ">
+        <div className="h-[25%]"></div>
+        <div className="h-[50%] pt-4 pl-2 ">
           <nav className="text-sm">
-            <ul className="space-y-6">
-              <li
-                key="about"
-                className={`space-y-2 ${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}
-              >
-                <div key="about">
-                  <Link
-                    href="/about/background"
-                    className="text-neutral-500 hover:text-neutral-300"
-                  >
-                    Background
-                  </Link>
-                </div>
-                <div key="skills">
-                  <Link href="/about/skills" className="text-neutral-500 hover:text-neutral-300">
-                    Skills
-                  </Link>
-                </div>
-                <div key="education">
-                  <Link href="/about/education" className="text-neutral-500 hover:text-neutral-300">
-                    Education
-                  </Link>
+            <ul>
+              <li key="about">
+                <div className="space-y-2">
+                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/about/background"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Background
+                    </Link>
+                  </div>
+                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
+                    <Link href="/about/skills" className="text-neutral-500 hover:text-neutral-300">
+                      Skills
+                    </Link>
+                  </div>
+                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/about/education"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Education
+                    </Link>
+                  </div>
                 </div>
               </li>
             </ul>
           </nav>
         </div>
-        <div className="h-[30%]"></div>
+        <div className="h-[25%]"></div>
       </div>
     </div>
   )

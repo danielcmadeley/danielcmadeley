@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { DownloadCV } from '../components/download-cv'
 import Sidebar from '../components/sidebar'
 
