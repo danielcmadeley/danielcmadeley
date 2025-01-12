@@ -15,6 +15,10 @@ const Sidebar = () => {
   useEffect(() => {
     if (pathname?.startsWith('/about')) {
       setActivePrimaryLink('about')
+    } else if (pathname?.startsWith('/projects')) {
+      setActivePrimaryLink('projects')
+    } else if (pathname?.startsWith('/journal')) {
+      setActivePrimaryLink('journal')
     }
   }, [pathname])
 
@@ -51,6 +55,7 @@ const Sidebar = () => {
                       setActivePrimaryLink(null)
                       router.push('/')
                     } else {
+                      router.push('/')
                       setActivePrimaryLink('about')
                     }
                   }}
@@ -59,6 +64,42 @@ const Sidebar = () => {
                   }`}
                 >
                   About
+                </button>
+              </li>
+              <li key="projects">
+                <button
+                  onClick={() => {
+                    if (activePrimaryLink === 'projects') {
+                      setActivePrimaryLink(null)
+                      router.push('/')
+                    } else {
+                      router.push('/')
+                      setActivePrimaryLink('projects')
+                    }
+                  }}
+                  className={`hover:text-neutral-300 ${
+                    activePrimaryLink === 'projects' ? 'text-neutral-50' : 'text-neutral-500'
+                  }`}
+                >
+                  Projects
+                </button>
+              </li>
+              <li key="journal">
+                <button
+                  onClick={() => {
+                    if (activePrimaryLink === 'journal') {
+                      setActivePrimaryLink(null)
+                      router.push('/')
+                    } else {
+                      router.push('/')
+                      setActivePrimaryLink('journal')
+                    }
+                  }}
+                  className={`hover:text-neutral-300 ${
+                    activePrimaryLink === 'journal' ? 'text-neutral-50' : 'text-neutral-500'
+                  }`}
+                >
+                  Journal
                 </button>
               </li>
             </ul>
@@ -131,6 +172,46 @@ const Sidebar = () => {
                       className="text-neutral-500 hover:text-neutral-300"
                     >
                       Education
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li key="projects">
+                <div className="space-y-2">
+                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/projects/project-1"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Project 1
+                    </Link>
+                  </div>
+                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/projects/project-2"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Project 2
+                    </Link>
+                  </div>
+                </div>
+              </li>
+              <li key="journal">
+                <div className="space-y-2">
+                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/journal/entry-1"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Entry 1
+                    </Link>
+                  </div>
+                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
+                    <Link
+                      href="/journal/entry-2"
+                      className="text-neutral-500 hover:text-neutral-300"
+                    >
+                      Entry 2
                     </Link>
                   </div>
                 </div>

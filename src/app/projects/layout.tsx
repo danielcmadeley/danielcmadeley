@@ -1,7 +1,7 @@
 import { DownloadCV } from '../components/download-cv'
 import Sidebar from '../components/sidebar'
 
-export default function JournalLayout({ children }: { children: React.ReactNode }) {
+export default function ProjectsLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="h-full w-full flex flex-col overflow-hidden">
       <div className="h-full grid grid-cols-3">
