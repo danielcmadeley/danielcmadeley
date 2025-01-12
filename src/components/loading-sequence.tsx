@@ -7,6 +7,8 @@ import { Terminal } from '@/components/terminal'
 import { MainContent } from '@/components/main-content'
 import { checkFirstVisit } from '@/app/actions'
 
+const RESET_TIMEOUT = 5 * 60 * 1000 // 5 minutes in milliseconds
+
 export function LoadingSequence() {
   const [isInitialized, setIsInitialized] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -14,13 +16,18 @@ export function LoadingSequence() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const lastVisitTime = localStorage.getItem('lastVisitTime')
+    const currentTime = Date.now()
+    const shouldShowTerminal =
+      !lastVisitTime || currentTime - parseInt(lastVisitTime) > RESET_TIMEOUT
+
     checkFirstVisit().then((isFirstVisit) => {
-      if (!isFirstVisit) {
+      if (!shouldShowTerminal && !isFirstVisit) {
         setIsLoading(false)
         setShowContent(true)
       } else {
         setIsLoading(true)
-        // Only run animation sequence for first-time visitors
+        // Only run animation sequence for first-time visitors or after timeout
         const tl = gsap.timeline({
           onComplete: () => {
             setShowContent(true)
@@ -40,12 +47,20 @@ export function LoadingSequence() {
                 duration: 0.5,
                 ease: 'power2.inOut',
               })
-              .call(() => setIsLoading(false))
+              .call(() => {
+                setIsLoading(false)
+                localStorage.setItem('lastVisitTime', Date.now().toString())
+              })
           }
         })
       }
       setIsInitialized(true)
     })
+
+    // Update last visit time when component unmounts
+    return () => {
+      localStorage.setItem('lastVisitTime', Date.now().toString())
+    }
   }, [])
 
   if (!isInitialized) {
