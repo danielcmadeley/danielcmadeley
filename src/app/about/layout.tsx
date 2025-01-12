@@ -4,9 +4,9 @@ import Sidebar from '@/components/sidebar'
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="h-full w-full flex flex-col overflow-hidden">
-      <div className="h-full grid grid-cols-3">
+      <div className="h-full grid grid-cols-1 lg:grid-cols-3">
         <Sidebar />
-        <div className="col-span-2 h-full overflow-hidden">{children}</div>
+        <div className="col-span-1 lg:col-span-2 h-full overflow-hidden">{children}</div>
       </div>
       <DownloadCV />
     </main>

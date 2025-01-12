@@ -7,8 +7,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <div className="h-full w-full flex flex-col">
-      <div className="h-[25%]"></div>
-      <div className="h-[75%] w-full pt-4 pl-2">
+      <div className="h-[25%] lg:block hidden"></div>
+      <div className="h-full lg:h-[75%] w-full pt-4 px-4 lg:pl-2">
         <ScrollArea className="h-full max-w-3xl">
           <div className="pr-4 space-y-6">
             <div className="flex items-center gap-4">
