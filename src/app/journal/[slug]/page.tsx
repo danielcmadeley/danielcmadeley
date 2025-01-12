@@ -1,4 +1,4 @@
-import { ScrollArea } from '@/app/components/ui/scroll-area'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { contentData, type ContentSection } from '@/app/data/content'
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {

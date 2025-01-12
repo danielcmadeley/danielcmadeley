@@ -1,5 +1,5 @@
-import { DownloadCV } from '../components/download-cv'
-import Sidebar from '../components/sidebar'
+import { DownloadCV } from '@/components/download-cv'
+import Sidebar from '@/components/sidebar'
 
 export default function ProjectsLayout({ children }: { children: React.ReactNode }) {
   return (
