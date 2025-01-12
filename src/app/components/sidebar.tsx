@@ -1,71 +1,23 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
-import { useState, useEffect } from 'react'
-import DayDisplay from './day-display'
-
-// Add this navigation data structure
-const navigationLinks = [
-  {
-    title: 'About',
-    href: '/about',
-    secondaryLinks: [
-      { title: 'Background', href: '/about/background' },
-      { title: 'Skills', href: '/about/skills' },
-      { title: 'Education', href: '/about/education' },
-    ],
-  },
-  {
-    title: 'Work',
-    href: '/work',
-    secondaryLinks: [
-      { title: 'Projects', href: '/work/projects' },
-      { title: 'Experience', href: '/work/experience' },
-      { title: 'Research', href: '/work/research' },
-    ],
-  },
-  {
-    title: 'Journal',
-    href: '/journal',
-    secondaryLinks: [
-      { title: 'Articles', href: '/journal/articles' },
-      { title: 'Notes', href: '/journal/notes' },
-      { title: 'Tutorials', href: '/journal/tutorials' },
-    ],
-  },
-]
 
 const Sidebar = () => {
-  // Add state for tracking active primary link
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
-  // Add state for tracking active secondary link
-  const [activeSecondaryLink, setActiveSecondaryLink] = useState<string | null>(null)
+  const pathname = usePathname()
 
-  // Clear URL parameters on mount
   useEffect(() => {
-    // Clear URL parameters if they exist
-    if (window.location.search) {
-      window.history.replaceState({}, '', '/')
+    // Check if the current path starts with any primary routes
+    if (pathname?.startsWith('/about')) {
+      setActivePrimaryLink('about')
     }
-  }, [])
-
-  // Add this handler function
-  const handlePrimaryLinkClick = (linkTitle: string, href: string) => {
-    // If clicking the same link, close it by setting to null
-    if (linkTitle === activePrimaryLink) {
-      setActivePrimaryLink(null)
-      // Use clean URL structure
-      window.history.pushState({}, '', '/')
-    } else {
-      setActivePrimaryLink(linkTitle)
-      // Update URL with clean structure
-      window.history.pushState({}, '', href)
-    }
-    // Reset secondary link when changing primary links
-    setActiveSecondaryLink(null)
-  }
+    // Add other primary routes as needed
+  }, [pathname])
 
   return (
     <div className="h-full grid grid-cols-3 col-span-1">
@@ -94,22 +46,18 @@ const Sidebar = () => {
         <div className="h-[40%] pt-4 pl-2 ">
           <nav className="text-sm">
             <ul>
-              {navigationLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handlePrimaryLinkClick(link.title, link.href)
-                    }}
-                    className={`hover:text-neutral-300 ${
-                      activePrimaryLink === link.title ? 'text-neutral-50' : 'text-neutral-500'
-                    }`}
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
+              <li key="about">
+                <button
+                  onClick={() => {
+                    setActivePrimaryLink(activePrimaryLink === 'about' ? null : 'about')
+                  }}
+                  className={`hover:text-neutral-300 ${
+                    activePrimaryLink === 'about' ? 'text-neutral-50' : 'text-neutral-500'
+                  }`}
+                >
+                  About
+                </button>
+              </li>
             </ul>
           </nav>
         </div>
@@ -153,40 +101,36 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      {/* Secondary Links */}
+
       <div className="flex flex-col justify-between">
         <div className="h-[30%]"></div>
         <div className="h-[40%] pt-4 pl-2 ">
           <nav className="text-sm">
-            {activePrimaryLink && (
-              <ul className="space-y-6">
-                {navigationLinks
-                  .filter((primaryLink) => primaryLink.title === activePrimaryLink)
-                  .map((primaryLink) => (
-                    <li key={primaryLink.href} className="">
-                      {primaryLink.secondaryLinks.map((secondaryLink) => (
-                        <div key={secondaryLink.href}>
-                          <Link
-                            href={secondaryLink.href}
-                            onClick={(e) => {
-                              e.preventDefault()
-                              setActiveSecondaryLink(secondaryLink.title)
-                              window.history.pushState({}, '', secondaryLink.href)
-                            }}
-                            className={`hover:text-neutral-300 ${
-                              activeSecondaryLink === secondaryLink.title
-                                ? 'text-neutral-50'
-                                : 'text-neutral-500'
-                            }`}
-                          >
-                            {secondaryLink.title}
-                          </Link>
-                        </div>
-                      ))}
-                    </li>
-                  ))}
-              </ul>
-            )}
+            <ul className="space-y-6">
+              <li
+                key="about"
+                className={`space-y-2 ${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}
+              >
+                <div key="about">
+                  <Link
+                    href="/about/background"
+                    className="text-neutral-500 hover:text-neutral-300"
+                  >
+                    Background
+                  </Link>
+                </div>
+                <div key="skills">
+                  <Link href="/about/skills" className="text-neutral-500 hover:text-neutral-300">
+                    Skills
+                  </Link>
+                </div>
+                <div key="education">
+                  <Link href="/about/education" className="text-neutral-500 hover:text-neutral-300">
+                    Education
+                  </Link>
+                </div>
+              </li>
+            </ul>
           </nav>
         </div>
         <div className="h-[30%]"></div>

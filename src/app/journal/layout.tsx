@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { DownloadCV } from '../components/download-cv'
 import Sidebar from '../components/sidebar'
+import { DownloadCV } from '../components/download-cv'
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = {
+  title: 'Daniel Charles Madeley',
+  description: 'Design Engineer Portfolio',
+}
+
+export default function JournalLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="h-full w-full flex flex-col overflow-hidden">
       <div className="h-full grid grid-cols-3">
