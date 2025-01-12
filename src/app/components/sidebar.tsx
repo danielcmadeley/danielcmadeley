@@ -8,9 +8,15 @@ import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
 
+// Add type for navigation links
+type NavLink = {
+  href: string
+  text: string
+}
+
 const Sidebar = () => {
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
-  const pathname = usePathname()
+  const pathname: string | null = usePathname()
   const router = useRouter()
 
   useEffect(() => {
@@ -22,6 +28,23 @@ const Sidebar = () => {
       setActivePrimaryLink('journal')
     }
   }, [pathname])
+
+  // Add type safety for the secondary navigation
+  const secondaryNavigation: Record<string, NavLink[]> = {
+    about: [
+      { href: '/about/background', text: 'Background' },
+      { href: '/about/skills', text: 'Skills' },
+      { href: '/about/education', text: 'Education' },
+    ],
+    projects: [
+      { href: '/projects/project-1', text: 'Project 1' },
+      { href: '/projects/project-2', text: 'Project 2' },
+    ],
+    journal: [
+      { href: '/journal/entry-1', text: 'Entry 1' },
+      { href: '/journal/entry-2', text: 'Entry 2' },
+    ],
+  }
 
   return (
     <div className="h-full grid grid-cols-3 col-span-1">
@@ -43,9 +66,9 @@ const Sidebar = () => {
           <TerminalText delay={0.8}>
             <div>
               <h3 className="text-md pb-16 text-neutral-500">
-                "BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
+                &quot;BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
                 <span className="text-neutral-50">COMPUTER SCIENCE</span> TO ENGINEER IMPACTFUL
-                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES."
+                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES.&quot;
               </h3>
             </div>
           </TerminalText>
@@ -127,21 +150,7 @@ const Sidebar = () => {
                 <li key={section}>
                   <div className="space-y-2">
                     {activePrimaryLink === section &&
-                      {
-                        about: [
-                          { href: '/about/background', text: 'Background' },
-                          { href: '/about/skills', text: 'Skills' },
-                          { href: '/about/education', text: 'Education' },
-                        ],
-                        projects: [
-                          { href: '/projects/project-1', text: 'Project 1' },
-                          { href: '/projects/project-2', text: 'Project 2' },
-                        ],
-                        journal: [
-                          { href: '/journal/entry-1', text: 'Entry 1' },
-                          { href: '/journal/entry-2', text: 'Entry 2' },
-                        ],
-                      }[section].map((link, index) => (
+                      secondaryNavigation[section].map((link, index) => (
                         <TerminalText key={link.text} delay={2.4 + index * 0.2}>
                           <div>
                             <Link
