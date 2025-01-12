@@ -8,27 +8,27 @@ import { MainContent } from '@/components/main-content'
 import { checkFirstVisit } from '@/app/actions'
 
 export function LoadingSequence() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [showContent, setShowContent] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Check if this is the first visit
-    checkFirstVisit().then((isFirstVisit) => {
+    const handleFirstInteraction = async () => {
+      if (hasInteracted) return
+      setHasInteracted(true)
+
+      const isFirstVisit = await checkFirstVisit()
       if (!isFirstVisit) {
-        setIsLoading(false)
         setShowContent(true)
         return
       }
 
-      // Only run animation sequence for first-time visitors
+      setIsLoading(true)
       const tl = gsap.timeline({
-        onComplete: () => {
-          setShowContent(true)
-        },
+        onComplete: () => setShowContent(true),
       })
 
-      // After terminal messages complete (6 seconds)
       gsap.delayedCall(6, () => {
         if (containerRef.current) {
           tl.to(containerRef.current, {
@@ -44,8 +44,19 @@ export function LoadingSequence() {
             .call(() => setIsLoading(false))
         }
       })
-    })
-  }, [])
+    }
+
+    window.addEventListener('click', handleFirstInteraction)
+    return () => window.removeEventListener('click', handleFirstInteraction)
+  }, [hasInteracted])
+
+  if (!hasInteracted) {
+    return (
+      <div className="h-full cursor-pointer" onClick={() => setHasInteracted(true)}>
+        <MainContent />
+      </div>
+    )
+  }
 
   return (
     <AnimatePresence mode="wait">
