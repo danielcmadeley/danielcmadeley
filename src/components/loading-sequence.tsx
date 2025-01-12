@@ -7,7 +7,7 @@ import { Terminal } from '@/components/terminal'
 import { MainContent } from '@/components/main-content'
 import { checkFirstVisit } from '@/app/actions'
 
-const RESET_TIMEOUT = 5 * 60 * 1000 // 5 minutes in milliseconds
+const RESET_TIMEOUT = 2 * 60 * 1000 // 2 minutes in milliseconds
 
 export function LoadingSequence() {
   const [isInitialized, setIsInitialized] = useState(false)
