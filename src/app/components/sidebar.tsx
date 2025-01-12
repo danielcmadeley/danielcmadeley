@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { TerminalText } from './terminal-text'
 import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
@@ -23,126 +24,97 @@ const Sidebar = () => {
   }, [pathname])
 
   return (
-    <div className="h-full grid grid-cols-3 col-span-1 ">
-      <div className="col-span-2 flex flex-col justify-between ">
+    <div className="h-full grid grid-cols-3 col-span-1">
+      <div className="col-span-2 flex flex-col justify-between">
         <div className="flex flex-col h-[25%] pt-2 pl-2 gap-8">
-          <Link href="/">
-            <h1 className="text-[27px] font-bold uppercase">Daniel Charles Madeley</h1>
-            <div className="flex justify-between text-sm text-neutral-500">
-              <h2 className="text-sm font-bold uppercase">Design</h2>
-              <div className="flex items-center space-x-6">
-                <h2>{'//'} </h2>
-                <h2 className="text-sm font-bold uppercase">Engineer</h2>
+          <TerminalText delay={0.2}>
+            <Link href="/">
+              <h1 className="text-[27px] font-bold uppercase">Daniel Charles Madeley</h1>
+              <div className="flex justify-between text-sm text-neutral-500">
+                <h2 className="text-sm font-bold uppercase">Design</h2>
+                <div className="flex items-center space-x-6">
+                  <h2>{'//'} </h2>
+                  <h2 className="text-sm font-bold uppercase">Engineer</h2>
+                </div>
               </div>
+            </Link>
+          </TerminalText>
+
+          <TerminalText delay={0.8}>
+            <div>
+              <h3 className="text-md pb-16 text-neutral-500">
+                "BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
+                <span className="text-neutral-50">COMPUTER SCIENCE</span> TO ENGINEER IMPACTFUL
+                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES."
+              </h3>
             </div>
-          </Link>
-          <div>
-            <h3 className="text-md pb-16 text-neutral-500">
-              “BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
-              <span className="text-neutral-50">COMPUTER SCIENCE</span> TO ENGINEER IMPACTFUL
-              SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES.”
-            </h3>
-          </div>
+          </TerminalText>
         </div>
-        {/* Primary Links */}
-        <div className="h-[50%] pt-4 pl-2 ">
+
+        <div className="h-[50%] pt-4 pl-2">
           <nav className="text-sm">
-            <ul>
-              <li key="about">
-                <button
-                  onClick={() => {
-                    if (activePrimaryLink === 'about') {
-                      setActivePrimaryLink(null)
-                      router.push('/')
-                    } else {
-                      router.push('/')
-                      setActivePrimaryLink('about')
-                    }
-                  }}
-                  className={`hover:text-neutral-300 ${
-                    activePrimaryLink === 'about' ? 'text-neutral-50' : 'text-neutral-500'
-                  }`}
-                >
-                  About
-                </button>
-              </li>
-              <li key="projects">
-                <button
-                  onClick={() => {
-                    if (activePrimaryLink === 'projects') {
-                      setActivePrimaryLink(null)
-                      router.push('/')
-                    } else {
-                      router.push('/')
-                      setActivePrimaryLink('projects')
-                    }
-                  }}
-                  className={`hover:text-neutral-300 ${
-                    activePrimaryLink === 'projects' ? 'text-neutral-50' : 'text-neutral-500'
-                  }`}
-                >
-                  Projects
-                </button>
-              </li>
-              <li key="journal">
-                <button
-                  onClick={() => {
-                    if (activePrimaryLink === 'journal') {
-                      setActivePrimaryLink(null)
-                      router.push('/')
-                    } else {
-                      router.push('/')
-                      setActivePrimaryLink('journal')
-                    }
-                  }}
-                  className={`hover:text-neutral-300 ${
-                    activePrimaryLink === 'journal' ? 'text-neutral-50' : 'text-neutral-500'
-                  }`}
-                >
-                  Journal
-                </button>
-              </li>
+            <ul className="space-y-2">
+              {['about', 'projects', 'journal'].map((link, index) => (
+                <TerminalText key={link} delay={1.2 + index * 0.2}>
+                  <li>
+                    <button
+                      onClick={() => {
+                        if (activePrimaryLink === link) {
+                          setActivePrimaryLink(null)
+                          router.push('/')
+                        } else {
+                          router.push('/')
+                          setActivePrimaryLink(link)
+                        }
+                      }}
+                      className={`hover:text-neutral-300 ${
+                        activePrimaryLink === link ? 'text-neutral-50' : 'text-neutral-500'
+                      }`}
+                    >
+                      {link.charAt(0).toUpperCase() + link.slice(1)}
+                    </button>
+                  </li>
+                </TerminalText>
+              ))}
             </ul>
           </nav>
         </div>
+
         <div className="h-[25%] flex flex-col justify-end gap-4 pl-2">
-          <div className="text-sm">
-            <ModeToggle />
-            <DayDisplay />
-            <TimeDisplay />
-          </div>
-          <div className="text-xs  text-neutral-500 ">
-            <nav>
-              <ul>
-                <li>
-                  <Link href="https://x.com/danielcmadeley" className="hover:text-neutral-300">
-                    X
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://github.com/danielcmadeley" className="hover:text-neutral-300">
-                    GITHUB
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://www.linkedin.com/in/daniel-madeley-4a2a59306/"
-                    className="hover:text-neutral-300"
-                  >
-                    LINKEDIN
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="mailto:daniel@madeleydesignstudio.org"
-                    className="hover:text-neutral-300"
-                  >
-                    DANIEL@MADELEYDESIGNSTUDIO.ORG
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <TerminalText delay={2}>
+            <div className="text-sm">
+              <ModeToggle />
+              <DayDisplay />
+              <TimeDisplay />
+            </div>
+          </TerminalText>
+
+          <TerminalText delay={2.2}>
+            <div className="text-xs text-neutral-500">
+              <nav>
+                <ul className="space-y-1">
+                  {[
+                    { href: 'https://x.com/danielcmadeley', text: 'X' },
+                    { href: 'https://github.com/danielcmadeley', text: 'GITHUB' },
+                    {
+                      href: 'https://www.linkedin.com/in/daniel-madeley-4a2a59306/',
+                      text: 'LINKEDIN',
+                    },
+                    {
+                      href: 'mailto:daniel@madeleydesignstudio.org',
+                      text: 'DANIEL@MADELEYDESIGNSTUDIO.ORG',
+                    },
+                  ].map((link) => (
+                    <li key={link.text}>
+                      <Link href={link.href} className="hover:text-neutral-300">
+                        {link.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </TerminalText>
         </div>
       </div>
 
@@ -151,71 +123,39 @@ const Sidebar = () => {
         <div className="h-[50%] pt-4 pl-2">
           <nav className="text-sm">
             <ul>
-              <li key="about">
-                <div className="space-y-2">
-                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/about/background"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Background
-                    </Link>
+              {['about', 'projects', 'journal'].map((section) => (
+                <li key={section}>
+                  <div className="space-y-2">
+                    {activePrimaryLink === section &&
+                      {
+                        about: [
+                          { href: '/about/background', text: 'Background' },
+                          { href: '/about/skills', text: 'Skills' },
+                          { href: '/about/education', text: 'Education' },
+                        ],
+                        projects: [
+                          { href: '/projects/project-1', text: 'Project 1' },
+                          { href: '/projects/project-2', text: 'Project 2' },
+                        ],
+                        journal: [
+                          { href: '/journal/entry-1', text: 'Entry 1' },
+                          { href: '/journal/entry-2', text: 'Entry 2' },
+                        ],
+                      }[section].map((link, index) => (
+                        <TerminalText key={link.text} delay={2.4 + index * 0.2}>
+                          <div>
+                            <Link
+                              href={link.href}
+                              className="text-neutral-500 hover:text-neutral-300"
+                            >
+                              {link.text}
+                            </Link>
+                          </div>
+                        </TerminalText>
+                      ))}
                   </div>
-                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
-                    <Link href="/about/skills" className="text-neutral-500 hover:text-neutral-300">
-                      Skills
-                    </Link>
-                  </div>
-                  <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/about/education"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Education
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <li key="projects">
-                <div className="space-y-2">
-                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/projects/project-1"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Project 1
-                    </Link>
-                  </div>
-                  <div className={`${activePrimaryLink === 'projects' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/projects/project-2"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Project 2
-                    </Link>
-                  </div>
-                </div>
-              </li>
-              <li key="journal">
-                <div className="space-y-2">
-                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/journal/entry-1"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Entry 1
-                    </Link>
-                  </div>
-                  <div className={`${activePrimaryLink === 'journal' ? 'block' : 'hidden'}`}>
-                    <Link
-                      href="/journal/entry-2"
-                      className="text-neutral-500 hover:text-neutral-300"
-                    >
-                      Entry 2
-                    </Link>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
