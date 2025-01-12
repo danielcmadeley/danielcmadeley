@@ -8,54 +8,48 @@ import { MainContent } from '@/components/main-content'
 import { checkFirstVisit } from '@/app/actions'
 
 export function LoadingSequence() {
+  const [isInitialized, setIsInitialized] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showContent, setShowContent] = useState(false)
-  const [hasInteracted, setHasInteracted] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleFirstInteraction = async () => {
-      if (hasInteracted) return
-      setHasInteracted(true)
-
-      const isFirstVisit = await checkFirstVisit()
+    checkFirstVisit().then((isFirstVisit) => {
       if (!isFirstVisit) {
+        setIsLoading(false)
         setShowContent(true)
-        return
-      }
+      } else {
+        setIsLoading(true)
+        // Only run animation sequence for first-time visitors
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setShowContent(true)
+          },
+        })
 
-      setIsLoading(true)
-      const tl = gsap.timeline({
-        onComplete: () => setShowContent(true),
-      })
-
-      gsap.delayedCall(6, () => {
-        if (containerRef.current) {
-          tl.to(containerRef.current, {
-            scale: 1.1,
-            duration: 0.5,
-            ease: 'power2.inOut',
-          })
-            .to(containerRef.current, {
-              opacity: 0,
+        // After terminal messages complete (6 seconds)
+        gsap.delayedCall(6, () => {
+          if (containerRef.current) {
+            tl.to(containerRef.current, {
+              scale: 1.1,
               duration: 0.5,
               ease: 'power2.inOut',
             })
-            .call(() => setIsLoading(false))
-        }
-      })
-    }
+              .to(containerRef.current, {
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.inOut',
+              })
+              .call(() => setIsLoading(false))
+          }
+        })
+      }
+      setIsInitialized(true)
+    })
+  }, [])
 
-    window.addEventListener('click', handleFirstInteraction)
-    return () => window.removeEventListener('click', handleFirstInteraction)
-  }, [hasInteracted])
-
-  if (!hasInteracted) {
-    return (
-      <div className="h-full cursor-pointer" onClick={() => setHasInteracted(true)}>
-        <MainContent />
-      </div>
-    )
+  if (!isInitialized) {
+    return null
   }
 
   return (
