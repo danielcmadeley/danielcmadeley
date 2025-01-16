@@ -2,6 +2,7 @@ export type ContentSection = {
   title: string
   content: string[]
   category?: ProjectCategory
+  url?: string
   skills?: {
     category: string
     items: string[]
@@ -36,50 +37,68 @@ export const contentData: ContentData = {
     background: {
       title: 'Background',
       content: [
-        'With a unique blend of mechanical engineering expertise and software development skills, I bridge the gap between physical systems and digital solutions.',
-        'My journey began in mechanical engineering, where I developed a strong foundation in classical mechanics, thermodynamics, and system design. This background gives me a distinctive perspective in approaching software development, especially in areas where physical and digital systems intersect.',
-        'Today, I focus on creating innovative solutions that leverage both my engineering background and programming expertise to solve complex real-world challenges.',
+        ' My passion for engineering ignited when I first experienced the magic of 3D printing at school. I designed and crafted a portable speaker using Solidworks, marking the beginning of my hands-on journey in engineering. At the age of 13, I received my first laptop, which opened the door to the world of programming. I started with Scratch, then progressed to JavaScript and Python, creating my own games and exploring the limitless possibilities of code.',
+        ' Driven by curiosity and a thirst for knowledge, I delved into the realms of mathematics, physics, and history. These subjects not only broadened my perspective but also laid a strong foundation for my future in engineering. My academic pursuits led me to pursue a degree in civil engineering at university, where my passion for engineering transformed into an unwavering obsession.',
+        '  Through my experiences, I have developed a deep appreciation for the power of engineering to shape the world around us. I am excited to continue my journey, pushing the boundaries of what is possible and creating innovative solutions that make a positive impact on society.',
       ],
     },
     skills: {
       title: 'Skills',
       content: [
-        'My skill set spans both mechanical engineering and software development, allowing me to tackle projects from multiple angles.',
+        ' My unique skill set encompasses both structural engineering and software development, empowering me to approach projects from diverse perspectives. Since 2019, I have pursued these disciplines in parallel, honing my expertise in each field. In 2021, I embarked on my journey as a freelance developer while simultaneously working professionally as a structural engineer. This dual path has solidified my vision for the future: to excel as a computational designer.',
+        'By seamlessly integrating my knowledge of structural engineering and software development, I am well-equipped to tackle complex challenges and deliver innovative solutions. My passion for both fields drives me to continuously learn and adapt, ensuring that I remain at the forefront of the industry.',
+        'As a computational designer, I aim to leverage my skills to create groundbreaking designs that push the boundaries of what is possible. I am excited to collaborate with like-minded professionals and contribute to projects that have a lasting impact on the built environment.',
       ],
       skills: [
         {
           category: 'Software Development',
           items: [
-            'TypeScript/JavaScript',
-            'React & Next.js',
-            'Node.js',
+            'TypeScript',
+            'JavaScript',
             'Python',
-            'SQL & NoSQL Databases',
+            'React',
+            'Next.js',
+            'Node.js',
+            'Pandas',
+            'NumPy',
+            'Matplotlib',
+            'SQL',
+            'NoSQL Databases',
             'REST APIs',
+            'GraphQL',
+            'Langchain',
             'Cloud Services (AWS, GCP)',
+            'GSAP',
+            'Lenis',
+            'Motion',
+            'CMS',
           ],
         },
         {
           category: 'Engineering',
-          items: [
-            'CAD/CAM Software',
-            'Finite Element Analysis',
-            'Thermal Analysis',
-            'Manufacturing Processes',
-            'Project Management',
-            'Technical Documentation',
-          ],
+          items: ['Rhino3D', 'Tekla Structural Designer', 'Tedds', 'Grasshopper', 'FreeCAD'],
+        },
+        {
+          category: 'Design',
+          items: ['Figma', 'Adobe Creative Suite', 'Blender', 'Rive'],
         },
       ],
     },
     education: {
       title: 'Education',
       content: [
-        'MEng Mechanical Engineering - University of Bristol (2019-2023)',
-        'First Class Honours',
-        'Specialized in Computational Methods and Digital Manufacturing',
-        'Final Year Project: Development of an AI-powered predictive maintenance system for industrial equipment',
-        'Key coursework included Advanced Mathematics, Thermodynamics, Control Systems, and Programming for Engineers',
+        'BEng Civil Engineering - Leeds Beckett University (2019-2022)',
+        'Upper Second Class Honours (2:1)',
+        'Engineering Skills - Structural Engineering Course',
+        '- Learned to leverage Python and Blender as structural analysis tools',
+        'Codewithantonio - Full Stack Development Program',
+        '- Gained skills to build applications similar to Notion and Google Docs',
+        'Zero to Fullstack Hero - Fullstack Course',
+        '- Covered React, Next.js, REST APIs, GraphQL, and more',
+        'DataCamp - Data Science Course',
+        '- Explored data science concepts and techniques',
+        'Boot.dev - Backend Development Course',
+        '- Studied GIT, Linux, Python, JavaScript, Golang, Algorithms, and Data Structures',
       ],
     },
   },
@@ -87,6 +106,7 @@ export const contentData: ContentData = {
     'smart-inventory-system': {
       title: 'Smart Inventory Management System',
       category: 'software',
+      url: 'https://github.com/yourusername/smart-inventory',
       content: [
         'Developed a full-stack inventory management system using React, Node.js, and MongoDB',
         'Implemented real-time tracking with WebSocket integration for live updates across multiple warehouses',
@@ -97,6 +117,7 @@ export const contentData: ContentData = {
     'predictive-maintenance-app': {
       title: 'Industrial IoT Predictive Maintenance Platform',
       category: 'software',
+      url: 'https://github.com/yourusername/predictive-maintenance',
       content: [
         'Created a machine learning-powered predictive maintenance system using Python and TensorFlow',
         'Developed REST APIs for real-time sensor data collection and analysis',

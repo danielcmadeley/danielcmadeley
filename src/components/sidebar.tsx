@@ -242,7 +242,6 @@ const Sidebar = () => {
                         setActivePrimaryLink(null)
                         router.push('/')
                       } else {
-                        router.push('/')
                         setActivePrimaryLink('about')
                       }
                     }}
@@ -260,7 +259,6 @@ const Sidebar = () => {
                         setActivePrimaryLink(null)
                         router.push('/')
                       } else {
-                        router.push('/')
                         setActivePrimaryLink('projects')
                       }
                     }}
@@ -278,7 +276,6 @@ const Sidebar = () => {
                         setActivePrimaryLink(null)
                         router.push('/')
                       } else {
-                        router.push('/')
                         setActivePrimaryLink('journal')
                       }
                     }}

@@ -24,6 +24,16 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                   {section.category}
                 </span>
               )}
+              {section.url && (
+                <a
+                  href={section.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 rounded-full text-sm bg-neutral-500/20 text-neutral-200 hover:bg-neutral-500/30 transition-colors"
+                >
+                  View Project
+                </a>
+              )}
             </div>
 
             {section.content.map((paragraph, index) => (

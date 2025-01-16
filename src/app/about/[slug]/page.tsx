@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <h1 className="text-2xl font-bold">{section.title}</h1>
 
             {section.content.map((paragraph, index) => (
-              <p key={index} className="text-neutral-300">
+              <p key={index} className="text-neutral-300 text-sm">
                 {paragraph}
               </p>
             ))}
@@ -23,10 +23,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               <div className="space-y-6">
                 {section.skills.map((skillCategory, index) => (
                   <div key={index} className="space-y-2">
-                    <h2 className="text-xl font-semibold text-neutral-100">
+                    <h2 className="text-md font-semibold text-neutral-100">
                       {skillCategory.category}
                     </h2>
-                    <ul className="list-disc list-inside space-y-1">
+                    <ul className="list-disc list-inside space-y-1 text-sm">
                       {skillCategory.items.map((skill, skillIndex) => (
                         <li key={skillIndex} className="text-neutral-300">
                           {skill}
