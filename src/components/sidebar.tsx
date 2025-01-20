@@ -299,23 +299,17 @@ const Sidebar = () => {
               <nav>
                 <ul>
                   <li>
-                    <Link href="https://x.com/danielcmadeley" className="hover:text-neutral-300">
+                    <Link href="https://dub.sh/danielcmadeley_x" className="hover:text-neutral-300">
                       X
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="https://github.com/danielcmadeley"
-                      className="hover:text-neutral-300"
-                    >
+                    <Link href="https://dub.sh/github-madeley" className="hover:text-neutral-300">
                       GITHUB
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="https://www.linkedin.com/in/daniel-madeley-4a2a59306/"
-                      className="hover:text-neutral-300"
-                    >
+                    <Link href="https://dub.sh/linkedin-madeley" className="hover:text-neutral-300">
                       LINKEDIN
                     </Link>
                   </li>

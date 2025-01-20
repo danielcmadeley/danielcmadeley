@@ -31,13 +31,13 @@ export function Terminal() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-neutral-900 flex items-center justify-center p-4">
       <motion.div
         ref={containerRef}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl bg-gray-900/50 backdrop-blur-sm rounded-lg border border-neutral-500/20 p-8 font-mono text-neutral-300 shadow-lg"
+        className="w-full max-w-2xl bg-neutral-900/50 backdrop-blur-sm rounded-lg border border-neutral-500/20 p-8 font-mono text-neutral-300 shadow-lg"
       >
         <div className="flex items-center gap-2 mb-6">
           <div className="w-3 h-3 rounded-full bg-red-500" />

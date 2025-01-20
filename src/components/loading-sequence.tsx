@@ -35,7 +35,7 @@ export function LoadingSequence() {
         })
 
         // After terminal messages complete (6 seconds)
-        gsap.delayedCall(6, () => {
+        gsap.delayedCall(2, () => {
           if (containerRef.current) {
             tl.to(containerRef.current, {
               scale: 1.1,

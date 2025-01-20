@@ -12,13 +12,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <ScrollArea className="h-full max-w-4xl">
           <div className="pr-6 space-y-8">
             <h1 className="text-3xl font-bold text-neutral-100">{section.title}</h1>
-
             {section.content.map((paragraph, index) => (
               <p key={index} className="text-neutral-400 text-sm leading-relaxed">
                 {paragraph}
               </p>
             ))}
-
             {section.skills && (
               <div className="space-y-8 mt-12">
                 {section.skills.map((skillCategory, index) => (
