@@ -235,9 +235,9 @@ const Sidebar = () => {
             </Link>
             <div>
               <h3 className="text-md pb-16 text-neutral-500">
-                "BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
+                &quot;BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
                 <span className="text-neutral-50">COMPUTER SCIENCE</span> TO ENGINEER IMPACTFUL
-                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES."
+                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES.&quot;
               </h3>
             </div>
           </div>
