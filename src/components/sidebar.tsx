@@ -1,13 +1,13 @@
 'use client'
 
+import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { contentData } from '../app/data/content'
 import DayDisplay from './day-display'
 import { ModeToggle } from './mode-toggle'
 import TimeDisplay from './time-display'
-import { contentData } from '../app/data/content'
-import { Menu } from 'lucide-react'
 
 const Sidebar = () => {
   const [activePrimaryLink, setActivePrimaryLink] = useState<string | null>(null)
@@ -30,14 +30,22 @@ const Sidebar = () => {
   }
 
   const MobileMenu = () => (
-    <div className="lg:hidden fixed inset-0 bg-background/95 z-40 overflow-y-auto">
+    <div
+      className="lg:hidden fixed inset-0 bg-background/95 z-40 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="p-4 space-y-6 bg-neutral-950/90">
         {/* Mobile Header */}
         <div className="flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-neutral-50">
             DCM
           </Link>
-          <button onClick={toggleMobileMenu} className="p-2 text-neutral-50">
+          <button
+            onClick={toggleMobileMenu}
+            className="p-2 text-neutral-50"
+            aria-label="Close menu"
+          >
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -57,7 +65,7 @@ const Sidebar = () => {
             </button>
             {activePrimaryLink === 'about' && (
               <div className="mt-2 ml-4 space-y-2 border-l border-neutral-700 pl-4">
-                {['background', 'skills', 'education'].map((item) => (
+                {['background', 'skills', 'education', 'experience'].map((item) => (
                   <Link
                     key={item}
                     href={`/about/${item}`}
@@ -202,6 +210,8 @@ const Sidebar = () => {
       <button
         onClick={toggleMobileMenu}
         className="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-neutral-800"
+        aria-label="Open menu"
+        aria-expanded={isMobileMenuOpen}
       >
         <Menu className="h-6 w-6" />
       </button>
@@ -225,16 +235,16 @@ const Sidebar = () => {
             </Link>
             <div>
               <h3 className="text-md pb-16 text-neutral-500">
-                “BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
+                "BRIDGING <span className="text-neutral-50">CLASSICAL MECHANICS</span> AND{' '}
                 <span className="text-neutral-50">COMPUTER SCIENCE</span> TO ENGINEER IMPACTFUL
-                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES.”
+                SOLUTIONS FOR <span className="text-neutral-50">REAL-WORLD </span> CHALLENGES."
               </h3>
             </div>
           </div>
           {/* Primary Links */}
-          <div className="h-[50%] pt-4 pl-2 ">
-            <nav className="text-sm">
-              <ul>
+          <div className="h-[50%] pt-4 pl-2">
+            <nav className="text-sm" aria-label="Primary navigation">
+              <ul className="space-y-2">
                 <li key="about">
                   <button
                     onClick={() => {
@@ -248,6 +258,7 @@ const Sidebar = () => {
                     className={`hover:text-neutral-300 ${
                       activePrimaryLink === 'about' ? 'text-neutral-50' : 'text-neutral-500'
                     }`}
+                    aria-expanded={activePrimaryLink === 'about'}
                   >
                     About
                   </button>
@@ -295,9 +306,9 @@ const Sidebar = () => {
               <DayDisplay />
               <TimeDisplay />
             </div>
-            <div className="text-xs  text-neutral-500 ">
-              <nav>
-                <ul>
+            <div className="text-xs text-neutral-500">
+              <nav aria-label="Social links">
+                <ul className="space-y-1">
                   <li>
                     <Link href="https://dub.sh/danielcmadeley_x" className="hover:text-neutral-300">
                       X
@@ -356,6 +367,14 @@ const Sidebar = () => {
                         className="text-neutral-500 hover:text-neutral-300"
                       >
                         Education
+                      </Link>
+                    </div>
+                    <div className={`${activePrimaryLink === 'about' ? 'block' : 'hidden'}`}>
+                      <Link
+                        href="/about/experience"
+                        className="text-neutral-500 hover:text-neutral-300"
+                      >
+                        Experience
                       </Link>
                     </div>
                   </div>

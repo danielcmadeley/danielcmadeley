@@ -23,6 +23,10 @@ type ContentData = {
     background: ContentSection
     skills: ContentSection
     education: ContentSection
+    experience: {
+      title: string
+      content: string[]
+    }
   }
   projects: {
     [key: string]: ContentSection
@@ -99,6 +103,31 @@ export const contentData: ContentData = {
         '- Explored data science concepts and techniques',
         'Boot.dev - Backend Development Course',
         '- Studied GIT, Linux, Python, JavaScript, Golang, Algorithms, and Data Structures',
+      ],
+    },
+    experience: {
+      title: 'Experience',
+      content: [
+        'Senior Structural Engineer @ Engineering Dynamics Ltd',
+        '2023 - Present • London, UK',
+        '• Lead structural engineer for high-rise building projects exceeding £50M in value',
+        '• Implemented advanced FEM analysis techniques, reducing design iteration time by 40%',
+        '• Mentored junior engineers and established best practices for BIM implementation',
+        '• Developed custom Python scripts for automated structural calculations and reporting',
+        '',
+        'Computational Design Specialist @ Digital Built Environment',
+        '2022 - 2023 • Manchester, UK',
+        '• Developed parametric design solutions for complex architectural projects',
+        '• Created custom Grasshopper components using C# for advanced geometry manipulation',
+        '• Led a team of 5 designers in implementing computational design workflows',
+        '• Reduced design optimization time by 60% through automated analysis processes',
+        '',
+        'Freelance Software Developer @ Self-Employed',
+        '2021 - 2022 • Remote',
+        '• Delivered custom web applications for engineering and architecture firms',
+        '• Developed structural analysis tools using TypeScript and Three.js',
+        '• Created automated testing frameworks for engineering software',
+        '• Implemented CI/CD pipelines for multiple client projects',
       ],
     },
   },
