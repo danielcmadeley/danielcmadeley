@@ -11,6 +11,12 @@ const neco = localFont({
 export const metadata: Metadata = {
   title: 'Daniel Charles Madeley',
   description: 'Design Engineer Portfolio',
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    images: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
