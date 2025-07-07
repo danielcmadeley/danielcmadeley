@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SearchComponent from "../components/Search.astro";
+
+const query = Astro.url.searchParams.get("q") ?? "";
+---
+
+<Layout title="Search - Daniel Madeley">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-stone-100 mb-4">Search</h1>
+            <p class="text-xl text-stone-400">
+                Find articles, projects, and content across the site.
+            </p>
+        </header>
+
+        <div class="mb-8">
+            <SearchComponent />
+        </div>
+
+        <div class="prose prose-stone prose-invert max-w-none">
+            <p class="text-stone-400">
+                Use the search box above to find content. You can search for:
+            </p>
+            <ul class="text-stone-300">
+                <li>
+                    Blog posts about web development, design systems, and
+                    JavaScript frameworks
+                </li>
+                <li>Technical articles and tutorials</li>
+                <li>Project documentation and case studies</li>
+                <li>Code examples and best practices</li>
+            </ul>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .prose ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+
+    .prose ul li {
+        color: #d6d3d1;
+        margin-bottom: 0.5rem;
+    }
+</style>

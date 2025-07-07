@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
 ---
 
 <!doctype html>
@@ -13,7 +14,8 @@ import Footer from "../components/Footer.astro";
         <title>Astro Basics</title>
     </head>
     <body class="bg-stone-900 text-stone-200 font-sans">
-        <main class="max-w-3xl mx-auto px-12 py-36 min-h-screen">
+        <Navbar />
+        <main class="max-w-3xl mx-auto px-12 py-36 min-h-screen mt-20">
             <slot />
         </main>
         <Footer />

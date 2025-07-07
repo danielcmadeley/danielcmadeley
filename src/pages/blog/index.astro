@@ -1,0 +1,126 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const blogPosts = [
+    {
+        title: "JavaScript Frameworks in 2024: The Complete Developer's Guide",
+        description:
+            "An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives.",
+        pubDate: "2024-01-20",
+        url: "/blog/javascript-frameworks-2024",
+        tags: ["javascript", "frameworks", "react", "vue", "angular", "svelte"],
+    },
+    {
+        title: "Modern Web Development: Embracing the Future",
+        description:
+            "Exploring the latest trends and technologies shaping the web development landscape in 2024.",
+        pubDate: "2024-01-15",
+        url: "/blog/modern-web-development",
+        tags: ["web development", "javascript", "react", "astro"],
+    },
+    {
+        title: "Building Scalable Design Systems: A Complete Guide",
+        description:
+            "Learn how to create and maintain design systems that scale with your organization and improve consistency across products.",
+        pubDate: "2024-01-10",
+        url: "/blog/design-systems-guide",
+        tags: ["design systems", "UI/UX", "components", "design"],
+    },
+];
+
+// Sort posts by date (newest first)
+const sortedPosts = blogPosts.sort(
+    (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
+);
+---
+
+<Layout title="Blog - Daniel Madeley">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-stone-100 mb-4">Blog</h1>
+            <p class="text-xl text-stone-400">
+                Thoughts on design, development, and the intersection of
+                technology and creativity.
+            </p>
+        </header>
+
+        <div class="grid gap-8">
+            {
+                sortedPosts.map((post) => (
+                    <article class="bg-stone-800/50 border border-stone-700 rounded-lg p-6 hover:border-stone-600 transition-colors">
+                        <div class="flex flex-col gap-4">
+                            <header>
+                                <h2 class="text-2xl font-bold text-stone-100 mb-2">
+                                    <a
+                                        href={post.url}
+                                        class="hover:text-stone-300 transition-colors"
+                                    >
+                                        {post.title}
+                                    </a>
+                                </h2>
+                                <p class="text-stone-300 leading-relaxed">
+                                    {post.description}
+                                </p>
+                            </header>
+
+                            <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500">
+                                <time datetime={post.pubDate}>
+                                    {new Date(post.pubDate).toLocaleDateString(
+                                        "en-US",
+                                        {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        },
+                                    )}
+                                </time>
+
+                                {post.tags.length > 0 && (
+                                    <div class="flex gap-2">
+                                        {post.tags.map((tag) => (
+                                            <span class="px-2 py-1 bg-stone-700 text-stone-300 rounded-full text-xs">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <footer>
+                                <a
+                                    href={post.url}
+                                    class="inline-flex items-center gap-2 text-stone-100 hover:text-stone-300 transition-colors font-medium"
+                                >
+                                    Read more
+                                    <svg
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 5l7 7-7 7"
+                                        />
+                                    </svg>
+                                </a>
+                            </footer>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+
+        {
+            sortedPosts.length === 0 && (
+                <div class="text-center py-12">
+                    <p class="text-stone-400 text-lg">
+                        No blog posts yet. Check back soon!
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</Layout>

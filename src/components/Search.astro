@@ -1,0 +1,278 @@
+---
+// Search component using Pagefind API
+---
+
+<div class="search-container">
+    <div class="search-input-container">
+        <input
+            id="search"
+            type="text"
+            placeholder="Search posts..."
+            class="search-input"
+        />
+        <div class="search-icon">
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+            </svg>
+        </div>
+    </div>
+    <div id="searchResults" class="search-results hidden"></div>
+</div>
+
+<script is:inline>
+    let pagefind;
+    let searchTimeout;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchField = document.querySelector("#search");
+        const searchResults = document.querySelector("#searchResults");
+
+        if (!searchField || !searchResults) return;
+
+        // Initialize pagefind when search field is focused
+        searchField.addEventListener("focus", async () => {
+            if (!pagefind) {
+                try {
+                    pagefind = await import("/pagefind/pagefind.js");
+                    await pagefind.options({
+                        ranking: {
+                            pageLength: 0.5,
+                        },
+                    });
+                    pagefind.init();
+                } catch (error) {
+                    console.warn(
+                        "Pagefind not available. Please build the site first.",
+                    );
+                }
+            }
+        });
+
+        // Debounced search function
+        const performSearch = async (query) => {
+            if (!pagefind || !query.trim()) {
+                searchResults.innerHTML = "";
+                searchResults.classList.add("hidden");
+                return;
+            }
+
+            try {
+                const search = await pagefind.debouncedSearch(query, {}, 300);
+                const results = search?.results || [];
+
+                if (results.length === 0) {
+                    searchResults.innerHTML = `
+            <div class="no-results">
+              <p>No results found for "${query}"</p>
+            </div>
+          `;
+                    searchResults.classList.remove("hidden");
+                    return;
+                }
+
+                let resultsHTML = "";
+                for (const result of results.slice(0, 5)) {
+                    const data = await result.data();
+                    resultsHTML += `
+            <div class="search-result">
+              <h3 class="result-title">
+                <a href="${data.url}">${data.meta.title || "Untitled"}</a>
+              </h3>
+              <p class="result-excerpt">${data.excerpt}</p>
+              ${
+                  data.meta.tags
+                      ? `
+                <div class="result-tags">
+                  ${data.meta.tags
+                      .split(",")
+                      .map(
+                          (tag) => `
+                    <span class="tag">${tag.trim()}</span>
+                  `,
+                      )
+                      .join("")}
+                </div>
+              `
+                      : ""
+              }
+            </div>
+          `;
+                }
+
+                searchResults.innerHTML = resultsHTML;
+                searchResults.classList.remove("hidden");
+            } catch (error) {
+                console.error("Search error:", error);
+                searchResults.innerHTML = `
+          <div class="search-error">
+            <p>Search is not available. Please build the site first.</p>
+          </div>
+        `;
+                searchResults.classList.remove("hidden");
+            }
+        };
+
+        // Search on input with debouncing
+        searchField.addEventListener("input", (e) => {
+            const query = e.target.value;
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(query);
+            }, 300);
+        });
+
+        // Hide results when clicking outside
+        document.addEventListener("click", (e) => {
+            if (
+                !searchField.contains(e.target) &&
+                !searchResults.contains(e.target)
+            ) {
+                searchResults.classList.add("hidden");
+            }
+        });
+
+        // Show results when focusing back on search
+        searchField.addEventListener("focus", () => {
+            if (searchResults.innerHTML.trim()) {
+                searchResults.classList.remove("hidden");
+            }
+        });
+    });
+</script>
+
+<style>
+    .search-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .search-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        padding-right: 2.5rem;
+        background-color: #292524;
+        border: 1px solid #57534e;
+        border-radius: 6px;
+        color: #e7e5e4;
+        font-family: "Supreme", system-ui, sans-serif;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: #78716c;
+        box-shadow: 0 0 0 1px #78716c;
+    }
+
+    .search-input::placeholder {
+        color: #a8a29e;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 0.75rem;
+        color: #a8a29e;
+        pointer-events: none;
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #1c1917;
+        border: 1px solid #57534e;
+        border-radius: 6px;
+        margin-top: 0.5rem;
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 50;
+        box-shadow:
+            0 10px 15px -3px rgb(0 0 0 / 0.1),
+            0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .search-results.hidden {
+        display: none;
+    }
+
+    .search-result {
+        padding: 1rem;
+        border-bottom: 1px solid #57534e;
+        transition: background-color 0.2s ease;
+    }
+
+    .search-result:last-child {
+        border-bottom: none;
+    }
+
+    .search-result:hover {
+        background-color: #292524;
+    }
+
+    .result-title {
+        margin: 0 0 0.5rem 0;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .result-title a {
+        color: #e7e5e4;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .result-title a:hover {
+        color: #d6d3d1;
+    }
+
+    .result-excerpt {
+        margin: 0 0 0.5rem 0;
+        color: #a8a29e;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+
+    .result-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        background-color: #57534e;
+        color: #d6d3d1;
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .no-results,
+    .search-error {
+        padding: 1rem;
+        text-align: center;
+        color: #a8a29e;
+        font-size: 0.875rem;
+    }
+
+    .search-error p {
+        margin: 0;
+    }
+</style>
