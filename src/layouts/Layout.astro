@@ -1,0 +1,21 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro Basics</title>
+    </head>
+    <body class="bg-stone-900">
+        <main class="max-w-3xl mx-auto px-12 py-36 min-h-screen">
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>
