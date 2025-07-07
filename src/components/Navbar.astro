@@ -1,5 +1,5 @@
 ---
-import Search from "./Search.astro";
+import { CommandSearch } from "./CommandSearch";
 ---
 
 <nav
@@ -47,9 +47,14 @@ import Search from "./Search.astro";
 
             <!-- Search and Mobile Menu -->
             <div class="flex items-center space-x-4">
-                <!-- Search Component -->
+                <!-- Desktop Search Component -->
                 <div class="hidden md:block">
-                    <Search />
+                    <CommandSearch client:load />
+                </div>
+
+                <!-- Mobile Search Button -->
+                <div class="md:hidden">
+                    <CommandSearch client:load />
                 </div>
 
                 <!-- Mobile Menu Button -->

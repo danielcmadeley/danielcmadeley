@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import SearchComponent from "../components/Search.astro";
+import { CommandSearch } from "../components/CommandSearch";
 
 const query = Astro.url.searchParams.get("q") ?? "";
 ---
@@ -15,7 +15,7 @@ const query = Astro.url.searchParams.get("q") ?? "";
         </header>
 
         <div class="mb-8">
-            <SearchComponent />
+            <CommandSearch client:load />
         </div>
 
         <div class="prose prose-stone prose-invert max-w-none">
