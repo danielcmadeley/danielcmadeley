@@ -30,6 +30,7 @@ export function CommandSearch() {
   const [loading, setLoading] = React.useState(false);
   const [pagefind, setPagefind] = React.useState<any>(null);
   const [isMobile, setIsMobile] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   // Check if mobile on mount
   React.useEffect(() => {
@@ -143,18 +144,13 @@ export function CommandSearch() {
           return;
         }
 
-        const search = await pagefind.debouncedSearch(query, {}, 300);
-
-        // Handle null response from debouncedSearch
-        if (search === null) {
-          setLoading(false);
-          return;
-        }
+        // Use regular search with manual debouncing for better UI control
+        const search = await pagefind.search(query);
 
         const searchResults: SearchResult[] = [];
 
         if (search?.results && search.results.length > 0) {
-          for (const result of search.results) {
+          for (const result of search.results.slice(0, 8)) {
             try {
               const data = await result.data();
 
@@ -179,16 +175,17 @@ export function CommandSearch() {
         }
 
         setResults(searchResults);
+        setLoading(false);
       } catch (error) {
         console.error("Search error:", error);
         setResults([]);
-      } finally {
         setLoading(false);
       }
     };
 
-    // Call search function directly since pagefind.debouncedSearch handles debouncing
-    searchFn();
+    // Manual debouncing for better UI control
+    const timeoutId = setTimeout(searchFn, 300);
+    return () => clearTimeout(timeoutId);
   }, [query, pagefind]);
 
   const handleSelect = (url: string) => {
@@ -197,6 +194,16 @@ export function CommandSearch() {
     setQuery("");
     setResults([]);
   };
+
+  // Keep input focused when results update
+  React.useEffect(() => {
+    if (open && inputRef.current) {
+      const timeoutId = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [open, results]);
 
   const formatDate = (dateString: string) => {
     try {
@@ -239,14 +246,19 @@ export function CommandSearch() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0">
           <DialogTitle className="sr-only">Search</DialogTitle>
-          <Command className="rounded-lg border-0 shadow-lg">
+          <Command
+            className="rounded-lg border-0 shadow-lg"
+            shouldFilter={false}
+          >
             <div className="flex items-center border-b border-stone-700 px-3">
               <Search className="mr-2 h-4 w-4 shrink-0 text-stone-400" />
               <CommandInput
+                ref={inputRef}
                 placeholder="Search blog posts..."
                 value={query}
                 onValueChange={setQuery}
                 className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-stone-400 disabled:cursor-not-allowed disabled:opacity-50 border-0 focus:ring-0"
+                autoFocus
               />
             </div>
             <CommandList className="max-h-[400px] sm:max-h-[500px] overflow-y-auto">
@@ -269,9 +281,10 @@ export function CommandSearch() {
 
               {!loading && results.length > 0 && (
                 <CommandGroup heading="Blog Posts">
-                  {results.map((result) => (
+                  {results.map((result, index) => (
                     <CommandItem
                       key={result.id}
+                      value={result.title}
                       onSelect={() => handleSelect(result.url)}
                       className="flex flex-col items-start gap-2 p-3 sm:p-4 cursor-pointer"
                     >
