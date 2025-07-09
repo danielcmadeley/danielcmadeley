@@ -2,6 +2,22 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
+
+export interface Props {
+    title?: string;
+    description?: string;
+    author?: string;
+    keywords?: string;
+    image?: string;
+}
+
+const {
+    title = "Daniel C Madeley",
+    description = "Full-stack developer and designer creating digital experiences at the intersection of technology and creativity.",
+    author = "Daniel Madeley",
+    keywords = "Daniel Madeley, web developer, designer, full-stack developer, React, Vue, Angular, TypeScript",
+    image = "https://danielcmadeley.vercel.app/favicon.svg",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -12,7 +28,44 @@ import Navbar from "../components/Navbar.astro";
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
 
-        <title>Daniel C Madeley</title>
+        <!-- SEO Meta Tags -->
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="author" content={author} />
+        <meta name="keywords" content={keywords} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={image} />
+
+        <!-- RSS Feed -->
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Daniel Madeley Blog"
+            href="/rss.xml"
+        />
+
+        <!-- JSON Feed -->
+        <link
+            rel="alternate"
+            type="application/json"
+            title="Daniel Madeley Blog"
+            href="/feed.json"
+        />
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href={Astro.url} />
     </head>
     <body class="bg-stone-900 text-stone-200 font-sans">
         <Navbar />

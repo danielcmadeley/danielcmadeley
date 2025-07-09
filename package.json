@@ -11,11 +11,14 @@
     "dev": "npm-run-all -s build:pagefind copy:pagefind:dev dev:astro",
     "dev:build": "npm-run-all -s build dev",
     "preview": "bunx astro preview",
-    "astro": "bunx astro"
+    "astro": "bunx astro",
+    "validate:feeds": "bun run scripts/validate-feeds.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.8",

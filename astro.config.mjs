@@ -9,9 +9,11 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import remarkMath from "remark-math";
 import rehypeMathJax from "rehype-mathjax";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://danielcmadeley.vercel.app",
   build: {
     format: "directory",
   },
@@ -32,6 +34,12 @@ export default defineConfig({
     mdx({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeMathJax],
+    }),
+    sitemap({
+      changefreq: "weekly",
+      priority: 0.7,
+      lastmod: new Date(),
+      customPages: ["https://danielcmadeley.vercel.app/rss.xml"],
     }),
   ],
 });

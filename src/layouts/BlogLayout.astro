@@ -10,7 +10,13 @@ const {
 } = Astro.props.frontmatter || Astro.props;
 ---
 
-<Layout title={title}>
+<Layout
+    title={title}
+    description={description}
+    author={author}
+    keywords={tags.join(", ")}
+    image="https://danielcmadeley.vercel.app/favicon.svg"
+>
     <div data-pagefind-body>
         <nav class="mb-8">
             <a
@@ -100,6 +106,38 @@ const {
         </div>
     </div>
 </Layout>
+
+<script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description: description,
+        author: {
+            "@type": "Person",
+            name: author,
+        },
+        datePublished: pubDate,
+        dateModified: pubDate,
+        image: "https://danielcmadeley.vercel.app/favicon.svg",
+        url: `https://danielcmadeley.vercel.app${Astro.url.pathname}`,
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://danielcmadeley.vercel.app${Astro.url.pathname}`,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Daniel Madeley",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://danielcmadeley.vercel.app/favicon.svg",
+            },
+        },
+        keywords: tags.join(", "),
+        articleSection: "Technology",
+    })}
+/>
 
 <style>
     /* Global spacing for all direct children */

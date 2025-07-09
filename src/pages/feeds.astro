@@ -1,0 +1,415 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Get all blog posts to extract unique tags/categories
+const posts = await getCollection("blog");
+
+// Get all unique tags/categories for RSS feeds
+const allTags = new Set<string>();
+posts.forEach((post) => {
+    const tags = post.data.tags || [];
+    tags.forEach((tag: string) => allTags.add(tag));
+});
+
+const sortedTags: string[] = Array.from(allTags).sort();
+
+// Create slug conversion function
+const createSlug = (tag: string): string => {
+    return tag
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+};
+
+// Get post counts per category
+const categoryStats: Record<string, number> = {};
+sortedTags.forEach((tag: string) => {
+    const tagPosts = posts.filter((post: any) => {
+        const tags = post.data.tags || [];
+        return tags.includes(tag);
+    });
+    categoryStats[tag] = tagPosts.length;
+});
+
+const totalPosts = posts.length;
+const lastUpdated =
+    posts.length > 0
+        ? posts.sort(
+              (a, b) =>
+                  new Date(b.data.pubDate).getTime() -
+                  new Date(a.data.pubDate).getTime(),
+          )[0].data.pubDate
+        : new Date();
+---
+
+<Layout
+    title="RSS Feeds - Daniel Madeley"
+    description="Subscribe to Daniel Madeley's RSS feeds. Get updates on web development, design systems, engineering, and more."
+    keywords="RSS, feeds, subscribe, blog, web development, design, engineering"
+>
+    <div class="max-w-4xl mx-auto">
+        <nav class="mb-8">
+            <a
+                href="/"
+                class="inline-flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors"
+            >
+                <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Home
+            </a>
+        </nav>
+
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+                <svg
+                    class="w-8 h-8 text-orange-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M3.429 2.857c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V2.857zM3.429 6.286c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V6.286zM3.429 9.714c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V9.714zM7.143 2.857c0-.158.127-.286.286-.286h.857c.158 0 .285.128.285.286v.857c0 .158-.127.286-.285.286h-.857c-.159 0-.286-.128-.286-.286V2.857zM7.143 6.286c0-.158.127-.286.286-.286h.857c.158 0 .285.128.285.286v.857c0 .158-.127.286-.285.286h-.857c-.159 0-.286-.128-.286-.286V6.286z"
+                    ></path>
+                </svg>
+                <h1 class="text-4xl font-bold text-stone-100">RSS Feeds</h1>
+            </div>
+            <p class="text-xl text-stone-400">
+                Subscribe to my blog and stay updated with the latest posts on
+                web development, design, and engineering.
+            </p>
+        </header>
+
+        <!-- What is RSS -->
+        <section
+            class="mb-12 p-6 bg-stone-800 rounded-lg border border-stone-700"
+        >
+            <h2 class="text-2xl font-bold text-stone-100 mb-4">
+                📖 What is RSS?
+            </h2>
+            <p class="text-stone-300 mb-4">
+                RSS (Really Simple Syndication) is a web feed format that allows
+                you to stay up-to-date with websites you care about. Instead of
+                manually visiting each site, you can use an RSS reader to
+                automatically check for new content.
+            </p>
+            <p class="text-stone-300 mb-4">Popular RSS readers include:</p>
+            <ul class="list-disc list-inside text-stone-300 space-y-1">
+                <li>
+                    <a
+                        href="https://feedly.com"
+                        class="text-stone-100 hover:text-stone-300 underline"
+                        target="_blank"
+                        rel="noopener noreferrer">Feedly</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://www.inoreader.com"
+                        class="text-stone-100 hover:text-stone-300 underline"
+                        target="_blank"
+                        rel="noopener noreferrer">Inoreader</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://newsblur.com"
+                        class="text-stone-100 hover:text-stone-300 underline"
+                        target="_blank"
+                        rel="noopener noreferrer">NewsBlur</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://reeder.app"
+                        class="text-stone-100 hover:text-stone-300 underline"
+                        target="_blank"
+                        rel="noopener noreferrer">Reeder</a
+                    > (iOS/macOS)
+                </li>
+            </ul>
+        </section>
+
+        <!-- Main RSS Feed -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-stone-100 mb-6">🌟 Main Feed</h2>
+            <div class="p-6 bg-stone-800 rounded-lg border border-stone-700">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-stone-100 mb-2">
+                            All Posts
+                        </h3>
+                        <p class="text-stone-400 mb-2">
+                            Complete feed with all blog posts from every
+                            category
+                        </p>
+                        <div
+                            class="flex items-center gap-4 text-sm text-stone-500"
+                        >
+                            <span>📊 {totalPosts} posts</span>
+                            <span
+                                >📅 Last updated: {
+                                    new Date(lastUpdated).toLocaleDateString()
+                                }</span
+                            >
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <a
+                            href="/rss.xml"
+                            class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="w-4 h-4"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                            >
+                                <path
+                                    d="M3.429 2.857c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V2.857z"
+                                ></path>
+                            </svg>
+                            RSS
+                        </a>
+                        <a
+                            href="/feed.json"
+                            class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                ></path>
+                            </svg>
+                            JSON
+                        </a>
+                        <button
+                            class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-4 py-2 rounded-lg transition-colors"
+                            onclick="copyToClipboard('/rss.xml')"
+                        >
+                            <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                ></path>
+                            </svg>
+                            Copy RSS
+                        </button>
+                        <button
+                            class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-4 py-2 rounded-lg transition-colors"
+                            onclick="copyToClipboard('/feed.json')"
+                        >
+                            <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                ></path>
+                            </svg>
+                            Copy JSON
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-stone-500 font-mono"
+                >
+                    <div class="bg-stone-900 p-2 rounded">
+                        RSS: {Astro.site}rss.xml
+                    </div>
+                    <div class="bg-stone-900 p-2 rounded">
+                        JSON: {Astro.site}feed.json
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category-specific Feeds -->
+        {
+            sortedTags.length > 0 && (
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-stone-100 mb-6">
+                        🏷️ Category Feeds
+                    </h2>
+                    <div class="grid gap-4">
+                        {sortedTags.map((tag: string) => {
+                            const categorySlug = createSlug(tag);
+                            const postCount = categoryStats[tag];
+
+                            return (
+                                <div class="p-4 bg-stone-800 rounded-lg border border-stone-700">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-stone-100 mb-1">
+                                                {tag}
+                                            </h3>
+                                            <p class="text-stone-400 text-sm mb-2">
+                                                Posts specifically about{" "}
+                                                {tag.toLowerCase()}
+                                            </p>
+                                            <div class="flex items-center gap-4 text-sm text-stone-500">
+                                                <span>
+                                                    📊 {postCount} posts
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <a
+                                                href={`/rss/${categorySlug}.xml`}
+                                                class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-3 py-1 rounded transition-colors text-sm"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <svg
+                                                    class="w-3 h-3"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M3.429 2.857c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V2.857z" />
+                                                </svg>
+                                                Subscribe
+                                            </a>
+                                            <button
+                                                class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-3 py-1 rounded transition-colors text-sm"
+                                                onclick={`copyToClipboard('/rss/${categorySlug}.xml')`}
+                                            >
+                                                <svg
+                                                    class="w-3 h-3"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                    />
+                                                </svg>
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+            )
+        }
+
+        <!-- How to Subscribe -->
+        <section
+            class="mb-12 p-6 bg-stone-800 rounded-lg border border-stone-700"
+        >
+            <h2 class="text-2xl font-bold text-stone-100 mb-4">
+                🔧 How to Subscribe
+            </h2>
+            <div class="space-y-4 text-stone-300">
+                <div>
+                    <h3 class="font-semibold text-stone-100 mb-2">
+                        Method 1: RSS Reader
+                    </h3>
+                    <p class="mb-2">
+                        Copy any RSS feed URL above and paste it into your RSS
+                        reader application.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-stone-100 mb-2">
+                        Method 2: Browser
+                    </h3>
+                    <p class="mb-2">
+                        Most modern browsers can auto-detect RSS feeds. Look for
+                        the RSS icon in your address bar when visiting this
+                        site.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-stone-100 mb-2">
+                        Method 3: Direct Link
+                    </h3>
+                    <p class="mb-2">
+                        Click any "Subscribe" button above to view the feed
+                        directly in your browser.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Links -->
+        <section class="border-t border-stone-800 pt-8">
+            <div class="flex items-center justify-center gap-6 text-stone-400">
+                <a href="/blog" class="hover:text-stone-100 transition-colors">
+                    📚 All Posts
+                </a>
+                <a
+                    href="/sitemap-index.xml"
+                    class="hover:text-stone-100 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🗺️ Sitemap
+                </a>
+                <a href="/" class="hover:text-stone-100 transition-colors">
+                    🏠 Home
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function copyToClipboard(path: string) {
+        const fullUrl = window.location.origin + path;
+        navigator.clipboard
+            .writeText(fullUrl)
+            .then(() => {
+                // Show a temporary notification
+                const notification = document.createElement("div");
+                notification.textContent = "RSS feed URL copied to clipboard!";
+                notification.className =
+                    "fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50";
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            })
+            .catch((err) => {
+                console.error("Failed to copy: ", err);
+            });
+    }
+</script>
