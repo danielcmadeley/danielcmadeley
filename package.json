@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "build:astro": "bunx astro build",
-    "build:pagefind": "bunx pagefind",
+    "build:pagefind": "echo 'Starting pagefind indexing...' && bunx --version && bunx pagefind --version && bunx pagefind --verbose && echo 'Pagefind indexing completed!'",
     "build": "npm-run-all -s build:astro build:pagefind",
     "copy:pagefind:dev": "bunx shx cp -r dist/pagefind public/",
     "dev:astro": "bunx astro dev",
