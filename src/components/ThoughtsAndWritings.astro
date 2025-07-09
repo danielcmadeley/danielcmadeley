@@ -1,0 +1,59 @@
+---
+import BlogPostCard from "./BlogPostCard.astro";
+import { processAstroBlogPost, getRecentPosts } from "../lib/blog-utils";
+
+// Get recent blog posts
+const allPosts = await Astro.glob("../pages/blog/*.md");
+
+// Transform and sort posts
+const blogPosts = allPosts.map(processAstroBlogPost);
+const recentPosts = getRecentPosts(blogPosts, 3);
+---
+
+<section class="py-16 bg-stone-900/50">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-stone-100 mb-4">
+                Thoughts & Writings
+            </h2>
+            <p class="text-lg text-stone-400 max-w-2xl mx-auto">
+                Exploring the intersection of design, development, and digital
+                innovation through articles and insights.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {
+                recentPosts.map((post) => (
+                    <BlogPostCard
+                        post={post}
+                        variant="compact"
+                        showAuthor={false}
+                        maxTags={3}
+                    />
+                ))
+            }
+        </div>
+
+        <div class="text-center">
+            <a
+                href="/blog"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-600 text-stone-100 rounded-lg transition-colors font-medium"
+            >
+                View all articles
+                <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>

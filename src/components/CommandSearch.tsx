@@ -228,15 +228,9 @@ export function CommandSearch() {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 px-3 py-2 text-sm bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded-md transition-colors w-full max-w-sm md:max-w-md"
+        className="inline-flex items-center gap-2 px-3 py-2 text-sm transition-colors w-full max-w-sm"
       >
         <Search className="w-4 h-4 text-stone-400" />
-        <span className="text-stone-400 flex-1 text-left hidden sm:inline">
-          Search posts...
-        </span>
-        <span className="text-stone-400 flex-1 text-left sm:hidden">
-          Search...
-        </span>
         <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
           <span className="text-xs">⌘</span>K
         </kbd>

@@ -15,7 +15,9 @@ import Navbar from "../components/Navbar.astro";
     </head>
     <body class="bg-stone-900 text-stone-200 font-sans">
         <Navbar />
-        <main class="max-w-3xl mx-auto px-12 py-36 min-h-screen mt-20">
+        <main
+            class="max-w-3xl mx-auto px-12 py-36 min-h-screen mt-20 flex flex-col gap-8"
+        >
             <slot />
         </main>
         <Footer />
