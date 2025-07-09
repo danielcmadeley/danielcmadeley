@@ -29,23 +29,27 @@ This relationship is linear and assumes that the material behaves elastically an
 
 Consider a simple spring element with stiffness $k$ connecting two nodes. The element stiffness matrix is:
 
-$$\mathbf{k}^{(e)} = k \begin{bmatrix}
-1 & -1 \\\\
--1 & 1
-\end{bmatrix}$$
+$$
+\mathbf{k}^{(e)} = k \begin{pmatrix} 
+1 & -1 \\
+-1 & 1 
+\end{pmatrix}
+$$
 
 The force-displacement relationship for this element is:
 
-$$\begin{bmatrix}
-F_1 \\\\
-F_2
-\end{bmatrix} = k \begin{bmatrix}
-1 & -1 \\\\
--1 & 1
-\end{bmatrix} \begin{bmatrix}
-u_1 \\\\
-u_2
-\end{bmatrix}$$
+$$
+\begin{pmatrix} 
+F_1 \\
+F_2 
+\end{pmatrix} = k \begin{pmatrix} 
+1 & -1 \\
+-1 & 1 
+\end{pmatrix} \begin{pmatrix} 
+u_1 \\
+u_2 
+\end{pmatrix}
+$$
 
 ### For a Truss Element
 
@@ -55,12 +59,14 @@ $$k = \frac{EA}{L}$$
 
 The element stiffness matrix in global coordinates becomes:
 
-$$\mathbf{k}^{(e)} = \frac{EA}{L} \begin{bmatrix}
-c^2 & cs & -c^2 & -cs \\\\
-cs & s^2 & -cs & -s^2 \\\\
--c^2 & -cs & c^2 & cs \\\\
--cs & -s^2 & cs & s^2
-\end{bmatrix}$$
+$$
+\mathbf{k}^{(e)} = \frac{EA}{L} \begin{pmatrix} 
+c^2 & cs & -c^2 & -cs \\
+cs & s^2 & -cs & -s^2 \\
+-c^2 & -cs & c^2 & cs \\
+-cs & -s^2 & cs & s^2 
+\end{pmatrix}
+$$
 
 Where $c = \cos\theta$ and $s = \sin\theta$, with $\theta$ being the angle of the element with respect to the global x-axis.
 
@@ -68,26 +74,30 @@ Where $c = \cos\theta$ and $s = \sin\theta$, with $\theta$ being the angle of th
 
 For a beam element with bending stiffness $EI$ and length $L$, the stiffness matrix is more complex due to the coupling between forces and moments:
 
-$$\mathbf{k}^{(e)} = \frac{EI}{L^3} \begin{bmatrix}
-12 & 6L & -12 & 6L \\\\
-6L & 4L^2 & -6L & 2L^2 \\\\
--12 & -6L & 12 & -6L \\\\
-6L & 2L^2 & -6L & 4L^2
-\end{bmatrix}$$
+$$
+\mathbf{k}^{(e)} = \frac{EI}{L^3} \begin{pmatrix} 
+12 & 6L & -12 & 6L \\
+6L & 4L^2 & -6L & 2L^2 \\
+-12 & -6L & 12 & -6L \\
+6L & 2L^2 & -6L & 4L^2 
+\end{pmatrix}
+$$
 
 This matrix relates the nodal forces and moments to the nodal displacements and rotations:
 
-$$\begin{bmatrix}
-V_1 \\\\
-M_1 \\\\
-V_2 \\\\
-M_2
-\end{bmatrix} = \mathbf{k}^{(e)} \begin{bmatrix}
-w_1 \\\\
-\theta_1 \\\\
-w_2 \\\\
-\theta_2
-\end{bmatrix}$$
+$$
+\begin{pmatrix} 
+V_1 \\
+M_1 \\
+V_2 \\
+M_2 
+\end{pmatrix} = \mathbf{k}^{(e)} \begin{pmatrix} 
+w_1 \\
+\theta_1 \\
+w_2 \\
+\theta_2 
+\end{pmatrix}
+$$
 
 Where:
 - $V_i$ are the shear forces
@@ -177,11 +187,13 @@ $$k = \frac{EA}{L} = \frac{200 \times 10^9 \times 500 \times 10^{-6}}{1.0} = 100
 
 For a horizontal truss, the assembled global stiffness matrix becomes:
 
-$$\mathbf{K} = 100 \times 10^6 \begin{bmatrix}
-1 & -1 & 0 \\\\
--1 & 2 & -1 \\\\
-0 & -1 & 1
-\end{bmatrix}$$
+$$
+\mathbf{K} = 100 \times 10^6 \begin{pmatrix} 
+1 & -1 & 0 \\
+-1 & 2 & -1 \\
+0 & -1 & 1 
+\end{pmatrix}
+$$
 
 ## Computational Considerations
 

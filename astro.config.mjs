@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
 import mdx from "@astrojs/mdx";
+import remarkMath from "remark-math";
+import rehypeMathJax from "rehype-mathjax";
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,5 +23,15 @@ export default defineConfig({
       },
     },
   },
-  integrations: [react(), mdx()],
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathJax],
+  },
+  integrations: [
+    react(),
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeMathJax],
+    }),
+  ],
 });
