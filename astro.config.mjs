@@ -11,12 +11,17 @@ import remarkMath from "remark-math";
 import rehypeMathJax from "rehype-mathjax";
 import sitemap from "@astrojs/sitemap";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://danielcmadeley.vercel.app",
+  output: "static",
+
   build: {
     format: "directory",
   },
+
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -25,10 +30,12 @@ export default defineConfig({
       },
     },
   },
+
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeMathJax],
   },
+
   integrations: [
     react(),
     mdx({
@@ -42,4 +49,6 @@ export default defineConfig({
       customPages: ["https://danielcmadeley.vercel.app/rss.xml"],
     }),
   ],
+
+  adapter: vercel(),
 });

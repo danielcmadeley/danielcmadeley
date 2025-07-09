@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.11.0"><!-- SEO Meta Tags --><title>JavaScript Frameworks in 2024: The Complete Developer&#39;s Guide</title><meta name="description" content="An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives."><meta name="author" content="Daniel Madeley"><meta name="keywords" content="javascript, frameworks, react, vue, angular, svelte"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://danielcmadeley.vercel.app/blog/javascript-frameworks-2024/"><meta property="og:title" content="JavaScript Frameworks in 2024: The Complete Developer's Guide"><meta property="og:description" content="An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives."><meta property="og:image" content="https://danielcmadeley.vercel.app/favicon.svg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://danielcmadeley.vercel.app/blog/javascript-frameworks-2024/"><meta property="twitter:title" content="JavaScript Frameworks in 2024: The Complete Developer's Guide"><meta property="twitter:description" content="An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives."><meta property="twitter:image" content="https://danielcmadeley.vercel.app/favicon.svg"><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="Daniel Madeley Blog" href="/rss.xml"><!-- JSON Feed --><link rel="alternate" type="application/json" title="Daniel Madeley Blog" href="/feed.json"><!-- Canonical URL --><link rel="canonical" href="https://danielcmadeley.vercel.app/blog/javascript-frameworks-2024/"><link rel="stylesheet" href="/_astro/_slug_.U5fnzCJz.css">
+<link rel="stylesheet" href="/_astro/_slug_.CrFdWcBn.css"></head> <body class="bg-stone-900 text-stone-200 font-sans"> <nav class="fixed top-0 left-0 right-0 z-50 bg-stone-900/80 backdrop-blur-md border-b border-stone-800"> <div class="max-w-6xl mx-auto px-6 py-4"> <div class="flex items-center justify-end"> <!-- Search and Mobile Menu --> <div class="flex items-center space-x-4"> <!-- Single Search Component for all screen sizes --> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="1nUoVw" prefix="r1" component-url="/_astro/CommandSearch.CqekJDIc.js" component-export="CommandSearch" renderer-url="/_astro/client.BM_AnAy9.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;CommandSearch&quot;,&quot;value&quot;:true}" await-children><button class="inline-flex items-center gap-2 px-3 py-2 text-sm transition-colors w-full max-w-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search w-4 h-4 text-stone-400" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><kbd class="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400"><span class="text-sm">⌘</span>K</kbd></button><!--astro:end--></astro-island> </div> </div> </div> </nav> <script type="module">const e=document.getElementById("mobile-menu-button"),t=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{t?.classList.toggle("hidden")});</script> <main class="max-w-3xl mx-auto px-12 py-36 min-h-screen mt-20 flex flex-col gap-8">  <div data-pagefind-body data-astro-cid-4dqtj3le> <nav class="mb-8" data-astro-cid-4dqtj3le> <a href="/blog" class="inline-flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors" data-astro-cid-4dqtj3le> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-4dqtj3le> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" data-astro-cid-4dqtj3le></path> </svg>
+Thoughts & Writings
+</a> </nav> <div class="max-w-4xl mx-auto" data-astro-cid-4dqtj3le> <header class="mb-12" data-astro-cid-4dqtj3le> <h1 class="text-4xl font-bold text-stone-100 mb-4" data-pagefind-meta="title" data-astro-cid-4dqtj3le> JavaScript Frameworks in 2024: The Complete Developer&#39;s Guide </h1> <p class="text-xl text-stone-400 mb-6" data-pagefind-meta="description" data-astro-cid-4dqtj3le> An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives. </p> <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500" data-astro-cid-4dqtj3le> <time datetime="Sat Jan 20 2024 00:00:00 GMT+0000 (Coordinated Universal Time)" data-pagefind-meta="date" data-astro-cid-4dqtj3le> January 20, 2024 </time> <span data-pagefind-meta="author" data-astro-cid-4dqtj3le>By Daniel Madeley</span>  <div class="hidden" data-pagefind-meta="tags" data-astro-cid-4dqtj3le> javascript, frameworks, react, vue, angular, svelte </div> <div class="flex gap-2" data-astro-cid-4dqtj3le> <span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> javascript </span><span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> frameworks </span><span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> react </span><span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> vue </span><span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> angular </span><span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs" data-pagefind-filter="tag" data-astro-cid-4dqtj3le> svelte </span> </div>  </div> </header> <article class="space-y-8" data-astro-cid-4dqtj3le>  <h1 id="javascript-frameworks-in-2024-the-complete-developers-guide">JavaScript Frameworks in 2024: The Complete Developer’s Guide</h1>
+<p>The JavaScript ecosystem continues to evolve at breakneck speed, with new frameworks emerging and existing ones adding powerful features. As we navigate through 2024, it’s crucial to understand the current landscape and make informed decisions about which tools to use for your next project.</p>
+<h2 id="the-current-state-of-javascript-frameworks">The Current State of JavaScript Frameworks</h2>
+<p>JavaScript frameworks have matured significantly over the past few years. The focus has shifted from just building reactive user interfaces to creating comprehensive solutions that handle performance, developer experience, and scalability.</p>
+<h3 id="market-leaders">Market Leaders</h3>
+<p>The “Big Three” continue to dominate the enterprise landscape:</p>
+<ol>
+<li><strong>React</strong> - Still the most popular choice</li>
+<li><strong>Vue</strong> - Growing steadily with excellent developer experience</li>
+<li><strong>Angular</strong> - Strong in enterprise environments</li>
+</ol>
+<h3 id="emerging-contenders">Emerging Contenders</h3>
+<p>Several frameworks are gaining significant traction:</p>
+<ul>
+<li><strong>Svelte/SvelteKit</strong> - Compile-time optimization</li>
+<li><strong>Solid.js</strong> - Fine-grained reactivity</li>
+<li><strong>Qwik</strong> - Resumable applications</li>
+<li><strong>Astro</strong> - Content-focused with island architecture</li>
+</ul>
+<h2 id="react-the-ecosystem-giant">React: The Ecosystem Giant</h2>
+<p>React remains the most widely adopted framework, and for good reason. Its ecosystem is unmatched, with solutions for every possible use case.</p>
+<h3 id="key-features-in-2024">Key Features in 2024</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// Server Components (React 18+)</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> UserProfile</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">userId</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetchUser</span><span style="color:#E1E4E8">(userId);</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;{user.name}&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#79B8FF">UserPosts</span><span style="color:#B392F0"> userId</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{userId} /&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Concurrent Features</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">query</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setQuery</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;&#39;</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> deferredQuery</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> useDeferredValue</span><span style="color:#E1E4E8">(query);</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#85E89D">input</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">        value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{query} </span></span>
+<span class="line"><span style="color:#B392F0">        onChange</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{(</span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#B392F0"> setQuery</span><span style="color:#E1E4E8">(e.target.value)} </span></span>
+<span class="line"><span style="color:#E1E4E8">      /&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#79B8FF">Suspense</span><span style="color:#B392F0"> fallback</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{&lt;</span><span style="color:#79B8FF">Loading</span><span style="color:#E1E4E8"> /&gt;}&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">        &lt;</span><span style="color:#79B8FF">SearchResults</span><span style="color:#B392F0"> query</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{deferredQuery} /&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;/</span><span style="color:#79B8FF">Suspense</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="pros-and-cons">Pros and Cons</h3>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Massive ecosystem and community</li>
+<li>Excellent tooling and developer experience</li>
+<li>Server Components for better performance</li>
+<li>Strong corporate backing from Meta</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Steep learning curve for beginners</li>
+<li>Rapid changes can lead to technical debt</li>
+<li>Bundle size can be large</li>
+</ul>
+<h2 id="vue-the-progressive-framework">Vue: The Progressive Framework</h2>
+<p>Vue continues to strike an excellent balance between simplicity and power. Vue 3 with the Composition API has made it even more compelling.</p>
+<h3 id="vue-3-composition-api">Vue 3 Composition API</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// Vue 3 Composition API</span></span>
+<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> setup</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">import { ref, computed, watch } from &#39;vue&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">const count = ref(0)</span></span>
+<span class="line"><span style="color:#E1E4E8">const doubleCount = computed(() =&gt; count.value * 2)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">watch(count, (newCount) =&gt; {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Count changed to ${</span><span style="color:#E1E4E8">newCount</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">function increment() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  count.value</span><span style="color:#F97583">++</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">template</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;Count: {{ count }}&lt;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;Double: {{ doubleCount }}&lt;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">button</span><span style="color:#FDAEB7;font-style:italic"> @click=&quot;increment&quot;&gt;Increment&lt;/button&gt;</span></span>
+<span class="line"><span style="color:#FDAEB7;font-style:italic">  &lt;/div&gt;</span></span>
+<span class="line"><span style="color:#FDAEB7;font-style:italic">&lt;/template&gt;</span></span></code></pre>
+<h3 id="pros-and-cons-1">Pros and Cons</h3>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Gentle learning curve</li>
+<li>Excellent documentation</li>
+<li>Great tooling (Vite, Vue DevTools)</li>
+<li>TypeScript support</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Smaller ecosystem compared to React</li>
+<li>Less adoption in large enterprises</li>
+<li>Two-way data binding can be confusing</li>
+</ul>
+<h2 id="angular-the-enterprise-champion">Angular: The Enterprise Champion</h2>
+<p>Angular has evolved into a mature, opinionated framework that excels in large-scale applications.</p>
+<h3 id="modern-angular-features">Modern Angular Features</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Standalone Components (Angular 14+)</span></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  selector: </span><span style="color:#9ECBFF">&#39;app-user-card&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  standalone: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  imports: [CommonModule, MatCardModule],</span></span>
+<span class="line"><span style="color:#E1E4E8">  template: </span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    &lt;mat-card&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">      &lt;mat-card-header&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">        &lt;mat-card-title&gt;{{ user.name }}&lt;/mat-card-title&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">      &lt;/mat-card-header&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">      &lt;mat-card-content&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">        &lt;p&gt;{{ user.email }}&lt;/p&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">      &lt;/mat-card-content&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">    &lt;/mat-card&gt;</span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> UserCardComponent</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  @</span><span style="color:#B392F0">Input</span><span style="color:#E1E4E8">() </span><span style="color:#FFAB70">user</span><span style="color:#F97583">!:</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Signals (Angular 16+)</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> CounterComponent</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  count</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#FFAB70">  doubleCount</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=&gt;</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">count</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#B392F0">  increment</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.count.</span><span style="color:#B392F0">update</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">value</span><span style="color:#F97583"> =&gt;</span><span style="color:#E1E4E8"> value </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="pros-and-cons-2">Pros and Cons</h3>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Comprehensive framework with everything included</li>
+<li>Excellent TypeScript support</li>
+<li>Strong CLI and tooling</li>
+<li>Great for large teams and enterprise applications</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Steep learning curve</li>
+<li>Opinionated architecture</li>
+<li>Can be overkill for simple projects</li>
+</ul>
+<h2 id="svelte-the-compiled-future">Svelte: The Compiled Future</h2>
+<p>Svelte takes a different approach by compiling components to vanilla JavaScript, resulting in smaller bundles and better performance.</p>
+<h3 id="svelte-syntax">Svelte Syntax</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="svelte"><code><span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#E1E4E8"> { onMount } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;svelte&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> count </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#B392F0">  $</span><span style="color:#E1E4E8">: doubleCount </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> count </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#B392F0">  onMount</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> response</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;/api/users&#39;</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    users </span><span style="color:#F97583">=</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> increment</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">    count </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;Count: {count}&lt;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;Double: {doubleCount}&lt;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  &lt;</span><span style="color:#85E89D">button</span><span style="color:#F97583"> on</span><span style="color:#E1E4E8">:</span><span style="color:#B392F0">click</span><span style="color:#E1E4E8">={increment}&gt;Increment&lt;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#E1E4E8">  {#</span><span style="color:#F97583">each</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> user}</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">&quot;user-card&quot;</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#85E89D">h3</span><span style="color:#E1E4E8">&gt;{user.name}&lt;/</span><span style="color:#85E89D">h3</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      &lt;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;{user.email}&lt;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  {/</span><span style="color:#F97583">each</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&lt;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#B392F0">  .user-card</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    padding</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    border</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> #ccc</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    border-radius</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">4</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.5</span><span style="color:#F97583">rem</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">&lt;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">&gt;</span></span></code></pre>
+<h3 id="pros-and-cons-3">Pros and Cons</h3>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Excellent performance</li>
+<li>Small bundle sizes</li>
+<li>Great developer experience</li>
+<li>No virtual DOM overhead</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Smaller ecosystem</li>
+<li>Less mature tooling</li>
+<li>Fewer job opportunities</li>
+</ul>
+<h2 id="choosing-the-right-framework">Choosing the Right Framework</h2>
+<p>The choice depends on several factors:</p>
+<h3 id="project-requirements">Project Requirements</h3>
+<ul>
+<li><strong>Small to medium projects</strong>: Vue or Svelte</li>
+<li><strong>Large enterprise applications</strong>: Angular or React</li>
+<li><strong>Content-heavy sites</strong>: Astro or Next.js</li>
+<li><strong>Performance-critical apps</strong>: Svelte or Solid.js</li>
+</ul>
+<h3 id="team-considerations">Team Considerations</h3>
+<ul>
+<li><strong>Team experience</strong>: Choose what your team knows</li>
+<li><strong>Learning curve</strong>: Vue for beginners, React for flexibility</li>
+<li><strong>Long-term maintenance</strong>: Angular for structure, React for ecosystem</li>
+</ul>
+<h3 id="performance-needs">Performance Needs</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// Performance comparison (approximate)</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> frameworkPerformance</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;Vanilla JS&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;Svelte&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">95</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;Vue&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">90</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;React&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">85</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;Angular&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">80</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h2 id="the-rise-of-meta-frameworks">The Rise of Meta-Frameworks</h2>
+<p>Meta-frameworks have become essential for production applications:</p>
+<h3 id="react-ecosystem">React Ecosystem</h3>
+<ul>
+<li><strong>Next.js</strong>: Full-stack React framework</li>
+<li><strong>Remix</strong>: Web standards-focused framework</li>
+<li><strong>Gatsby</strong>: Static site generation</li>
+</ul>
+<h3 id="vue-ecosystem">Vue Ecosystem</h3>
+<ul>
+<li><strong>Nuxt</strong>: Universal Vue applications</li>
+<li><strong>VitePress</strong>: Vue-powered static site generator</li>
+</ul>
+<h3 id="multi-framework">Multi-Framework</h3>
+<ul>
+<li><strong>Astro</strong>: Bring your own framework</li>
+<li><strong>Vite</strong>: Build tool for modern web apps</li>
+</ul>
+<h2 id="looking-ahead-future-trends">Looking Ahead: Future Trends</h2>
+<h3 id="server-side-renaissance">Server-Side Renaissance</h3>
+<p>The pendulum is swinging back toward server-side rendering:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// Server Components pattern</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> ProductList</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> products</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> db.products.</span><span style="color:#B392F0">findMany</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      {products.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">product</span><span style="color:#F97583"> =&gt;</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">        &lt;</span><span style="color:#79B8FF">ProductCard</span><span style="color:#B392F0"> key</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{product.id} </span><span style="color:#B392F0">product</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{product} /&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">      ))}</span></span>
+<span class="line"><span style="color:#E1E4E8">    &lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="webassembly-integration">WebAssembly Integration</h3>
+<p>More frameworks are exploring WebAssembly for performance-critical operations:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// WASM integration example</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { processData } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;./processor.wasm&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> DataProcessor</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">data</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> processedData</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> processData</span><span style="color:#E1E4E8">(data);</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &lt;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;{processedData}&lt;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">&gt;;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="recommendations-for-2024">Recommendations for 2024</h2>
+<h3 id="for-new-projects">For New Projects</h3>
+<ol>
+<li><strong>Content sites</strong>: Astro or Next.js</li>
+<li><strong>Web applications</strong>: React or Vue</li>
+<li><strong>Enterprise apps</strong>: Angular or React</li>
+<li><strong>Performance-critical</strong>: Svelte or Solid.js</li>
+</ol>
+<h3 id="for-existing-projects">For Existing Projects</h3>
+<ul>
+<li><strong>Gradual migration</strong>: Consider micro-frontends</li>
+<li><strong>Performance optimization</strong>: Evaluate bundle size and runtime performance</li>
+<li><strong>Developer experience</strong>: Invest in better tooling and workflows</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The JavaScript framework landscape in 2024 is more diverse and mature than ever. While React continues to dominate, Vue offers an excellent balance of simplicity and power, Angular provides enterprise-grade solutions, and Svelte pushes the boundaries of performance.</p>
+<p>The key is to match the tool to your specific needs rather than following trends. Consider your team’s expertise, project requirements, and long-term maintenance when making your choice.</p>
+<p>Remember that the best framework is the one that helps you ship great products efficiently. Focus on solving real problems rather than chasing the latest trends, and you’ll make the right choice for your project.</p>  </article> </div> </div>  </main> <div class="w-full border-t border-stone-700"> <div class="max-w-3xl mx-auto px-12 py-2 flex justify-between items-center"> <p class="text-xs text-stone-500"> <a href="mailto:daniel@madeleydesignstudio.com" class="hover:text-stone-400 transition-colors">
+daniel@madeleydesignstudio.com
+</a> </p> <form id="newsletter-form" class="flex items-center gap-2"> <input id="email-input" type="email" placeholder="Enter your email" required class="px-3 py-1 text-xs bg-stone-800 border border-stone-600 rounded text-stone-200 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-500 focus:border-stone-500 transition-colors"> <button type="submit" id="subscribe-btn" class="px-3 py-1 text-xs bg-stone-700 hover:bg-stone-600 text-stone-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+Subscribe
+</button> </form> </div> <!-- Success/Error Messages --> <div id="subscription-message" class="hidden max-w-3xl mx-auto px-12 py-2"> <div id="message-content" class="text-xs text-center p-2 rounded"></div> </div> </div> <script type="module">document.addEventListener("DOMContentLoaded",function(){const d=document.getElementById("newsletter-form"),i=document.getElementById("email-input"),e=document.getElementById("subscribe-btn"),t=document.getElementById("subscription-message"),n=document.getElementById("message-content");d&&i&&e&&t&&n&&d.addEventListener("submit",async function(a){a.preventDefault();const s=i.value.trim();if(!s){r("Please enter your email address.","error");return}e.disabled=!0,e.textContent="Subscribing...";try{const o=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:s})}),c=await o.json();o.ok?(r(c.message,"success"),i.value=""):r(c.error||"Something went wrong. Please try again.","error")}catch(o){console.error("Subscription error:",o),r("Network error. Please try again.","error")}finally{e.disabled=!1,e.textContent="Subscribe"}});function r(a,s){n&&(n.textContent=a,n.className=`text-xs text-center p-2 rounded ${s==="success"?"bg-green-100 text-green-800 border border-green-200":"bg-red-100 text-red-800 border border-red-200"}`),t&&(t.classList.remove("hidden"),setTimeout(()=>{t.classList.add("hidden")},5e3))}});</script> </body></html> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript Frameworks in 2024: The Complete Developer's Guide","description":"An in-depth comparison of the most popular JavaScript frameworks and libraries in 2024, including React, Vue, Angular, and emerging alternatives.","author":{"@type":"Person","name":"Daniel Madeley"},"datePublished":"2024-01-20T00:00:00.000Z","dateModified":"2024-01-20T00:00:00.000Z","image":"https://danielcmadeley.vercel.app/favicon.svg","url":"https://danielcmadeley.vercel.app/blog/javascript-frameworks-2024/","mainEntityOfPage":{"@type":"WebPage","@id":"https://danielcmadeley.vercel.app/blog/javascript-frameworks-2024/"},"publisher":{"@type":"Organization","name":"Daniel Madeley","logo":{"@type":"ImageObject","url":"https://danielcmadeley.vercel.app/favicon.svg"}},"keywords":"javascript, frameworks, react, vue, angular, svelte","articleSection":"Technology"}</script> 
