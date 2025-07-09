@@ -232,7 +232,7 @@ export function CommandSearch() {
       >
         <Search className="w-4 h-4 text-stone-400" />
         <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
-          <span className="text-xs">⌘</span>K
+          <span className="text-sm">⌘</span>K
         </kbd>
       </button>
 
@@ -241,7 +241,7 @@ export function CommandSearch() {
         <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0">
           <DialogTitle className="sr-only">Search</DialogTitle>
           <Command
-            className="rounded-lg border-0 shadow-lg"
+            className="rounded-lg border-0 shadow-lg bg-stone-500"
             shouldFilter={false}
           >
             <div className="flex items-center border-b border-stone-700 px-3">

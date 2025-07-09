@@ -20,43 +20,21 @@ const {
     maxTags = 3,
 } = Astro.props;
 
-const cardClasses = {
-    default:
-        "group bg-stone-800/50 border border-stone-700 rounded-lg p-6 hover:border-stone-600 hover:bg-stone-800/70 transition-all duration-200",
-    compact:
-        "group bg-stone-800/50 border border-stone-700 rounded-lg p-4 hover:border-stone-600 hover:bg-stone-800/70 transition-all duration-200",
-    featured:
-        "group bg-gradient-to-br from-stone-800/50 to-stone-900/50 border border-stone-700 rounded-lg p-8 hover:border-stone-600 hover:from-stone-800/70 hover:to-stone-900/70 transition-all duration-200",
-};
-
-const titleClasses = {
-    default:
-        "text-2xl font-bold text-stone-100 mb-2 group-hover:text-white transition-colors",
-    compact:
-        "text-lg font-bold text-stone-100 mb-2 group-hover:text-white transition-colors line-clamp-2",
-    featured:
-        "text-3xl font-bold text-stone-100 mb-3 group-hover:text-white transition-colors",
-};
-
-const descriptionClasses = {
-    default: "text-stone-300 leading-relaxed",
-    compact: "text-stone-300 text-sm leading-relaxed line-clamp-3",
-    featured: "text-stone-300 text-lg leading-relaxed",
-};
+const postUrl = `/blog/${post.slug}`;
 ---
 
-<article class={cardClasses[variant]}>
-    <div class="flex flex-col gap-4">
+<article>
+    <div class="flex flex-col gap-4 border-y border-stone-800 py-4">
         <header>
-            <h3 class={titleClasses[variant]}>
+            <h3>
                 <a
-                    href={post.url}
+                    href={postUrl}
                     class="hover:text-stone-300 transition-colors"
                 >
                     {post.title}
                 </a>
             </h3>
-            <p class={descriptionClasses[variant]}>
+            <p>
                 {post.description}
             </p>
         </header>
@@ -145,7 +123,7 @@ const descriptionClasses = {
 
         <footer>
             <a
-                href={post.url}
+                href={postUrl}
                 class="inline-flex items-center gap-2 text-stone-100 hover:text-stone-300 transition-colors font-medium group-hover:gap-3"
             >
                 {

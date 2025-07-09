@@ -1,0 +1,155 @@
+---
+export interface Props {
+    title: string;
+    description: string;
+    pubDate: string;
+    author?: string;
+    tags?: string[];
+}
+
+const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = Astro.props;
+---
+
+<div class="space-y-12">
+    <!-- Blog Header -->
+    <header class="space-y-6">
+        <h1 class="text-4xl font-bold text-stone-100 leading-tight">
+            {title}
+        </h1>
+
+        {description && (
+            <p class="text-xl text-stone-400 leading-relaxed">
+                {description}
+            </p>
+        )}
+
+        <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500">
+            <time datetime={pubDate}>
+                {new Date(pubDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                })}
+            </time>
+
+            {author && <span>By {author}</span>}
+
+            {tags && tags.length > 0 && (
+                <div class="flex gap-2">
+                    {tags.map((tag: string) => (
+                        <span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs">
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            )}
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <article class="space-y-8">
+        <slot />
+    </article>
+</div>
+
+<!-- Tailwind Typography Classes for Blog Content -->
+<style>
+    /* Global spacing for all direct children */
+    article > * {
+        margin-bottom: 2rem;
+    }
+
+    /* Headings */
+    article h1 {
+        @apply text-3xl font-bold text-stone-100 mb-6 mt-12 leading-tight;
+    }
+
+    article h2 {
+        @apply text-2xl font-bold text-stone-100 mb-4 mt-10 leading-tight;
+    }
+
+    article h3 {
+        @apply text-xl font-semibold text-stone-200 mb-3 mt-8 leading-snug;
+    }
+
+    article h4 {
+        @apply text-lg font-semibold text-stone-200 mb-2 mt-6 leading-snug;
+    }
+
+    /* Paragraphs */
+    article p {
+        @apply text-stone-300 text-lg leading-relaxed mb-6;
+    }
+
+    /* Lists */
+    article ul,
+    article ol {
+        @apply text-stone-300 text-lg leading-relaxed mb-6 ml-6;
+    }
+
+    article li {
+        @apply mb-2;
+    }
+
+    article ul li {
+        @apply list-disc;
+    }
+
+    article ol li {
+        @apply list-decimal;
+    }
+
+    /* Links */
+    article a {
+        @apply text-stone-100 hover:text-stone-300 transition-colors underline;
+    }
+
+    /* Code blocks */
+    article pre {
+        @apply bg-stone-800 text-stone-200 p-6 rounded-lg overflow-x-auto my-8;
+    }
+
+    article code {
+        @apply bg-stone-800 text-stone-200 px-2 py-1 rounded text-sm;
+    }
+
+    /* Blockquotes */
+    article blockquote {
+        @apply border-l-4 border-stone-600 pl-6 italic text-stone-400 my-8;
+    }
+
+    /* Strong/Bold */
+    article strong {
+        @apply font-semibold text-stone-100;
+    }
+
+    /* Images */
+    article img {
+        @apply rounded-lg shadow-lg my-8;
+    }
+
+    /* Horizontal rules */
+    article hr {
+        @apply border-stone-700 my-8;
+    }
+
+    /* First element after headings */
+    article h1 + *,
+    article h2 + *,
+    article h3 + *,
+    article h4 + * {
+        margin-top: 1rem !important;
+    }
+
+    /* Better spacing for consecutive elements */
+    article p + p {
+        margin-top: 1.5rem;
+    }
+
+    article ul + p,
+    article ol + p,
+    article blockquote + p,
+    article pre + p {
+        margin-top: 2rem;
+    }
+</style>

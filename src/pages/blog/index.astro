@@ -1,18 +1,43 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import BlogPostCard from "../../components/BlogPostCard.astro";
-import { processAstroBlogPost, sortPostsByDate } from "../../lib/blog-utils";
+import {
+    processCollectionBlogPost,
+    sortPostsByDate,
+} from "../../lib/blog-utils";
+import { getCollection } from "astro:content";
 
-// Get all blog posts from the blog directory
-const allPosts = await Astro.glob("./*.md");
+// Get all blog posts from the collection
+const allPosts = await getCollection("blog");
 
 // Transform and sort posts
-const blogPosts = allPosts.map(processAstroBlogPost);
+const blogPosts = allPosts.map(processCollectionBlogPost);
 const sortedPosts = sortPostsByDate(blogPosts);
 ---
 
 <Layout title="Blog - Daniel Madeley">
     <div class="max-w-4xl mx-auto">
+        <nav class="mb-8">
+            <a
+                href="/"
+                class="inline-flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors"
+            >
+                <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Home
+            </a>
+        </nav>
+
         <header class="mb-12">
             <h1 class="text-4xl font-bold text-stone-100 mb-4">Blog</h1>
             <p class="text-xl text-stone-400">

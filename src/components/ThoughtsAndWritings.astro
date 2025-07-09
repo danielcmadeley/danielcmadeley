@@ -1,28 +1,29 @@
 ---
 import BlogPostCard from "./BlogPostCard.astro";
-import { processAstroBlogPost, getRecentPosts } from "../lib/blog-utils";
+import { processCollectionBlogPost, getRecentPosts } from "../lib/blog-utils";
+import { getCollection } from "astro:content";
 
 // Get recent blog posts
-const allPosts = await Astro.glob("../pages/blog/*.md");
+const allPosts = await getCollection("blog");
 
 // Transform and sort posts
-const blogPosts = allPosts.map(processAstroBlogPost);
+const blogPosts = allPosts.map(processCollectionBlogPost);
 const recentPosts = getRecentPosts(blogPosts, 3);
 ---
 
 <section class="py-16 bg-stone-900/50">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-stone-100 mb-4">
+    <div class="">
+        <div class="mb-12">
+            <h2 class="text-xl font-bold text-stone-100 mb-4">
                 Thoughts & Writings
             </h2>
-            <p class="text-lg text-stone-400 max-w-2xl mx-auto">
+            <p class="text-sm text-stone-400 max-w-2xl mx-auto">
                 Exploring the intersection of design, development, and digital
                 innovation through articles and insights.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div class="grid grid-cols-1 gap-8 mb-12">
             {
                 recentPosts.map((post) => (
                     <BlogPostCard
@@ -35,10 +36,10 @@ const recentPosts = getRecentPosts(blogPosts, 3);
             }
         </div>
 
-        <div class="text-center">
+        <div class="">
             <a
                 href="/blog"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-600 text-stone-100 rounded-lg transition-colors font-medium"
+                class="inline-flex items-center gap-2 py-3 text-stone-100 font-medium"
             >
                 View all articles
                 <svg
