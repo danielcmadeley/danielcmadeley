@@ -1,0 +1,16 @@
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
+  "installCommand": "bun install",
+  "framework": "astro",
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/blog/(.*)",
+      "destination": "/blog/$1/index.html"
+    }
+  ]
+}
