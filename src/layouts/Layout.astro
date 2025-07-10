@@ -16,7 +16,7 @@ const {
     description = "Full-stack developer and designer creating digital experiences at the intersection of technology and creativity.",
     author = "Daniel Madeley",
     keywords = "Daniel Madeley, web developer, designer, full-stack developer, React, Vue, Angular, TypeScript",
-    image = "https://danielcmadeley.vercel.app/favicon.svg",
+    image = "https://danielcmadeley.com/favicon.svg",
 } = Astro.props;
 ---
 
@@ -25,8 +25,29 @@ const {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
+
+        <!-- Favicon and Icons -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+
+        <!-- Apple Touch Icon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+
+        <!-- Web App Manifest -->
+        <link rel="manifest" href="/site.webmanifest?v=2" />
+
+        <!-- Additional Meta Tags for Better Mobile Experience -->
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Daniel C. Madeley" />
+
+        <!-- Microsoft Tiles -->
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
 
         <!-- SEO Meta Tags -->
         <title>{title}</title>

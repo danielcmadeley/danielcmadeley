@@ -15,7 +15,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://danielcmadeley.vercel.app",
+  site: "https://danielcmadeley.com",
   output: "static",
 
   build: {
@@ -46,7 +46,7 @@ export default defineConfig({
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
-      customPages: ["https://danielcmadeley.vercel.app/rss.xml"],
+      customPages: ["https://danielcmadeley.com/rss.xml"],
     }),
   ],
 

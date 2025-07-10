@@ -1,14 +1,14 @@
 # Robots.txt for Daniel Madeley's website
-# https://danielcmadeley.vercel.app
+# https://danielcmadeley.com
 
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://danielcmadeley.vercel.app/sitemap-index.xml
+Sitemap: https://danielcmadeley.com/sitemap-index.xml
 
 # RSS Feed
-# https://danielcmadeley.vercel.app/rss.xml
+# https://danielcmadeley.com/rss.xml
 
 # Disallow crawling of certain paths
 Disallow: /search
