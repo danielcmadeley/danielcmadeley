@@ -23,21 +23,75 @@ interface SearchResult {
   };
 }
 
+interface BlogPost {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+  date: string;
+}
+
 export function CommandSearch() {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<SearchResult[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [pagefind, setPagefind] = React.useState<any>(null);
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [randomPosts, setRandomPosts] = React.useState<BlogPost[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  // Check if mobile on mount
+  // Load random blog posts
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const loadRandomPosts = async () => {
+      try {
+        const posts: BlogPost[] = [
+          {
+            id: "1",
+            url: "/blog/javascript-frameworks-2025",
+            title: "JavaScript Frameworks in 2025: A Senior Engineer's Guide",
+            description:
+              "A comprehensive guide to the current state of JavaScript frameworks",
+            tags: ["javascript", "frameworks", "react"],
+            date: "2025-07-20",
+          },
+          {
+            id: "2",
+            url: "/blog/steel-beam-design-to-eurocode-3",
+            title: "How to Design a Steel Beam to Eurocode 3",
+            description: "Complete step-by-step guide for steel beam design",
+            tags: ["eurocode3", "steel-design", "engineering"],
+            date: "2025-07-20",
+          },
+          {
+            id: "3",
+            url: "/blog/stiffness-matrix-analysis",
+            title: "Understanding the Stiffness Matrix",
+            description:
+              "A foundation of structural analysis with mathematical formulations",
+            tags: ["structural-engineering", "mathematics"],
+            date: "2024-01-25",
+          },
+          {
+            id: "4",
+            url: "/blog/modern-web-development",
+            title: "Modern Web Development: Embracing the Future",
+            description:
+              "Exploring the latest trends and technologies in web development",
+            tags: ["web-development", "javascript"],
+            date: "2024-01-15",
+          },
+        ];
+
+        // Shuffle and take 3
+        const shuffled = posts.sort(() => 0.5 - Math.random());
+        setRandomPosts(shuffled.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to load random posts:", error);
+      }
+    };
+
+    loadRandomPosts();
   }, []);
 
   // Initialize Pagefind
@@ -217,70 +271,72 @@ export function CommandSearch() {
     }
   };
 
-  const truncateText = (text: string, maxLength?: number) => {
-    const length = maxLength || (isMobile ? 80 : 120);
-    if (text.length <= length) return text;
-    return text.substring(0, length).trim() + "...";
-  };
-
   return (
     <>
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 px-3 py-2 text-sm transition-colors w-full max-w-sm"
+        className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-stone-100 w-full max-w-sm"
       >
-        <Search className="w-4 h-4 text-stone-400" />
-        <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
-          <span className="text-sm">⌘</span>K
+        <Search className="w-4 h-4" />
+        <span className="flex-1 text-left">Search blog posts...</span>
+        <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
+          <span className="text-xs">⌘</span>K
         </kbd>
       </button>
 
       {/* Command Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0">
+        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-stone-900 border-stone-700">
           <DialogTitle className="sr-only">Search</DialogTitle>
           <Command
-            className="rounded-lg border-0 shadow-lg bg-stone-500"
+            className="rounded-lg border-0 shadow-lg bg-stone-900 [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-stone-800 [&_[cmdk-item]:hover]:bg-stone-800"
             shouldFilter={false}
           >
-            <div className="flex items-center border-b border-stone-700 px-3">
-              <Search className="mr-2 h-4 w-4 shrink-0 text-stone-400" />
+            <div className="flex items-center border-b border-stone-700 px-4">
+              <Search className="mr-3 h-4 w-4 shrink-0 text-stone-400" />
               <CommandInput
                 ref={inputRef}
                 placeholder="Search blog posts..."
                 value={query}
                 onValueChange={setQuery}
-                className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-stone-400 disabled:cursor-not-allowed disabled:opacity-50 border-0 focus:ring-0"
+                className="flex h-14 w-full rounded-md bg-transparent py-3 text-stone-200 outline-none placeholder:text-stone-500 disabled:cursor-not-allowed disabled:opacity-50 border-0 focus:ring-0"
                 autoFocus
               />
             </div>
             <CommandList className="max-h-[400px] sm:max-h-[500px] overflow-y-auto">
               {loading && (
-                <div className="py-6 text-center text-sm text-stone-500">
-                  Searching...
+                <div className="py-8 text-center text-sm text-stone-400">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-stone-600 border-t-stone-400 rounded-full animate-spin"></div>
+                    Searching...
+                  </div>
                 </div>
               )}
 
               {!loading && query && results.length === 0 && pagefind && (
-                <CommandEmpty>No results found for "{query}"</CommandEmpty>
+                <div className="py-8 text-center text-stone-500">
+                  <p>No results found for "{query}"</p>
+                </div>
               )}
 
               {!pagefind && query && (
-                <div className="py-6 text-center text-sm text-stone-500">
+                <div className="py-8 text-center text-stone-500">
                   <p>Search is not available.</p>
-                  <p className="text-xs mt-2">Check the console for errors.</p>
                 </div>
               )}
 
               {!loading && results.length > 0 && (
-                <CommandGroup heading="Blog Posts">
-                  {results.map((result, index) => (
+                <CommandGroup>
+                  <div className="px-4 py-2 text-xs font-medium text-stone-400 uppercase tracking-wider">
+                    Search Results
+                  </div>
+                  {results.map((result) => (
                     <CommandItem
                       key={result.id}
                       value={result.title}
                       onSelect={() => handleSelect(result.url)}
-                      className="flex flex-col items-start gap-2 p-3 sm:p-4 cursor-pointer"
+                      className="mx-2 mb-2 p-3 rounded-lg cursor-pointer border border-transparent hover:border-stone-700 hover:bg-stone-800 transition-colors data-[selected=true]:bg-stone-800 data-[selected=true]:border-stone-700"
                     >
                       <div className="flex items-start gap-3 w-full">
                         <FileText className="h-4 w-4 text-stone-400 mt-1 shrink-0" />
@@ -288,32 +344,27 @@ export function CommandSearch() {
                           <div className="font-medium text-stone-100 leading-tight">
                             {result.title}
                           </div>
-                          <div className="text-sm text-stone-400 leading-relaxed">
-                            {truncateText(result.excerpt)}
+                          <div className="text-sm text-stone-400 leading-relaxed line-clamp-2">
+                            {result.excerpt}
                           </div>
-                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-stone-500">
+                          <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
                             {result.meta?.date && (
                               <span>{formatDate(result.meta.date)}</span>
                             )}
-                            {result.meta?.author && (
-                              <span className="hidden sm:inline">
-                                by {result.meta.author}
-                              </span>
-                            )}
                             {result.meta?.tags && (
-                              <span className="flex gap-1 flex-wrap">
+                              <div className="flex gap-1 flex-wrap">
                                 {result.meta.tags
                                   .split(",")
-                                  .slice(0, isMobile ? 1 : 2)
+                                  .slice(0, 2)
                                   .map((tag: string, i: number) => (
                                     <span
                                       key={i}
-                                      className="px-1.5 py-0.5 bg-stone-700 text-stone-300 rounded text-xs"
+                                      className="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs"
                                     >
                                       {tag.trim()}
                                     </span>
                                   ))}
-                              </span>
+                              </div>
                             )}
                           </div>
                         </div>
@@ -323,28 +374,61 @@ export function CommandSearch() {
                 </CommandGroup>
               )}
 
-              {!query && (
-                <div className="py-6 text-center text-sm text-stone-500">
-                  <div className="space-y-2">
-                    <p>Type to search blog posts...</p>
-                    <p className="text-xs hidden sm:block">
-                      Press{" "}
-                      <kbd className="px-1.5 py-0.5 bg-stone-700 rounded text-stone-300">
+              {!query && randomPosts.length > 0 && (
+                <CommandGroup>
+                  <div className="px-4 py-2 text-xs font-medium text-stone-400 uppercase tracking-wider">
+                    Recent Posts
+                  </div>
+                  {randomPosts.map((post) => (
+                    <CommandItem
+                      key={post.id}
+                      value={post.title}
+                      onSelect={() => handleSelect(post.url)}
+                      className="mx-2 mb-2 p-3 rounded-lg cursor-pointer border border-transparent hover:border-stone-700 hover:bg-stone-800 transition-colors data-[selected=true]:bg-stone-800 data-[selected=true]:border-stone-700"
+                    >
+                      <div className="flex items-start gap-3 w-full">
+                        <FileText className="h-4 w-4 text-stone-400 mt-1 shrink-0" />
+                        <div className="flex-1 space-y-1 min-w-0">
+                          <div className="font-medium text-stone-100 leading-tight">
+                            {post.title}
+                          </div>
+                          <div className="text-sm text-stone-400 leading-relaxed">
+                            {post.description}
+                          </div>
+                          <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
+                            <span>{formatDate(post.date)}</span>
+                            <div className="flex gap-1 flex-wrap">
+                              {post.tags.slice(0, 2).map((tag, i) => (
+                                <span
+                                  key={i}
+                                  className="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+
+              {!query && randomPosts.length === 0 && (
+                <div className="py-8 text-center text-stone-500">
+                  <div className="space-y-3">
+                    <p>Start typing to search blog posts...</p>
+                    <div className="flex justify-center gap-4 text-xs">
+                      <kbd className="px-2 py-1 bg-stone-800 border border-stone-700 rounded text-stone-300">
                         ⌘K
-                      </kbd>{" "}
-                      to open •{" "}
-                      <kbd className="px-1.5 py-0.5 bg-stone-700 rounded text-stone-300">
+                      </kbd>
+                      <span className="text-stone-600">to open</span>
+                      <kbd className="px-2 py-1 bg-stone-800 border border-stone-700 rounded text-stone-300">
                         ESC
-                      </kbd>{" "}
-                      to close
-                    </p>
-                    <p className="text-xs sm:hidden">
-                      Tap to search •{" "}
-                      <kbd className="px-1.5 py-0.5 bg-stone-700 rounded text-stone-300">
-                        ESC
-                      </kbd>{" "}
-                      to close
-                    </p>
+                      </kbd>
+                      <span className="text-stone-600">to close</span>
+                    </div>
                   </div>
                 </div>
               )}

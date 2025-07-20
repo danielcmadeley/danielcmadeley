@@ -8,6 +8,7 @@ import react from "@astrojs/react";
 
 import mdx from "@astrojs/mdx";
 import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm";
 import rehypeMathJax from "rehype-mathjax";
 import sitemap from "@astrojs/sitemap";
 
@@ -32,14 +33,14 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [rehypeMathJax],
   },
 
   integrations: [
     react(),
     mdx({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, remarkGfm],
       rehypePlugins: [rehypeMathJax],
     }),
     sitemap({
