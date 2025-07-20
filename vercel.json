@@ -12,5 +12,30 @@
       "source": "/blog/(.*)",
       "destination": "/blog/$1/index.html"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/pagefind/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    },
+    {
+      "source": "/pagefind/pagefind-entry.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=300"
+        }
+      ]
+    }
+  ],
+  "build": {
+    "env": {
+      "VERCEL_FORCE_NO_BUILD_CACHE": "1"
+    }
+  }
 }

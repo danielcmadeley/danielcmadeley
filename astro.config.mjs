@@ -14,6 +14,28 @@ import sitemap from "@astrojs/sitemap";
 
 import vercel from "@astrojs/vercel";
 
+import { visit } from "unist-util-visit";
+
+// Custom rehype plugin to add data-pagefind-ignore to MathJax containers
+function rehypePagefindIgnoreMath() {
+  return (/** @type {any} */ tree) => {
+    visit(tree, "element", (node) => {
+      // Target MathJax containers and tables
+      if (
+        node.tagName === "mjx-container" ||
+        node.tagName === "table" ||
+        (node.properties &&
+          node.properties.className &&
+          Array.isArray(node.properties.className) &&
+          node.properties.className.includes("MathJax"))
+      ) {
+        node.properties = node.properties || {};
+        node.properties["data-pagefind-ignore"] = true;
+      }
+    });
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://danielcmadeley.com",
@@ -34,14 +56,14 @@ export default defineConfig({
 
   markdown: {
     remarkPlugins: [remarkMath, remarkGfm],
-    rehypePlugins: [rehypeMathJax],
+    rehypePlugins: [rehypeMathJax, rehypePagefindIgnoreMath],
   },
 
   integrations: [
     react(),
     mdx({
       remarkPlugins: [remarkMath, remarkGfm],
-      rehypePlugins: [rehypeMathJax],
+      rehypePlugins: [rehypeMathJax, rehypePagefindIgnoreMath],
     }),
     sitemap({
       changefreq: "weekly",

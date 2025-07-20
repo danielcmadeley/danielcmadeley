@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "build:astro": "bunx astro build",
-    "build:pagefind": "echo 'Starting pagefind indexing...' && bunx --version && bunx pagefind --version && bunx pagefind --verbose && echo 'Pagefind indexing completed!'",
-    "build": "npm-run-all -s build:astro build:pagefind",
+    "build:pagefind": "echo 'Starting pagefind indexing...' && echo \"Build timestamp: $(date)\" && bunx --version && bunx pagefind --version && bunx pagefind --verbose && echo 'Pagefind indexing completed!'",
+    "build:pagefind:bust": "bun run build:pagefind && bun scripts/cache-bust-pagefind.js",
+    "build": "npm-run-all -s build:astro build:pagefind:bust",
     "copy:pagefind:dev": "bunx shx cp -r dist/pagefind public/",
     "dev:astro": "bunx astro dev",
     "dev": "npm-run-all -s build:pagefind copy:pagefind:dev dev:astro",
@@ -20,6 +21,7 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/vercel": "^8.2.1",
+    "@openpanel/astro": "^1.0.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.8",
@@ -38,7 +40,8 @@
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
