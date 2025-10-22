@@ -1,56 +1,33 @@
-<<<<<<< HEAD
-Computational Engineer | Full-Stack Developer
-=======
-# Astro Starter Kit: Basics
+# 👋 Hi, I'm Daniel Madeley
 
-```sh
-bun create astro@latest -- --template basics
-```
+I'm a full-stack engineer with a background in structural and computational engineering.  
+I love building systems that are technically robust, beautifully designed, and genuinely useful.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🧠 Tech I Love Working With
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Frontend:** React, Next.js, TypeScript, Framer Motion  
+- **Backend:** Go, Python, FastAPI, gRPC  
+- **Data & Infra:** PostgreSQL, ElectricSQL, Docker, AWS  
+- **Other:** PWA, Offline-first design, Event-driven architectures  
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+---
 
-## 🚀 Project Structure
+## 🛠 Favourite Project
 
-Inside of your Astro project, you'll see the following folders and files:
+**Form + Function** – a suite of structural engineering tools built to optimise engineers’ workflows.  
+It includes:
+- A project manager based on the **RIBA stage system**
+- Automated structural calculations and a **LaTeX-based report editor**
+- A microservice backend in **Go** (gRPC), with **Python** for computation and **TypeScript** for the UI  
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+This project pushed me to become a polyglot developer and merge engineering with software design.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+---
 
-## 🧞 Commands
+## 🌐 Let's Connect
 
-All commands are run from the root of the project, from a terminal:
+- 💼 [LinkedIn](https://www.linkedin.com/in/danielcmadeley)  
+- 💻 [Portfolio](https://danielcmadeley.com)  
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
->>>>>>> 23aac27 (added astro)
+---
+🧩 *“Build with purpose. Design with empathy.”*
