@@ -25,8 +25,8 @@ export async function GET(context) {
         },
       ],
       items: sortedPosts.map((post) => ({
-        id: `${context.site.href}blog/${post.id}/`,
-        url: `${context.site.href}blog/${post.id}/`,
+        id: `${context.site.href}thoughts-and-writings/${post.id}/`,
+        url: `${context.site.href}thoughts-and-writings/${post.id}/`,
         title: post.data.title,
         content_html: post.data.description,
         summary: post.data.description,

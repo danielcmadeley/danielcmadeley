@@ -37,7 +37,7 @@ export class SEOUtils {
    */
   generateBlogSitemapEntries(posts: BlogPost[]): SitemapEntry[] {
     return posts.map(post => ({
-      url: `${this.baseUrl}/blog/${post.id}/`,
+      url: `${this.baseUrl}/thoughts-and-writings/${post.id}/`,
       lastmod: post.data.pubDate.toISOString(),
       changefreq: 'monthly' as const,
       priority: 0.8,
@@ -61,7 +61,7 @@ export class SEOUtils {
         priority: 1.0,
       },
       {
-        url: `${this.baseUrl}/blog/`,
+        url: `${this.baseUrl}/thoughts-and-writings/`,
         lastmod: new Date().toISOString(),
         changefreq: 'weekly',
         priority: 0.9,
@@ -169,7 +169,7 @@ export class SEOUtils {
       '@type': 'Blog',
       name: 'Daniel Madeley Blog',
       description: 'Thoughts on design, development, and the intersection of technology and creativity.',
-      url: `${this.baseUrl}/blog/`,
+      url: `${this.baseUrl}/thoughts-and-writings/`,
       author: {
         '@type': 'Person',
         name: 'Daniel Madeley',
@@ -186,7 +186,7 @@ export class SEOUtils {
       blogPost: posts.map(post => ({
         '@type': 'BlogPosting',
         headline: post.data.title,
-        url: `${this.baseUrl}/blog/${post.id}/`,
+        url: `${this.baseUrl}/thoughts-and-writings/${post.id}/`,
         datePublished: post.data.pubDate.toISOString(),
         author: {
           '@type': 'Person',

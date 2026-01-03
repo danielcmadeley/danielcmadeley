@@ -48,7 +48,7 @@ export function CommandSearch() {
         const posts: BlogPost[] = [
           {
             id: "1",
-            url: "/blog/javascript-frameworks-2025",
+            url: "/thoughts-and-writings/javascript-frameworks-2025",
             title: "JavaScript Frameworks in 2025: A Senior Engineer's Guide",
             description:
               "A comprehensive guide to the current state of JavaScript frameworks",
@@ -57,7 +57,7 @@ export function CommandSearch() {
           },
           {
             id: "2",
-            url: "/blog/steel-beam-design-to-eurocode-3",
+            url: "/thoughts-and-writings/steel-beam-design-to-eurocode-3",
             title: "How to Design a Steel Beam to Eurocode 3",
             description: "Complete step-by-step guide for steel beam design",
             tags: ["eurocode3", "steel-design", "engineering"],
@@ -65,7 +65,7 @@ export function CommandSearch() {
           },
           {
             id: "3",
-            url: "/blog/stiffness-matrix-analysis",
+            url: "/thoughts-and-writings/stiffness-matrix-analysis",
             title: "Understanding the Stiffness Matrix",
             description:
               "A foundation of structural analysis with mathematical formulations",
@@ -74,7 +74,7 @@ export function CommandSearch() {
           },
           {
             id: "4",
-            url: "/blog/modern-web-development",
+            url: "/thoughts-and-writings/modern-web-development",
             title: "Modern Web Development: Embracing the Future",
             description:
               "Exploring the latest trends and technologies in web development",

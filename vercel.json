@@ -3,14 +3,16 @@
   "outputDirectory": "dist",
   "installCommand": "bun install",
   "framework": "astro",
-  "rewrites": [
+  "redirects": [
     {
       "source": "/blog",
-      "destination": "/blog/index.html"
+      "destination": "/thoughts-and-writings",
+      "permanent": true
     },
     {
-      "source": "/blog/(.*)",
-      "destination": "/blog/$1/index.html"
+      "source": "/blog/:slug*",
+      "destination": "/thoughts-and-writings/:slug*",
+      "permanent": true
     }
   ],
   "headers": [

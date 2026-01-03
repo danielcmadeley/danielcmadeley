@@ -79,8 +79,8 @@ export async function GET(context) {
       pubDate: post.data.pubDate,
       description: post.data.description,
       author: post.data.author || "Daniel Madeley",
-      link: `/blog/${post.id}/`,
-      guid: `${context.site}blog/${post.id}/`,
+      link: `/thoughts-and-writings/${post.id}/`,
+      guid: `${context.site}thoughts-and-writings/${post.id}/`,
       categories: post.data.tags || [],
     })),
     customData: `
