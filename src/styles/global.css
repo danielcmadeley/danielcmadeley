@@ -274,7 +274,30 @@
         @apply border-border outline-ring/50;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply text-foreground;
+    }
+}
+
+@layer utilities {
+    .bg-checkered-gradient {
+        background-image: 
+            linear-gradient(rgba(10, 10, 10, 0.2), rgba(10, 10, 10, 0.2)),
+            repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent calc(15px - 0.5px),
+                rgba(138, 163, 202, 0.15) calc(15px - 0.5px),
+                rgba(138, 163, 202, 0.15) 15px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent calc(15px - 0.5px),
+                rgba(138, 163, 202, 0.15) calc(15px - 0.5px),
+                rgba(138, 163, 202, 0.15) 15px
+            ),
+            linear-gradient(315deg, rgba(10, 10, 10, 0.3) 0%, rgba(115, 115, 115, 0.3) 100%),
+            linear-gradient(135deg, #4A6A9A 0%, #335D9B 100%);
     }
 }
 

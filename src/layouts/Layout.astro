@@ -22,7 +22,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="min-h-full bg-checkered-gradient">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -110,10 +110,10 @@ const {
             trackOutgoingLinks={true}
         />
     </head>
-    <body class="bg-stone-900 text-stone-200 font-sans">
-        <Navbar />
+    <body class=" text-stone-200 font-sans">
+        <!-- <Navbar /> -->
         <main
-            class="max-w-3xl mx-auto px-12 py-36 min-h-screen mt-20 flex flex-col gap-8"
+            class="max-w-5xl mx-auto px-12 py-36 min-h-screen mt-20 flex flex-col gap-8"
         >
             <slot />
         </main>
