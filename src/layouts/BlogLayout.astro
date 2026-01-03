@@ -17,6 +17,14 @@ const {
     keywords={tags.join(", ")}
     image="https://danielcmadeley.vercel.app/favicon.svg"
 >
+    <!-- Reading Progress Indicator -->
+    <div
+        id="reading-progress"
+        class="fixed top-0 left-0 h-[3px] bg-stone-400 z-[9999]"
+        style="width: 0%; opacity: 0;"
+        aria-hidden="true"
+    ></div>
+
     <div data-pagefind-body>
         <nav class="mb-8">
             <a
@@ -387,3 +395,34 @@ const {
         }
     }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const progressBar = document.getElementById("reading-progress") as HTMLElement | null;
+        if (!progressBar) return;
+
+        const bar = progressBar;
+
+        function updateProgress() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight;
+            const winHeight = window.innerHeight;
+            const scrollableHeight = docHeight - winHeight;
+            
+            if (scrollableHeight <= 0) {
+                bar.style.width = "100%";
+                bar.style.opacity = "1";
+                return;
+            }
+            
+            const progress = Math.min(100, (scrollTop / scrollableHeight) * 100);
+            
+            bar.style.width = `${progress}%`;
+            bar.style.opacity = scrollTop > 50 ? "1" : "0";
+        }
+
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress, { passive: true });
+        updateProgress();
+    });
+</script>
