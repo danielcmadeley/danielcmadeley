@@ -1,0 +1,250 @@
+---
+title: "Steel Connection Design: From Simple to Complex"
+description: "A practical guide to designing steel connections, from standard details to bespoke solutions for complex geometries."
+pubDate: "2025-12-20"
+author: "Daniel Madeley"
+tags: ["structural", "steel", "connections", "design"]
+---
+
+# Steel Connection Design: From Simple to Complex
+
+Connection design is where steel structures succeed or fail. I've seen elegant frames undermined by poorly designed joints and simple structures made expensive by over-complicated connections. Here's what I've learned about getting connections right.
+
+## The Connection Philosophy
+
+Before calculating anything, consider:
+
+1. **Load path clarity**: How do forces flow through the connection?
+2. **Constructability**: Can it be fabricated and erected efficiently?
+3. **Ductility**: How will it behave beyond design loads?
+4. **Cost**: Standard details beat bespoke every time
+
+## Connection Classifications
+
+### By Rigidity
+
+| Type | Rotation | Moment Transfer | Typical Use |
+|------|----------|-----------------|-------------|
+| Pinned | Free | None | Braced frames, secondary beams |
+| Semi-rigid | Partial | Partial | Continuous beams, some frames |
+| Rigid | Minimal | Full | Moment frames, cantilevers |
+
+### By Force Transfer
+
+- **Shear connections**: Transfer vertical loads only
+- **Moment connections**: Transfer moment and shear
+- **Tension connections**: Hangers, ties, bracing
+- **Compression connections**: Column splices, bearing
+
+## Simple Connections
+
+### Fin Plates
+
+The workhorse of simple connections:
+
+**Design checks:**
+1. Bolt group in shear
+2. Bolt bearing on plate and beam web
+3. Fin plate shear and bending
+4. Block tearing
+5. Beam web local capacity
+
+**Standard geometry:**
+- Plate thickness: 10mm (for beams up to 533UB)
+- Bolt size: M20 Grade 8.8
+- Edge/end distances: 40mm minimum
+- Bolt spacing: 70mm
+- Plate depth: beam depth - 2 × clearance
+
+**Quick capacity estimate:**
+For M20 bolts in double shear (10mm plate):
+- 2 bolts: ~150 kN
+- 3 bolts: ~225 kN
+- 4 bolts: ~300 kN
+
+### Flexible End Plates
+
+Better ductility than fin plates, useful when rotation is expected:
+
+**Advantages:**
+- Shop welded, site bolted
+- Good tolerance for beam length variations
+- Accommodates rotation
+
+**Design considerations:**
+- End plate thickness: typically 10-12mm
+- Double row of bolts for higher loads
+- Welds: fillet welds, throat = 0.7 × plate thickness
+
+### Web Cleats
+
+Traditional but labor-intensive:
+- Double angle cleats bolted to beam web and column
+- Good for heavy loads
+- More site bolts than alternatives
+
+## Moment Connections
+
+### Extended End Plates
+
+For continuous beams and moment frames:
+
+**Tension zone design:**
+1. Calculate tension force from moment: T = M / (D - tf)
+2. Design bolt group for tension
+3. Check end plate bending (equivalent T-stub method)
+4. Check column flange (may need stiffeners)
+
+**Compression zone:**
+- Typically adequate by bearing
+- Check column web in compression
+- Add stiffeners if web buckling governs
+
+**Welds:**
+- Full penetration welds to beam flanges (tension)
+- Fillet welds to beam web (shear)
+
+### Haunched Connections
+
+For portal frames and long-span structures:
+
+**Benefits:**
+- Increases lever arm, reducing bolt forces
+- Moves plastic hinge away from column face
+- Aesthetically consistent with frame geometry
+
+**Design approach:**
+1. Size haunch for frame analysis
+2. Design connection at haunch tip (larger lever arm)
+3. Check haunch stability (potential for LTB)
+4. Detail haunch-to-rafter connection
+
+## Column Splices
+
+### Bearing Splices
+
+When columns are in compression:
+
+**Components:**
+- End bearing between machined ends
+- Splice plates (or division plates) for stability
+- Holding-down bolts for erection
+
+**Design:**
+- Bearing takes 100% of compression
+- Splices designed for tension from moment
+- Minimum 4 bolts for erection stability
+
+### Non-Bearing Splices
+
+When tension or significant moment:
+
+**Design checks:**
+- Flange splices for moment
+- Web splice for shear
+- All force transfer through bolts (no bearing credit)
+
+## Bracing Connections
+
+### Gusset Plate Design
+
+For concentric bracing:
+
+**Geometry:**
+- Whitmore width for tension capacity
+- Block shear check
+- Thornton check for compression (plate buckling)
+
+**Clearances:**
+- 2tp minimum between intersection and column face
+- Allows formation of plastic hinge in plate under seismic loading
+
+### Worked Example: Diagonal Bracing
+
+Given: 150×150×10 SHS brace, 450 kN tension, 300 kN compression
+
+1. **Gusset geometry**: 20mm plate, 400mm width
+2. **Whitmore width**: w = 2 × L × tan(30°) + connection width
+3. **Tension capacity**: Npl = w × t × fy = adequate
+4. **Compression**: Check Thornton method for plate buckling
+5. **Bolt design**: 6 × M24 Grade 8.8 in double shear
+
+## Software Tools
+
+### Hilti PROFIS
+
+Excellent for:
+- Anchor bolt design
+- Base plate connections
+- Post-installed anchors
+
+### StabiCa
+
+For complex connections:
+- 3D finite element analysis
+- Code checking (EC3)
+- Automatic weld design
+- Comprehensive reports
+
+### SCI Connection Tools
+
+Industry-standard in UK:
+- Follows Green Book methods
+- Comprehensive design checks
+- Good for standard connections
+
+## Practical Considerations
+
+### Tolerances
+
+Design for real-world fit:
+- Holes: 2mm clearance (M20 in 22mm hole)
+- Beam length: ±3mm
+- Column position: ±5mm
+
+**Slotted holes**: Use in one direction for adjustment
+
+### Weld Specifications
+
+**Fillet welds:**
+- Size = leg length
+- Throat = 0.7 × leg length
+- Minimum size depends on thinner part (typically 6mm)
+
+**Full penetration welds:**
+- More expensive, better quality control needed
+- Required for tension flanges in moment connections
+
+### Fire Protection
+
+Connections often need less fire protection than members:
+- Protected by concrete slab above
+- Lower temperature due to thermal mass
+- Check with fire engineer for bespoke situations
+
+## Lessons from F1 Facility Projects
+
+Portal frame connections in motorsport facilities present unique challenges:
+
+### High Load Concentrations
+Crane loads create point reactions. Solution: Local stiffening, spreader beams.
+
+### Architectural Exposure
+Connections visible in design studios. Solution: Concealed bolts, smooth welds, clean geometry.
+
+### Future Adaptability
+Facilities may be reconfigured. Solution: Connection capacity exceeds initial requirements.
+
+## Common Mistakes to Avoid
+
+1. **Ignoring prying action** in tension connections
+2. **Forgetting block tearing** in bolted sections
+3. **Under-sizing welds** to beam web in moment connections
+4. **Not checking column** in beam-to-column joints
+5. **Inadequate clearances** for erection and bolt tightening
+
+## Conclusion
+
+Good connection design balances engineering efficiency with practical construction. Standard details exist for a reason - they're proven, efficient, and understood by fabricators.
+
+For non-standard situations, apply first principles: understand the load path, check all failure modes, and provide ductility. When in doubt, consult specialists and visit fabrication shops - seeing real connections teaches more than any textbook.

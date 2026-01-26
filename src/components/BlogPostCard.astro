@@ -4,7 +4,7 @@ import { formatDate, formatCompactDate } from "../lib/blog-utils";
 
 interface Props {
     post: BlogPost;
-    variant?: "default" | "compact" | "featured";
+    variant?: "default" | "compact" | "featured" | "grid";
     showAuthor?: boolean;
     showReadingTime?: boolean;
     showTags?: boolean;
@@ -21,134 +21,215 @@ const {
 } = Astro.props;
 
 const postUrl = `/thoughts-and-writings/${post.slug}`;
+
+// Generate a gradient based on the first tag or title
+const gradients = [
+    "from-violet-500/20 to-purple-600/20",
+    "from-blue-500/20 to-cyan-600/20",
+    "from-emerald-500/20 to-teal-600/20",
+    "from-orange-500/20 to-amber-600/20",
+    "from-rose-500/20 to-pink-600/20",
+    "from-indigo-500/20 to-blue-600/20",
+];
+
+const tagColors: Record<string, string> = {
+    "structural": "from-blue-500/20 to-cyan-600/20",
+    "python": "from-yellow-500/20 to-amber-600/20",
+    "automation": "from-emerald-500/20 to-teal-600/20",
+    "bim": "from-violet-500/20 to-purple-600/20",
+    "fea": "from-rose-500/20 to-pink-600/20",
+    "grasshopper": "from-green-500/20 to-emerald-600/20",
+    "career": "from-orange-500/20 to-red-600/20",
+    "design": "from-indigo-500/20 to-blue-600/20",
+    "computational": "from-cyan-500/20 to-blue-600/20",
+};
+
+const firstTag = post.tags[0]?.toLowerCase() || "";
+const gradientClass = tagColors[firstTag] || gradients[post.title.length % gradients.length];
+
+const accentColors: Record<string, string> = {
+    "structural": "bg-blue-500",
+    "python": "bg-yellow-500",
+    "automation": "bg-emerald-500",
+    "bim": "bg-violet-500",
+    "fea": "bg-rose-500",
+    "grasshopper": "bg-green-500",
+    "career": "bg-orange-500",
+    "design": "bg-indigo-500",
+    "computational": "bg-cyan-500",
+};
+const accentClass = accentColors[firstTag] || "bg-stone-500";
 ---
 
-<article>
-    <div class="flex flex-col gap-4 py-4">
-        <header>
-            <h3>
-                <a
-                    href={postUrl}
-                    class="hover:text-stone-300 transition-colors"
-                >
-                    {post.title}
-                </a>
-            </h3>
-            <p>
-                {post.description}
-            </p>
-        </header>
+{variant === "featured" ? (
+    <article class="group relative">
+        <a href={postUrl} class="block">
+            <div class={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradientClass} border border-stone-800 p-8 md:p-12 transition-all duration-300 hover:border-stone-600 hover:shadow-2xl hover:shadow-stone-900/50`}>
+                <!-- Decorative elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-white/5 to-transparent rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-white/5 to-transparent rounded-full blur-2xl"></div>
 
-        <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500">
-            <time datetime={post.pubDate} class="flex items-center gap-1">
-                <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    ></path>
-                </svg>
-                {
-                    variant === "compact"
-                        ? formatCompactDate(post.pubDate)
-                        : formatDate(post.pubDate)
-                }
-            </time>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class={`w-2 h-2 rounded-full ${accentClass}`}></span>
+                        <span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Featured</span>
+                    </div>
 
-            {
-                showReadingTime && (
-                    <span class="flex items-center gap-1">
-                        <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
+                    <h2 class="text-2xl md:text-4xl font-bold text-stone-100 mb-4 group-hover:text-white transition-colors">
+                        {post.title}
+                    </h2>
+
+                    <p class="text-stone-300 text-lg mb-6 max-w-2xl leading-relaxed">
+                        {post.description}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-stone-400 mb-6">
+                        <time datetime={post.pubDate} class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            {formatDate(post.pubDate)}
+                        </time>
+                        {showReadingTime && (
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {post.readingTime} min read
+                            </span>
+                        )}
+                    </div>
+
+                    {showTags && post.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            {post.tags.slice(0, maxTags).map((tag) => (
+                                <span class="px-3 py-1 bg-stone-800/50 text-stone-300 rounded-full text-xs font-mono">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+
+                    <div class="inline-flex items-center gap-2 text-stone-100 font-medium group-hover:gap-4 transition-all">
+                        Read article
+                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
-                        {post.readingTime} min read
-                    </span>
-                )
-            }
+                    </div>
+                </div>
+            </div>
+        </a>
+    </article>
+) : variant === "grid" ? (
+    <article class="group relative">
+        <a href={postUrl} class="block h-full">
+            <div class={`relative h-full overflow-hidden rounded-xl bg-gradient-to-br ${gradientClass} border border-stone-800 p-6 transition-all duration-300 hover:border-stone-600 hover:shadow-xl hover:shadow-stone-900/30 hover:-translate-y-1`}>
+                <!-- Decorative accent -->
+                <div class={`absolute top-0 left-0 w-full h-1 ${accentClass} opacity-60`}></div>
 
-            {
-                showAuthor && post.author && (
-                    <span class="flex items-center gap-1">
-                        <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                            />
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="flex items-center gap-2 mb-3">
+                        {post.tags.length > 0 && (
+                            <span class="text-xs font-mono text-stone-400 uppercase tracking-wider">
+                                {post.tags[0]}
+                            </span>
+                        )}
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-stone-100 mb-3 group-hover:text-white transition-colors line-clamp-2">
+                        {post.title}
+                    </h3>
+
+                    <p class="text-stone-400 text-sm mb-4 line-clamp-3 flex-grow">
+                        {post.description}
+                    </p>
+
+                    <div class="flex items-center justify-between text-xs text-stone-500 mt-auto pt-4 border-t border-stone-800">
+                        <time datetime={post.pubDate}>
+                            {formatCompactDate(post.pubDate)}
+                        </time>
+                        <span>{post.readingTime} min</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </article>
+) : variant === "compact" ? (
+    <article class="group">
+        <a href={postUrl} class="block">
+            <div class="flex gap-6 py-6 border-b border-stone-800 hover:border-stone-600 transition-colors">
+                <!-- Color accent bar -->
+                <div class={`w-1 rounded-full ${accentClass} opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3 mb-2">
+                        {post.tags.length > 0 && (
+                            <span class="text-xs font-mono text-stone-500 uppercase tracking-wider">
+                                {post.tags[0]}
+                            </span>
+                        )}
+                        <span class="text-stone-700">·</span>
+                        <time datetime={post.pubDate} class="text-xs text-stone-500">
+                            {formatCompactDate(post.pubDate)}
+                        </time>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-stone-200 mb-2 group-hover:text-stone-100 transition-colors">
+                        {post.title}
+                    </h3>
+
+                    <p class="text-stone-400 text-sm line-clamp-2 mb-3">
+                        {post.description}
+                    </p>
+
+                    <div class="flex items-center gap-2 text-stone-500 text-sm">
+                        <span>{post.readingTime} min read</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
-                        {post.author}
-                    </span>
-                )
-            }
-        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </article>
+) : (
+    <article class="group">
+        <a href={postUrl} class="block">
+            <div class={`relative overflow-hidden rounded-xl bg-gradient-to-br ${gradientClass} border border-stone-800 p-6 transition-all duration-300 hover:border-stone-600 hover:shadow-lg`}>
+                <div class={`absolute top-0 left-0 w-full h-1 ${accentClass} opacity-60`}></div>
 
-        {
-            showTags && post.tags.length > 0 && (
-                <div class="flex flex-wrap gap-2">
-                    {post.tags.slice(0, maxTags).map((tag) => (
-                        <span class="px-2 py-1 bg-stone-700 text-stone-300 rounded-full text-xs hover:bg-stone-600 transition-colors">
-                            #{tag}
-                        </span>
-                    ))}
-                    {post.tags.length > maxTags && (
-                        <span class="px-2 py-1 bg-stone-600 text-stone-400 rounded-full text-xs">
-                            +{post.tags.length - maxTags} more
-                        </span>
+                <div class="relative z-10">
+                    <h3 class="text-xl font-semibold text-stone-100 mb-3 group-hover:text-white transition-colors">
+                        {post.title}
+                    </h3>
+
+                    <p class="text-stone-400 mb-4">
+                        {post.description}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500 mb-4">
+                        <time datetime={post.pubDate}>
+                            {formatDate(post.pubDate)}
+                        </time>
+                        {showReadingTime && (
+                            <span>{post.readingTime} min read</span>
+                        )}
+                    </div>
+
+                    {showTags && post.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2">
+                            {post.tags.slice(0, maxTags).map((tag) => (
+                                <span class="px-2 py-1 bg-stone-800/50 text-stone-400 rounded-full text-xs">
+                                    #{tag}
+                                </span>
+                            ))}
+                        </div>
                     )}
                 </div>
-            )
-        }
-
-        <footer>
-            <a
-                href={postUrl}
-                class="inline-flex items-center gap-2 text-stone-100 hover:text-stone-300 transition-colors font-medium group-hover:gap-3"
-            >
-                {
-                    variant === "featured"
-                        ? "Read full article"
-                        : variant === "compact"
-                          ? "Read more"
-                          : "Read full article"
-                }
-                <svg
-                    class="w-4 h-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"></path>
-                </svg>
-            </a>
-        </footer>
-    </div>
-</article>
+            </div>
+        </a>
+    </article>
+)}
 
 <style>
     .line-clamp-2 {

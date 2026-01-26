@@ -11,6 +11,7 @@ export interface Props {
     author?: string;
     keywords?: string;
     image?: string;
+    showFooter?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
     author = "Daniel Madeley",
     keywords = "Daniel Madeley, web developer, designer, full-stack developer, React, Vue, Angular, TypeScript",
     image = "https://danielcmadeley.com/favicon.svg",
+    showFooter = true,
 } = Astro.props;
 ---
 
@@ -114,12 +116,12 @@ const {
     <body class=" text-stone-200 font-sans">
         <!-- <Navbar /> -->
         <main
-            class="max-w-5xl mx-auto px-12 py-36 min-h-screen flex flex-col gap-8"
+            class:list={["max-w-5xl mx-auto px-12 py-36 min-h-screen flex flex-col gap-8", !isHomepage && ""]}
         >
             {!isHomepage && <PageHeader />}
             <slot />
         </main>
-        <img src="/London.svg" alt="London" class="mx-auto object-cover">
+        {showFooter && <img src="/London.svg" alt="London" class="mx-auto object-cover">}
 
         <!-- <Footer /> -->
     </body>

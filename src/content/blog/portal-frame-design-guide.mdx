@@ -1,0 +1,279 @@
+---
+title: "Portal Frame Design: A Practical Guide"
+description: "Comprehensive overview of steel portal frame design for industrial buildings, from initial sizing to detailed analysis."
+pubDate: "2025-12-15"
+author: "Daniel Madeley"
+tags: ["structural", "steel", "portal", "industrial"]
+---
+
+# Portal Frame Design: A Practical Guide
+
+Portal frames dominate the UK industrial building market. They're economical, fast to erect, and provide clear spans that warehouses and manufacturing facilities need. After working on several F1 and industrial facilities, here's my practical approach to portal frame design.
+
+## Why Portal Frames?
+
+The economics are compelling:
+
+| Structural System | Steel Weight (kg/m²) | Typical Span |
+|------------------|---------------------|--------------|
+| Portal frame | 25-40 | 15-50m |
+| Lattice truss | 30-45 | 30-80m |
+| Propped portal | 20-35 | 25-40m |
+
+For spans up to 50m, portal frames typically win on:
+- Material cost
+- Fabrication simplicity
+- Erection speed
+- Maintenance access
+
+## Initial Sizing
+
+### Frame Geometry
+
+**Eaves height**: Driven by functional requirements
+- Clear height needed for operations
+- Add depth of rafter and purlins
+- Consider future flexibility
+
+**Span**: Column-free width required
+- Plus twice wall thickness
+- Check planning constraints
+
+**Roof pitch**: 6° is common
+- Steeper pitches reduce horizontal thrust
+- Shallower pitches may need deflection checks
+- Affects drainage design
+
+### Rule-of-Thumb Sizing
+
+**Rafters**:
+```
+Span 15-20m: 457 UKB
+Span 20-30m: 533 UKB
+Span 30-40m: 610 UKB
+Span 40-50m: 686 UKB or plate girder
+```
+
+**Columns**:
+```
+Height 6-8m: 457 UKC
+Height 8-10m: 533 UKC
+Height 10-12m: 610 UKC
+```
+
+**Haunches**:
+- Length: ~10% of span
+- Depth: ~2× rafter depth at column face
+
+These are starting points - analysis will refine them.
+
+## Loading
+
+### Dead Loads
+
+Typical cladding system:
+```
+Roof sheeting:          0.10 kN/m²
+Insulation:             0.05 kN/m²
+Purlins:               0.03 kN/m²
+Services:              0.10 kN/m²
+Total:                 0.28 kN/m² (use 0.30)
+```
+
+### Imposed Loads
+
+Per EC1-1-1 and UK NA:
+- Category H (roof): 0.6 kN/m²
+- Plus local concentration: 0.9 kN
+
+**Note**: Don't reduce for large areas in portal frame design - the frame reacts to total roof load.
+
+### Wind Loads
+
+Critical for portal frames. Follow EC1-1-4:
+
+1. Determine basic wind velocity (vb)
+2. Calculate peak velocity pressure (qp)
+3. Apply pressure coefficients (Cpe)
+4. Consider internal pressure (Cpi = ±0.2 typically)
+
+**Wind load cases**:
+- Wind on gable
+- Wind on side wall
+- Wind at angle (corner suction)
+
+Wind often governs rafter design (uplift) and always affects foundations.
+
+### Crane Loads
+
+For buildings with overhead cranes:
+- Vertical wheel loads
+- Horizontal surge (acceleration/braking)
+- Horizontal crab (across span)
+
+**Design consideration**: Crane loading induces moment in columns. May need deeper columns or crane brackets.
+
+## Frame Analysis
+
+### Elastic vs Plastic Design
+
+**Elastic analysis**:
+- Simpler, more conservative
+- Required for reversing moments (wind cases)
+- Good for initial sizing
+
+**Plastic analysis**:
+- More economical (10-15% lighter frames)
+- Requires Class 1 or 2 sections
+- Needs stability checks at hinge locations
+
+### Key Checks
+
+**In-plane stability (sway)**:
+- Check λcr (elastic critical load factor)
+- If λcr > 10, first-order analysis OK
+- If 3 < λcr < 10, use amplified moments
+- If λcr < 3, second-order analysis required
+
+**Out-of-plane stability (LTB)**:
+- Rafters restrained by purlins
+- Columns restrained by side rails
+- Check unrestrained lengths
+
+**Deflection limits**:
+- Eaves spread: height/150 (serviceability)
+- Rafter deflection: span/200
+- Crane runway: specific limits per crane spec
+
+## Haunched Connections
+
+### Why Haunches?
+
+Haunches serve multiple purposes:
+1. Increase moment capacity at column junction
+2. Move plastic hinge away from connection
+3. Reduce connection forces
+4. Improve frame stability
+
+### Haunch Design
+
+**Cutting angle**: Match rafter flange to haunch flange
+- Typically 10-15° to horizontal
+- Don't exceed 45° (web slenderness issues)
+
+**Length**:
+- Long enough to reach sagging moment location
+- 10-15% of span is typical
+
+**Stability**:
+- Haunch is an unrestrained compression flange
+- Check LTB capacity
+- May need restraints at haunch end
+
+## Column Bases
+
+### Pinned Bases
+
+Standard for most portal frames:
+- Smaller, cheaper foundations
+- Base plate with 4 holding-down bolts
+- Designed for shear and light tension (uplift)
+
+**Design checks**:
+- Base plate bending
+- Bolt tension (wind uplift)
+- Shear transfer (friction or bolts)
+- Foundation design for overturning
+
+### Fixed Bases
+
+Used when:
+- Very high frames (reduces sway)
+- Heavy crane loads
+- Architectural requirements
+
+Significantly larger foundations required - often not economical.
+
+## Bracing Systems
+
+### Roof Bracing
+
+**Purpose**: Transfer wind loads to braced bays, provide rafter restraint
+
+**Layout**:
+- Braced bays at each end of building
+- Additional braced bays every 30-40m
+- Circular hollow sections common
+
+### Wall Bracing
+
+**Purpose**: Resist wind on gables, provide column stability
+
+**Types**:
+- X-bracing (most efficient)
+- K-bracing (allows doorways)
+- Portal bracing (no diagonals)
+
+### Plan Bracing
+
+At eaves level:
+- Connects all rafters to braced bays
+- Essential for load path continuity
+
+## Fire Design
+
+Industrial buildings often have reduced fire requirements:
+- Single-storey: 30 minutes boundary condition
+- Boundary condition: collapse away from boundary
+
+**Portal frame fire engineering**:
+- Calculate rafter failure temperature
+- Ensure collapse is inward (moment reversal)
+- Check column base moment for reversed case
+
+## Practical Design Tips
+
+### From F1 Facility Experience
+
+1. **Services coordination**: Mechanical equipment loads can be significant. Get input early.
+
+2. **Future flexibility**: Size frames for potential future loads (PV panels, additional equipment).
+
+3. **Foundation conditions**: Poor ground can shift economics toward lighter frames with bigger foundations.
+
+4. **Cladding interface**: Ensure structure can support chosen cladding system and its movement.
+
+5. **Crane requirements**: Crane supplier specifications override standard assumptions. Get crane data before finalizing design.
+
+### Common Mistakes
+
+1. **Undersizing columns for crane buildings** - crane loads often govern
+2. **Forgetting in-plane restraints** at haunch ends
+3. **Ignoring temperature effects** in long buildings
+4. **Using incorrect pressure coefficients** for wind loading
+5. **Not checking deflection** under crane vertical loads
+
+## Software Options
+
+### Simple Portal Frames
+
+- **Tekla Structural Designer**: Good for standard frames
+- **CSC Fastrak Portal Frame**: Purpose-built, fast
+- **Excel spreadsheets**: For initial sizing
+
+### Complex or Non-Standard
+
+- **Robot Structural Analysis**: Full FE capability
+- **SAP2000/ETABS**: When integration with other structures needed
+- **SCIA Engineer**: Good for unusual geometries
+
+## Conclusion
+
+Portal frames are deceptively simple. The structural form is clear, but getting optimal design requires balancing:
+- Material efficiency
+- Fabrication simplicity
+- Erectability
+- Building physics (thermal bridging, condensation)
+- Future adaptability
+
+Start with rules of thumb, refine with analysis, and always consider the complete building system - not just the frame in isolation.

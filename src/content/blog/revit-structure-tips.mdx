@@ -1,0 +1,297 @@
+---
+title: "Revit for Structural Engineers: Tips and Best Practices"
+description: "Practical tips for using Revit Structure effectively, from model organization to export workflows."
+pubDate: "2025-12-05"
+author: "Daniel Madeley"
+tags: ["bim", "revit", "structural", "modeling"]
+---
+
+# Revit for Structural Engineers: Tips and Best Practices
+
+Revit has become the de facto standard for structural BIM modeling in the UK. After using it on projects ranging from single dwellings to high-rise towers, here are the tips I wish I'd known from the start.
+
+## Model Setup
+
+### Start with the Right Template
+
+A good structural template includes:
+- Standard structural families
+- View templates for plans, sections, schedules
+- Pre-configured line styles and patterns
+- Sheet templates with title blocks
+- Standard annotation families
+
+Don't model from scratch - inherit from proven templates.
+
+### Levels and Grids First
+
+These are the skeleton of your model:
+
+**Levels:**
+- Create all structural levels before modeling
+- Name consistently (Level 00, Level 01, not Ground, First)
+- Include non-structural levels (Top of Parapet, Roof)
+- Set accurate elevations from survey data
+
+**Grids:**
+- Establish grid system with architect
+- Use logical naming (A-Z horizontally, 1-n vertically)
+- Consider grid extents on different levels
+- Lock important grids
+
+### Worksets Strategy
+
+For larger projects, organize with worksets:
+
+```
+Worksets example:
+- Shared Levels and Grids
+- Structural Foundations
+- Structural Frame - Substructure
+- Structural Frame - Superstructure
+- Structural Slabs
+- Analysis (if modeling)
+- Coordination (reference links)
+```
+
+**Key principle**: Open only worksets you need. It improves performance.
+
+## Modeling Techniques
+
+### Foundation Modeling
+
+**Pad foundations:**
+- Use Structural Foundations family
+- Model at correct level (underside of pad)
+- Include pedestal if needed
+
+**Pile foundations:**
+- Custom families often needed
+- Consider how piles appear in schedules
+- Link pile layout from geotechnical engineer if available
+
+**Ground beams:**
+- Use Structural Framing
+- Set correct reference level
+- Check beam family has appropriate parameters
+
+### Concrete Frame
+
+**Columns:**
+- Host to correct level
+- Use base offset for accuracy
+- Define Top Level for multi-story columns
+- Check attachment to beams/slabs
+
+**Beams:**
+- Reference Level vs Reference Point (understand the difference)
+- Use beam systems for regular layouts
+- Check beam-column connections
+
+**Slabs:**
+- Structural floors, not architectural
+- Define layers properly (structural vs finishes)
+- Slab edge families for drop edges
+- Consider openings early (easier to add now)
+
+### Steel Frame
+
+**Standard sections:**
+- Load UK sections (UKB, UKC, PFC, angles)
+- Set correct cross-section rotation
+- Check Start/End connection settings
+
+**Connections:**
+- Model for visualization, not detail
+- Use generic connection families
+- Don't over-detail - coordination purpose
+
+**Bracings:**
+- Use structural framing
+- Check member is "Brace" type
+- Model to working points (node to node)
+
+## Productivity Techniques
+
+### Keyboard Shortcuts
+
+Learn these, use them constantly:
+
+```
+VV / VG - Visibility Graphics
+WT - Tile Views
+WC - Close Hidden Views
+ZA - Zoom All
+HH - Hide Element
+HR - Reset Hidden
+DI - Aligned Dimension
+EL - Spot Elevation
+PP - Pin Element
+UP - Unpin
+```
+
+Customize additional shortcuts in Options > Keyboard.
+
+### View Templates
+
+Create and use view templates:
+- Structural Plan - Foundations
+- Structural Plan - Frame
+- Structural Section - Working
+- Structural Section - Presentation
+
+Apply templates, then override only what's necessary.
+
+### Filters for Structural Visualization
+
+Create filters based on structural parameters:
+- By material (Concrete, Steel)
+- By size (highlight large sections)
+- By phase (existing vs new)
+- By design status (checked vs unchecked)
+
+### Schedules
+
+Power features for structural engineers:
+
+**Calculated fields:**
+```
+Volume (m³) = Length * Width * Height
+Weight (kN) = Volume * Density
+```
+
+**Conditional formatting:**
+- Highlight oversized members
+- Flag missing parameters
+- Identify design issues
+
+**Export to Excel:**
+- For quantities takeoff
+- For design input
+- For checking purposes
+
+## Coordination Workflows
+
+### Linking Architectural Models
+
+1. **Copy/Monitor** for grids and levels
+   - Alerts when architect changes
+   - Don't copy elements you'll model differently
+
+2. **View filters** to control link visibility
+   - Create "Linked Architecture" filter
+   - Set to halftone or transparent
+
+3. **Coordination review** workflow
+   - Regular model exchange schedule
+   - Clash detection in Navisworks
+   - Issues tracked in shared system
+
+### IFC Export
+
+When sending to analysis software:
+- Use built-in IFC export
+- Check settings (IFC 2x3 or IFC4 as required)
+- Test export/import cycle
+- Document any geometry translation issues
+
+### Working with Contractors
+
+**Model delivery:**
+- Native RVT preferred (for Navisworks federation)
+- IFC for interoperability
+- DWG for legacy workflows
+
+**Shop drawing interface:**
+- Define what contractor can modify
+- Consider live link for complex projects
+- Establish deviation tolerance
+
+## Common Mistakes to Avoid
+
+### 1. Wrong Reference Levels
+
+Beams modeled at wrong level cause:
+- Incorrect schedules
+- Wrong quantities
+- Analysis model errors
+
+Check reference levels when strange things happen.
+
+### 2. Unhosted Elements
+
+Elements not properly hosted:
+- Won't move with grids
+- Break when levels change
+- Cause coordination issues
+
+Host everything appropriately.
+
+### 3. Over-Detailed Modeling
+
+Not everything needs full detail:
+- Bolts in connection families - rarely needed
+- Rebar in concrete - separate discipline usually
+- Weld symbols - annotation, not geometry
+
+Model what adds value. Over-modeling slows everything.
+
+### 4. Ignoring Warnings
+
+Revit warnings indicate problems:
+- Duplicate elements in same location
+- Slight off-axis geometry
+- Hosting issues
+
+Address warnings regularly - they accumulate into serious problems.
+
+### 5. Poor File Management
+
+**Avoid:**
+- Working on central file directly
+- Not syncing regularly
+- Editing others' worksets without checking
+
+**Practice:**
+- Local files for all work
+- Regular sync with central
+- Compact file periodically
+- Audit and purge before issue
+
+## Integration with Analysis
+
+### Analytical Model
+
+Revit's analytical model:
+- Automatically generated from physical
+- Often needs adjustment (supports, releases)
+- Export to Robot, ETABS, or via open formats
+
+**Tips:**
+- Check analytical model in 3D view
+- Verify node locations
+- Set supports correctly
+- Confirm member releases
+
+### Robot Structural Analysis Link
+
+Direct integration:
+- Sends geometry and loads
+- Returns results to Revit
+- Can update sections automatically
+
+**Caveats:**
+- Not all Revit elements transfer perfectly
+- Complex geometry may need manual adjustment
+- Always verify results independently
+
+## Conclusion
+
+Revit is powerful but requires discipline. The best Revit users:
+- Start with solid foundations (templates, standards)
+- Use keyboard shortcuts and view templates
+- Understand hosting and reference levels
+- Coordinate actively with other disciplines
+- Model purposefully (not everything, just what's needed)
+
+Invest in learning Revit properly - it's a career-long tool. The time spent upfront pays dividends on every project thereafter.

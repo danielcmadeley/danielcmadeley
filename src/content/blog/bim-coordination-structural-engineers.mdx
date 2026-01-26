@@ -1,0 +1,201 @@
+---
+title: "BIM Coordination: A Structural Engineer's Perspective"
+description: "Lessons learned from coordinating structural models with architects, MEP engineers, and contractors on complex building projects."
+pubDate: "2026-01-15"
+author: "Daniel Madeley"
+tags: ["bim", "coordination", "revit", "structural"]
+---
+
+# BIM Coordination: A Structural Engineer's Perspective
+
+After coordinating structural models on residential towers, motorsport facilities, and industrial buildings, I've learned that technical modeling skills are only half the battle. Effective BIM coordination is as much about communication and process as it is about software.
+
+## The Reality of Multi-Discipline Coordination
+
+On paper, BIM coordination sounds straightforward: everyone models their elements, we combine them, find clashes, resolve them. In practice, it's far messier:
+
+- Models arrive at different LODs (Levels of Development)
+- Naming conventions vary between firms
+- Origin points don't align
+- Elements are modeled in unexpected ways
+- Deadlines don't sync across disciplines
+
+## Setting Up for Success
+
+### Establish Clear Standards Early
+
+Before modeling begins, agree on:
+
+- **Project origin**: Use real-world coordinates tied to the survey
+- **Shared coordinates**: How Revit models will be positioned
+- **Naming conventions**: Element naming, view naming, sheet numbering
+- **LOD requirements**: What level of detail at each design stage
+- **Model exchange format**: Native files, IFC, or both
+- **Exchange schedule**: Regular dates for model sharing
+
+### Create a BIM Execution Plan
+
+Document everything. A good BEP covers:
+
+```
+1. Project information
+2. Team contacts and responsibilities
+3. Software versions
+4. File naming conventions
+5. Model structure (worksets, linked models)
+6. Coordinate system
+7. Exchange protocols
+8. Clash detection workflow
+9. Issue resolution process
+```
+
+## Structural-Specific Coordination Challenges
+
+### With Architecture
+
+Common issues:
+- **Grid alignment**: Ensure structural grids match architectural grids exactly
+- **Floor-to-floor heights**: Verify these accommodate structural depths
+- **Opening locations**: Coordinate penetrations through slabs and walls
+- **Facade connections**: Ensure backup structure is modeled
+
+My approach:
+1. Review architectural model weekly
+2. Flag coordination issues in shared model
+3. Discuss solutions before modeling fixes
+4. Document agreed changes in meeting minutes
+
+### With MEP
+
+This is where most clashes occur. Typical problems:
+- **Ductwork through beams**: Services routed through structural zones
+- **Riser locations**: Vertical penetrations not coordinated
+- **Plant loads**: Heavy equipment not communicated
+- **Drainage falls**: Affecting structural floor levels
+
+Strategies that work:
+- Define clear service zones early
+- Provide penetration schedules with maximum sizes
+- Attend MEP coordination meetings
+- Model major penetrations in structural model
+
+### With Contractors
+
+On construction stage projects:
+- **Temporary works**: Ensure model accommodates propping
+- **Construction sequence**: Phase the model appropriately
+- **Tolerance**: Account for realistic construction tolerances
+- **Setting out**: Provide clear reference points
+
+## Clash Detection Best Practices
+
+### Don't Chase Every Clash
+
+Not all clashes are real problems:
+
+- **Hard clashes**: Actual geometry intersections - must resolve
+- **Soft clashes**: Clearance violations - assess criticality
+- **Workflow clashes**: Same space, different phases - usually OK
+
+### Prioritize by Impact
+
+I categorize clashes as:
+
+1. **Critical**: Affects structural integrity or buildability
+2. **Major**: Requires design change, impacts cost/program
+3. **Minor**: Can be resolved on site with standard details
+4. **Information**: No action required, note for awareness
+
+### Run Targeted Checks
+
+Instead of clashing everything against everything:
+
+```
+1. Structure vs MEP risers
+2. Structure vs major ductwork (>300mm)
+3. Beams vs architectural ceilings
+4. Foundations vs drainage
+5. Columns vs partition walls
+```
+
+## Communication is Key
+
+### Clash Reports That Get Actioned
+
+Bad clash report:
+> "132 clashes found between structural and MEP models"
+
+Good clash report:
+> "Clash #47: 400x200 duct penetrates B-23 transfer beam.
+> Location: Level 3, Grid B/4
+> Proposed solution: Route duct below beam, drop ceiling 150mm
+> Action: MEP to confirm, Architecture to review ceiling impact
+> Deadline: Friday COB"
+
+### Regular Coordination Meetings
+
+Weekly 30-minute meetings beat monthly 3-hour marathons:
+
+- Review new clashes (top 10 only)
+- Confirm resolved issues
+- Discuss design changes affecting coordination
+- Preview upcoming model updates
+
+## Tools and Techniques
+
+### Navisworks
+
+Still the industry standard for clash detection:
+- Federate models from different sources
+- Run clash tests with tolerance control
+- Create searchable, sortable clash reports
+- Track clash resolution over time
+
+### BIM 360 / ACC
+
+Cloud-based coordination:
+- Real-time model viewing
+- Issues linked to model elements
+- Automatic clash detection
+- Better for distributed teams
+
+### Solibri
+
+More sophisticated rule checking:
+- Check code compliance
+- Verify constructability
+- Custom rules for project standards
+
+## Lessons from the Field
+
+### Kidbrooke Village (341 homes, 9-16 storeys)
+
+Key learning: **Establish service zones early**
+
+We defined structural zones versus services zones from the outset. All major distribution was routed within designated corridors. Structural penetrations were pre-modeled based on standard details. Result: 60% fewer coordination clashes than comparable projects.
+
+### F1 Design Facilities
+
+Key learning: **Model the unusual stuff**
+
+These buildings have atypical requirements: wind tunnel connections, precision manufacturing equipment, heavy crane loads. Traditional coordination workflows missed these. Solution: Created custom families for specialist equipment and included in clash detection.
+
+## Future of BIM Coordination
+
+### AI-Assisted Clash Resolution
+
+Tools are emerging that suggest clash resolutions based on project history. Early days, but promising for routine conflicts.
+
+### Real-Time Coordination
+
+Cloud-native platforms enabling live multi-user coordination. No more waiting for weekly model exchanges.
+
+### Digital Twin Integration
+
+Coordination extending into construction and operations. As-built models feeding back to design for continuous improvement.
+
+## Conclusion
+
+Effective BIM coordination is a skill that develops with experience. The best coordinators combine technical proficiency with diplomatic communication and process discipline.
+
+Start with clear standards, communicate proactively, and remember that every clash represents an opportunity to improve the building before it's built.

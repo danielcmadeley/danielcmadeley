@@ -14,6 +14,10 @@ const allPosts = await getCollection("blog");
 const blogPosts = allPosts.map(processCollectionBlogPost);
 const sortedPosts = sortPostsByDate(blogPosts);
 
+// Get featured post (most recent) and remaining posts
+const featuredPost = sortedPosts[0];
+const remainingPosts = sortedPosts.slice(1);
+
 // Extract all unique tags
 const allTags = Array.from(
     new Set(sortedPosts.flatMap((post) => post.tags))
@@ -25,32 +29,46 @@ const postsData = JSON.stringify(sortedPosts);
 
 <Layout
     title="Thoughts and Writings - Daniel Madeley"
-    description="Thoughts on design, development, and the intersection of technology and creativity. Articles about web development, design systems, and engineering."
-    keywords="blog, web development, design, engineering, JavaScript, TypeScript, React, Vue, Angular"
+    description="Exploring structural engineering, computational design, Python automation, and the intersection of engineering and technology."
+    keywords="blog, structural engineering, computational design, Python, automation, BIM, FEA, Grasshopper"
 >
-    <div class="flex flex-col gap-4 border-b pb-8 border-neutral-200">
-        <div class="flex items-start justify-between gap-4">
-            <div>
-                <h2 class="text-2xl font-bold text-stone-400">Thoughts & Writings</h2>
-                <p class="text-xs text-stone-200 max-w-[500px] mt-2">
-                    Exploring the intersection of design, development, and digital
-                    innovation through articles and insights.
-                </p>
+    <!-- Hero Section -->
+    <header class="mb-12">
+        <div class="flex flex-col gap-4 mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-stone-100">
+                Thoughts & Writings
+            </h1>
+            <p class="text-lg text-stone-400 max-w-2xl">
+                Exploring the intersection of structural engineering, computational design, and software development.
+                Practical insights from building structures and writing code.
+            </p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="flex flex-wrap items-center gap-6 py-4 border-y border-stone-800">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-stone-100">{sortedPosts.length}</span>
+                <span class="text-sm text-stone-500">Articles</span>
             </div>
-            <div id="results-count" class="text-xs text-stone-400 whitespace-nowrap pt-1">
-                {sortedPosts.length} {sortedPosts.length === 1 ? 'article' : 'articles'}
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-stone-100">{allTags.length}</span>
+                <span class="text-sm text-stone-500">Topics</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-stone-100">{sortedPosts.reduce((acc, p) => acc + p.readingTime, 0)}</span>
+                <span class="text-sm text-stone-500">Minutes of reading</span>
             </div>
         </div>
-    </div>
+    </header>
 
     <!-- Filter Section -->
-    <div class="py-6 ">
-        <div class="flex items-center gap-1 overflow-x-auto pb-2 -mb-2 scrollbar-hide">
+    <nav class="mb-10">
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide">
             <button
                 data-filter="all"
-                class="filter-tag active px-4 py-2 text-sm text-stone-400 hover:text-stone-100 transition-colors whitespace-nowrap border-b-2 border-transparent"
+                class="filter-tag active px-4 py-2 text-sm rounded-full bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-stone-100 transition-all whitespace-nowrap"
             >
-                All
+                All Posts
             </button>
             {allTags.map((tag) => {
                 const tagCount = sortedPosts.filter((post) => post.tags.includes(tag)).length;
@@ -58,168 +76,180 @@ const postsData = JSON.stringify(sortedPosts);
                     <button
                         data-filter={tag}
                         data-count={tagCount}
-                        class="filter-tag px-4 py-2 text-sm text-stone-400 hover:text-stone-100 transition-colors whitespace-nowrap border-b-2 border-transparent"
+                        class="filter-tag px-4 py-2 text-sm rounded-full bg-stone-900 text-stone-400 hover:bg-stone-800 hover:text-stone-200 transition-all whitespace-nowrap border border-stone-800"
                     >
                         {tag}
-                        <span class="ml-1.5 text-stone-500">({tagCount})</span>
+                        <span class="ml-1 text-stone-600">{tagCount}</span>
                     </button>
                 );
             })}
         </div>
-    </div>
+    </nav>
+
+    <!-- Featured Post -->
+    {featuredPost && (
+        <section id="featured-section" class="mb-12">
+            <BlogPostCard post={featuredPost} variant="featured" showAuthor={false} maxTags={4} />
+        </section>
+    )}
 
     <!-- Posts Grid -->
-    <div id="posts-container" class="grid grid-cols-1 gap-8 mb-12">
-        {sortedPosts.map((post) => (
-            <div
-                class="post-item"
-                data-slug={post.slug}
-                data-tags={JSON.stringify(post.tags)}
-            >
-                <BlogPostCard post={post} variant="compact" showAuthor={false} maxTags={3} />
-            </div>
-        ))}
+    <section>
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold text-stone-200">Latest Articles</h2>
+            <span id="results-count" class="text-sm text-stone-500">
+                {remainingPosts.length} {remainingPosts.length === 1 ? 'article' : 'articles'}
+            </span>
+        </div>
+
+        <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {remainingPosts.map((post) => (
+                <div
+                    class="post-item"
+                    data-slug={post.slug}
+                    data-tags={JSON.stringify(post.tags)}
+                >
+                    <BlogPostCard post={post} variant="grid" showAuthor={false} maxTags={2} />
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <!-- All posts for filtering (hidden by default, shown when filtering) -->
+    <div id="filtered-posts-container" class="hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {sortedPosts.map((post) => (
+                <div
+                    class="filtered-post-item"
+                    data-slug={post.slug}
+                    data-tags={JSON.stringify(post.tags)}
+                >
+                    <BlogPostCard post={post} variant="grid" showAuthor={false} maxTags={2} />
+                </div>
+            ))}
+        </div>
     </div>
 
     <!-- Empty State -->
     <div
         id="empty-state"
-        class="text-center py-12 hidden"
+        class="text-center py-16 hidden"
     >
-        <p class="text-stone-400 text-lg mb-2">
-            No articles found.
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-800 flex items-center justify-center">
+            <svg class="w-8 h-8 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+        <p class="text-stone-300 text-lg mb-2">
+            No articles found
         </p>
         <p class="text-stone-500 text-sm">
-            Try selecting a different filter or <button id="clear-filter" class="text-stone-400 hover:text-stone-300 underline">view all articles</button>.
+            Try selecting a different topic or <button id="clear-filter" class="text-stone-400 hover:text-stone-300 underline underline-offset-2">view all articles</button>
         </p>
     </div>
 
-    <!-- Pagination -->
-    <div
-        id="pagination"
-        class="flex items-center justify-center gap-4 pt-8 "
-        style="display: none;"
-    >
-        <button
-            id="prev-btn"
-            class="px-4 py-2 text-sm text-stone-400 hover:text-stone-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled
-        >
-            Previous
-        </button>
-        <span
-            id="page-info"
-            class="text-sm text-stone-400"
-        ></span>
-        <button
-            id="next-btn"
-            class="px-4 py-2 text-sm text-stone-400 hover:text-stone-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-            Next
-        </button>
-    </div>
+    <!-- Newsletter CTA -->
+    <section class="mt-16 py-12 border-t border-stone-800">
+        <div class="text-center">
+            <h3 class="text-2xl font-bold text-stone-100 mb-3">Stay Updated</h3>
+            <p class="text-stone-400 mb-6 max-w-md mx-auto">
+                Follow my journey exploring engineering, code, and computational design.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a
+                    href="https://dub.sh/linkedin-madeley"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-lg transition-colors"
+                >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    Connect on LinkedIn
+                </a>
+                <a
+                    href="https://dub.sh/github-madeley"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 border border-stone-700 hover:border-stone-600 text-stone-300 rounded-lg transition-colors"
+                >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Follow on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
 
     <script define:vars={{ postsData, allTags }}>
-        const POSTS_PER_PAGE = 6;
-        let allPosts = JSON.parse(postsData);
-        let filteredPosts = [...allPosts];
-        let currentPage = 1;
+        const allPosts = JSON.parse(postsData);
         let activeFilter = "all";
 
+        const featuredSection = document.getElementById("featured-section");
         const postsContainer = document.getElementById("posts-container");
+        const filteredContainer = document.getElementById("filtered-posts-container");
         const emptyState = document.getElementById("empty-state");
         const resultsCount = document.getElementById("results-count");
         const clearFilterBtn = document.getElementById("clear-filter");
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-        const pageInfo = document.getElementById("page-info");
         const filterButtons = document.querySelectorAll(".filter-tag");
-        const postItems = document.querySelectorAll(".post-item");
+        const filteredPostItems = document.querySelectorAll(".filtered-post-item");
 
         function filterPosts(tag) {
             activeFilter = tag;
+
             if (tag === "all") {
-                filteredPosts = [...allPosts];
-            } else {
-                filteredPosts = allPosts.filter((post) =>
-                    post.tags.includes(tag)
-                );
-            }
-            currentPage = 1;
-            renderPosts();
-            updatePagination();
-        }
-
-        function renderPosts() {
-            const start = (currentPage - 1) * POSTS_PER_PAGE;
-            const end = start + POSTS_PER_PAGE;
-            const postsToShow = filteredPosts.slice(start, end);
-            const slugsToShow = new Set(postsToShow.map((p) => p.slug));
-
-            // Hide all posts first
-            postItems.forEach((item) => {
-                item.style.display = "none";
-            });
-
-            // Show posts that match current page
-            postItems.forEach((item) => {
-                const slug = item.dataset.slug;
-                if (slugsToShow.has(slug)) {
-                    item.style.display = "block";
-                }
-            });
-
-            // Update results count
-            const count = filteredPosts.length;
-            resultsCount.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
-
-            // Show/hide empty state
-            if (filteredPosts.length === 0) {
-                postsContainer.style.display = "none";
-                emptyState.classList.remove("hidden");
-            } else {
+                // Show default layout
+                if (featuredSection) featuredSection.style.display = "block";
                 postsContainer.style.display = "grid";
+                filteredContainer.classList.add("hidden");
                 emptyState.classList.add("hidden");
-            }
-        }
 
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-            const paginationEl = document.getElementById("pagination");
-            
-            if (totalPages > 1) {
-                paginationEl.style.display = "flex";
-                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage >= totalPages;
+                const count = allPosts.length - 1; // minus featured
+                resultsCount.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
             } else {
-                paginationEl.style.display = "none";
-            }
-        }
+                // Show filtered layout
+                if (featuredSection) featuredSection.style.display = "none";
+                postsContainer.style.display = "none";
+                filteredContainer.classList.remove("hidden");
 
-        function goToPage(page) {
-            const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                renderPosts();
-                updatePagination();
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                const filteredPosts = allPosts.filter(post => post.tags.includes(tag));
+
+                // Show/hide posts based on filter
+                filteredPostItems.forEach(item => {
+                    const tags = JSON.parse(item.dataset.tags || "[]");
+                    if (tags.includes(tag)) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+
+                const count = filteredPosts.length;
+                resultsCount.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
+
+                if (count === 0) {
+                    filteredContainer.classList.add("hidden");
+                    emptyState.classList.remove("hidden");
+                } else {
+                    emptyState.classList.add("hidden");
+                }
             }
         }
 
         // Filter button handlers
         filterButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
-                filterButtons.forEach((b) => b.classList.remove("active"));
-                btn.classList.add("active");
+                filterButtons.forEach((b) => {
+                    b.classList.remove("active", "bg-stone-800", "text-stone-300");
+                    b.classList.add("bg-stone-900", "text-stone-400", "border", "border-stone-800");
+                });
+                btn.classList.add("active", "bg-stone-800", "text-stone-300");
+                btn.classList.remove("bg-stone-900", "text-stone-400", "border", "border-stone-800");
                 const filter = btn.dataset.filter;
                 filterPosts(filter);
             });
         });
-
-        // Pagination handlers
-        prevBtn.addEventListener("click", () => goToPage(currentPage - 1));
-        nextBtn.addEventListener("click", () => goToPage(currentPage + 1));
 
         // Clear filter handler
         if (clearFilterBtn) {
@@ -230,16 +260,13 @@ const postsData = JSON.stringify(sortedPosts);
                 }
             });
         }
-
-        // Initial render
-        renderPosts();
-        updatePagination();
     </script>
 
     <style>
         .filter-tag.active {
-            border-bottom-color: rgb(168 162 158) !important;
-            color: rgb(245 245 244) !important;
+            background-color: rgb(41 37 36) !important;
+            color: rgb(214 211 209) !important;
+            border-color: rgb(68 64 60) !important;
         }
 
         .scrollbar-hide {

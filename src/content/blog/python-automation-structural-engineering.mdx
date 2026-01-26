@@ -1,0 +1,155 @@
+---
+title: "Automating Structural Engineering Workflows with Python"
+description: "How I use Python to automate repetitive calculations, generate reports, and streamline BIM workflows in my day-to-day engineering work."
+pubDate: "2026-01-25"
+author: "Daniel Madeley"
+tags: ["python", "automation", "structural", "engineering"]
+---
+
+# Automating Structural Engineering Workflows with Python
+
+As structural engineers, we spend a significant portion of our time on repetitive tasks: extracting data from models, running similar calculations for different load cases, generating reports, and coordinating with other disciplines. Python has become my secret weapon for reclaiming that time.
+
+## Why Python for Structural Engineering?
+
+Python's appeal lies in its simplicity and the ecosystem of libraries available for engineering applications:
+
+- **NumPy and SciPy** for numerical calculations
+- **Pandas** for data manipulation and analysis
+- **openpyxl** for Excel automation
+- **python-docx** for report generation
+- **pyRevit** for Revit automation
+
+## Real-World Example: Beam Schedule Automation
+
+Here's a practical example that saved me hours on a recent project. I needed to extract beam data from a Revit model and generate a formatted schedule for the contractor:
+
+```python
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.styles import Font, Alignment, Border, Side
+
+def process_beam_schedule(revit_export_path, output_path):
+    # Read the Revit export
+    df = pd.read_csv(revit_export_path)
+
+    # Clean and process data
+    df['Section'] = df['Type Name'].str.extract(r'(\d+x\d+)')
+    df['Length_m'] = df['Length'].astype(float) / 1000
+
+    # Group by floor level
+    grouped = df.groupby('Level')
+
+    # Create formatted Excel output
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Beam Schedule"
+
+    # Add headers with formatting
+    headers = ['Mark', 'Section', 'Length (m)', 'Steel Grade', 'Finish']
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=1, column=col, value=header)
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(horizontal='center')
+
+    # Populate data
+    row = 2
+    for level, beams in grouped:
+        ws.cell(row=row, column=1, value=f"Level: {level}")
+        ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
+        row += 1
+
+        for _, beam in beams.iterrows():
+            ws.cell(row=row, column=1, value=beam['Mark'])
+            ws.cell(row=row, column=2, value=beam['Section'])
+            ws.cell(row=row, column=3, value=round(beam['Length_m'], 2))
+            ws.cell(row=row, column=4, value='S355')
+            ws.cell(row=row, column=5, value='Intumescent paint')
+            row += 1
+
+    wb.save(output_path)
+    print(f"Schedule generated: {output_path}")
+```
+
+## Automating Load Combinations
+
+Another common task is generating load combinations according to Eurocodes. Instead of manually creating these in your analysis software, automate it:
+
+```python
+def generate_eurocode_combinations(dead_load, imposed_load, wind_load):
+    """
+    Generate ULS combinations per EC0 Eq. 6.10a/b
+    """
+    gamma_g = 1.35  # Permanent actions
+    gamma_q = 1.5   # Variable actions
+    psi_0_imposed = 0.7
+    psi_0_wind = 0.5
+
+    combinations = {
+        'ULS_6.10a_Imposed': {
+            'G': gamma_g * dead_load,
+            'Q': gamma_q * psi_0_imposed * imposed_load,
+            'W': gamma_q * psi_0_wind * wind_load
+        },
+        'ULS_6.10a_Wind': {
+            'G': gamma_g * dead_load,
+            'Q': gamma_q * psi_0_imposed * imposed_load,
+            'W': gamma_q * wind_load
+        },
+        'ULS_6.10b_Imposed': {
+            'G': 0.925 * gamma_g * dead_load,
+            'Q': gamma_q * imposed_load,
+            'W': gamma_q * psi_0_wind * wind_load
+        }
+    }
+
+    return combinations
+```
+
+## Integration with BIM Workflows
+
+The real power comes when you integrate Python with your BIM workflow. I use pyRevit to create custom tools that run directly within Revit:
+
+```python
+# pyRevit script example
+from pyrevit import revit, DB
+
+doc = revit.doc
+
+# Collect all structural framing
+collector = DB.FilteredElementCollector(doc)
+framing = collector.OfCategory(DB.BuiltInCategory.OST_StructuralFraming)
+framing = framing.WhereElementIsNotElementType().ToElements()
+
+# Calculate total steel tonnage
+total_weight = 0
+for element in framing:
+    param = element.LookupParameter("Weight")
+    if param and param.HasValue:
+        total_weight += param.AsDouble()
+
+# Convert to tonnes
+total_tonnes = total_weight * 0.453592 / 1000
+print(f"Total steel tonnage: {total_tonnes:.2f} tonnes")
+```
+
+## Getting Started
+
+If you're new to Python, here's my recommended learning path:
+
+1. **Start with the basics**: Variables, loops, functions
+2. **Learn Pandas**: Essential for data manipulation
+3. **Pick one automation target**: Start with Excel automation
+4. **Build incrementally**: Automate one task at a time
+
+## The ROI of Automation
+
+On my F1 facility projects, Python automation has saved approximately 20% of my time on documentation and data processing. That's time I can redirect to actual engineering problems.
+
+The initial investment in learning pays off quickly. Once you've built a script for beam schedules, adapting it for column schedules or foundation schedules takes minutes, not hours.
+
+## Conclusion
+
+Python isn't replacing engineering judgment - it's amplifying our capabilities. The engineers who embrace automation will be able to take on larger, more complex projects while maintaining quality and meeting deadlines.
+
+Start small, automate one tedious task, and build from there. Your future self will thank you.

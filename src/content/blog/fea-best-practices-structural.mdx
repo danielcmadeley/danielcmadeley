@@ -1,0 +1,230 @@
+---
+title: "FEA Best Practices for Structural Engineers"
+description: "Practical guidance on finite element analysis for building structures, from mesh refinement to result validation."
+pubDate: "2026-01-10"
+author: "Daniel Madeley"
+tags: ["fea", "structural", "analysis", "engineering"]
+---
+
+# FEA Best Practices for Structural Engineers
+
+Finite Element Analysis is a powerful tool, but it's also a tool that can produce convincing-looking wrong answers. After years of using FEA on projects ranging from residential buildings to F1 facilities, here are the practices that help me get reliable results.
+
+## The Cardinal Rule
+
+**Never trust a result you can't verify by other means.**
+
+Before diving into mesh refinement and solver settings, remember: FEA is a tool to refine your understanding, not replace engineering judgment. Always have a back-of-envelope check ready.
+
+## Model Setup Fundamentals
+
+### Choosing the Right Element Type
+
+For building structures, common choices:
+
+| Application | Element Type | Notes |
+|------------|--------------|-------|
+| Beams/columns | Line elements | Include shear deformation for deep members |
+| Slabs | Shell elements | Minimum 4 elements between supports |
+| Walls | Shell or plate | Consider out-of-plane behavior |
+| Foundations | Solid elements | Or springs for simplified models |
+| Connections | Spring elements | When stiffness matters |
+
+### Mesh Quality Matters
+
+Poor mesh quality is the most common source of FEA errors. Guidelines:
+
+**Aspect ratio**: Keep elements roughly square (ratio < 3:1)
+
+**Mesh refinement**: Finer mesh near:
+- Load application points
+- Support locations
+- Geometric discontinuities
+- Areas of high stress gradient
+
+**Convergence check**: Run the analysis with progressively finer meshes until results stabilize (within 5% typically acceptable).
+
+```
+Mesh study example:
+Mesh 1: 500mm elements  → Peak stress: 245 MPa
+Mesh 2: 250mm elements  → Peak stress: 267 MPa
+Mesh 3: 125mm elements  → Peak stress: 278 MPa
+Mesh 4: 62.5mm elements → Peak stress: 281 MPa
+
+Mesh 3 to 4 change: 1.1% - convergence achieved
+```
+
+### Boundary Conditions
+
+The most critical and error-prone aspect of FEA modeling:
+
+**Supports**
+- Pinned support: Restrains translation, allows rotation
+- Fixed support: Restrains all degrees of freedom
+- Roller: Restrains perpendicular translation only
+
+**Reality check**: Does your boundary condition represent actual behavior?
+- "Fixed" columns on pad foundations aren't truly fixed
+- "Pinned" beam connections have some rotational stiffness
+- Soil-structure interaction affects foundation behavior
+
+### Loading
+
+**Load application**:
+- Point loads: Create stress concentrations - use bearing plates
+- Distributed loads: More realistic but check tributary areas
+- Pattern loading: Required for slabs per EC2
+
+**Load combinations**:
+- Generate all relevant combinations before analysis
+- Use envelope results for design
+- Check that critical combination makes physical sense
+
+## Common Pitfalls
+
+### 1. Stress Singularities
+
+FEA will predict infinite stress at:
+- Point loads on shells
+- Re-entrant corners
+- Support points
+
+These aren't real - they're mathematical artifacts. Solutions:
+- Apply loads over finite area
+- Use fillet radii at corners
+- Interpret results away from singularity
+- Use stress averaging
+
+### 2. Hourglassing
+
+In reduced integration elements, hourglass modes can develop:
+- Zero-energy deformation patterns
+- Results look plausible but are wrong
+
+Prevention:
+- Use full integration elements
+- Enable hourglass control
+- Check for suspicious deformation patterns
+
+### 3. Shear Locking
+
+Thin elements with low-order shape functions can be overly stiff:
+- Beam elements that don't bend properly
+- Shell elements that behave like rigid plates
+
+Solutions:
+- Use elements with shear deformation
+- Increase polynomial order
+- Use specialized thin element formulations
+
+### 4. Overconfidence in Linear Analysis
+
+Linear analysis assumes:
+- Small displacements
+- Linear material behavior
+- No contact or gaps
+
+When to go nonlinear:
+- Displacements > L/50
+- Stresses approaching yield
+- Stability concerns (P-delta, buckling)
+- Connection behavior with gaps
+
+## Validation Strategies
+
+### Back-of-Envelope Checks
+
+Before any FEA, estimate:
+
+**Beam deflection**: δ = 5wL⁴/384EI (simply supported, UDL)
+
+**Natural frequency**: f = (π/2L²)√(EI/m) (simply supported)
+
+**Axial stress**: σ = P/A
+
+If FEA differs by more than 20% from hand calc, investigate why.
+
+### Reaction Checks
+
+Sum of reactions must equal applied loads:
+- ΣFx = Applied Fx
+- ΣFy = Applied Fy
+- ΣFz = Applied Fz
+
+Most software reports equilibrium - always check this.
+
+### Deflected Shape Review
+
+Does the deformation make sense?
+- Symmetric loading should give symmetric deformation
+- Supports should have zero displacement (in restrained direction)
+- No unexpected movement
+
+### Benchmark Problems
+
+Validate your modeling approach on problems with known solutions:
+- Simply supported beam under UDL
+- Plate with central point load
+- Cantilever with end load
+
+## Project-Specific Examples
+
+### Flat Slab Analysis (Kidbrooke Village)
+
+For RC flat slabs with complex column layouts:
+
+1. Model full floor plate, not isolated bays
+2. Use shell elements with appropriate thickness
+3. Apply pattern loading as per EC2
+4. Extract design moments using Wood-Armer method
+5. Verify against equivalent frame method
+
+### Portal Frame Analysis (F1 Facilities)
+
+Large-span portal frames with crane loading:
+
+1. Model frame as 2D plane stress or 3D line elements
+2. Include realistic connection stiffness
+3. Apply crane loads at multiple positions
+4. Run P-delta analysis for stability
+5. Check deflections against functional requirements
+
+### Transfer Structure (High-Rise)
+
+Heavy transfer beams supporting multiple floors:
+
+1. 3D model with solid elements for transfer
+2. Full dead load from above before superimposed
+3. Construction sequence analysis
+4. Check bearing stresses at supports
+5. Long-term deflection considerations
+
+## Software-Specific Tips
+
+### Tekla Structural Designer
+- Good for code checking of standard structures
+- Limited mesh control - verify critical areas in dedicated FEA
+
+### SCIA Engineer
+- Excellent mesh control and result visualization
+- Watch for default settings on European codes
+
+### Robot Structural Analysis
+- Powerful but steep learning curve
+- Custom result combinations require setup
+
+### ETABS
+- Optimized for buildings
+- P-delta analysis well-implemented
+
+## Conclusion
+
+FEA is indispensable for modern structural engineering, but it requires disciplined application:
+
+1. **Plan your analysis** before starting the software
+2. **Simplify intelligently** - complexity doesn't equal accuracy
+3. **Validate relentlessly** - hand calcs, reactions, deformed shape
+4. **Document assumptions** - for review and future reference
+5. **Question results** - if they seem wrong, they probably are
+
+The best analysts I know spend more time thinking than clicking. Invest in understanding your structure before investing in mesh refinement.
