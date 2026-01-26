@@ -21,6 +21,7 @@
     "@astrojs/rss": "4.0.14",
     "@astrojs/sitemap": "3.6.0",
     "@astrojs/vercel": "9.0.2",
+    "@calcom/embed-react": "^1.5.3",
     "@openpanel/astro": "^1.0.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@tailwindcss/vite": "^4.1.11",

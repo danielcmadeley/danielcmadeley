@@ -276,10 +276,10 @@ export function CommandSearch() {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-stone-100 w-full max-w-sm"
+        className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-[#335D9B]/75 hover:bg-[#335D9B] text-stone-300 hover:text-stone-100 w-full max-w-sm"
       >
         <Search className="w-4 h-4" />
-        <span className="flex-1 text-left">Search blog posts...</span>
+        <span className="flex-1 text-left">Search the website...</span>
         <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
           <span className="text-xs">⌘</span>K
         </kbd>
@@ -297,7 +297,7 @@ export function CommandSearch() {
               <Search className="mr-3 h-4 w-4 shrink-0 text-stone-400" />
               <CommandInput
                 ref={inputRef}
-                placeholder="Search blog posts..."
+                placeholder="Search the website..."
                 value={query}
                 onValueChange={setQuery}
                 className="flex h-14 w-full rounded-md bg-transparent py-3 text-stone-200 outline-none placeholder:text-stone-500 disabled:cursor-not-allowed disabled:opacity-50 border-0 focus:ring-0"
@@ -418,7 +418,7 @@ export function CommandSearch() {
               {!query && randomPosts.length === 0 && (
                 <div className="py-8 text-center text-stone-500">
                   <div className="space-y-3">
-                    <p>Start typing to search blog posts...</p>
+                    <p>Start typing to search the website...</p>
                     <div className="flex justify-center gap-4 text-xs">
                       <kbd className="px-2 py-1 bg-stone-800 border border-stone-700 rounded text-stone-300">
                         ⌘K
