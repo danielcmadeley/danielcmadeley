@@ -276,6 +276,12 @@
     body {
         @apply text-foreground;
     }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+    }
+  .maplibregl-popup-tip {
+    @apply hidden!;
+    }
 }
 
 @layer utilities {
@@ -299,12 +305,12 @@
             linear-gradient(315deg, rgba(10, 10, 10, 0.3) 0%, rgba(115, 115, 115, 0.3) 100%),
             linear-gradient(135deg, #4A6A9A 0%, #335D9B 100%);
     }
-    
+
     .border-gradient {
         position: relative;
         border: none;
     }
-    
+
     .border-gradient::before {
         content: '';
         position: absolute;

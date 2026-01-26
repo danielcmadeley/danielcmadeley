@@ -6,7 +6,9 @@ import Cal from "./cal";
 
 <div class="border-b pb-8 border-neutral-200 flex justify-between items-end">
 <div class="flex flex-col gap-4 w-full">
-    <h2 class="text-2xl font-bold text-stone-400">Daniel Charles Madeley</h2>
+    <h2 class="text-2xl font-bold text-stone-400 font-mono inline-flex items-center">
+        Daniel Charles Madeley<span class="cursor-block" aria-hidden="true"></span>
+    </h2>
     <h1 class="text-xl text-stone-100">Computational Engineer</h1>
     <p class="text-xs text-stone-200 max-w-[500px]">
         I apply computational thinking and programming skills to design
@@ -41,3 +43,19 @@ import Cal from "./cal";
     <CommandSearch client:load />
 </div>
 </div>
+
+<style>
+    .cursor-block {
+        display: inline-block;
+        width: 0.25rem;
+        height: 1em;
+        background-color: currentColor;
+        margin-left: 1px;
+        vertical-align: text-bottom;
+        animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+</style>

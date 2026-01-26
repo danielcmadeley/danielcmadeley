@@ -1,8 +1,9 @@
 ---
-import "../styles/global.css";
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
 import { OpenPanelComponent } from "@openpanel/astro";
+import PageHeader from "../components/PageHeader.astro";
+import "../styles/global.css";
+
+const isHomepage = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 
 export interface Props {
     title?: string;
@@ -115,6 +116,7 @@ const {
         <main
             class="max-w-5xl mx-auto px-12 py-36 min-h-screen flex flex-col gap-8"
         >
+            {!isHomepage && <PageHeader />}
             <slot />
         </main>
         <img src="/London.svg" alt="London" class="mx-auto object-cover">

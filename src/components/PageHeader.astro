@@ -1,0 +1,36 @@
+---
+import { CommandSearch } from "./CommandSearch";
+---
+
+<header class="flex items-center justify-between gap-4 pb-6 border-b border-neutral-200">
+    <button
+        type="button"
+        class="page-header-back inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-100 transition-colors"
+        aria-label="Go back"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+        </svg>
+        <span>Back</span>
+    </button>
+    <div class="flex-1 flex justify-center max-w-sm mx-auto">
+        <CommandSearch client:load />
+    </div>
+    <a
+        href="/"
+        class="text-sm text-stone-400 hover:text-stone-100 transition-colors whitespace-nowrap"
+    >
+        Home
+    </a>
+</header>
+
+<script>
+    document.querySelector(".page-header-back")?.addEventListener("click", () => {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "/";
+        }
+    });
+</script>
