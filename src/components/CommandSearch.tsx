@@ -32,7 +32,7 @@ interface BlogPost {
   date: string;
 }
 
-export function CommandSearch() {
+export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<SearchResult[]>([]);
@@ -164,6 +164,13 @@ export function CommandSearch() {
     },
   );
 
+  // Listen for external open trigger
+  React.useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("openCommandSearch", handler);
+    return () => window.removeEventListener("openCommandSearch", handler);
+  }, []);
+
   // Escape to close
   useHotkeys(
     "escape",
@@ -274,16 +281,18 @@ export function CommandSearch() {
   return (
     <>
       {/* Trigger Button */}
-      <button
-        onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-[#335D9B]/75 hover:bg-[#335D9B] text-stone-300 hover:text-stone-100 w-full max-w-sm"
-      >
-        <Search className="w-4 h-4" />
-        <span className="flex-1 text-left">Search the website...</span>
-        <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </button>
+      {showTrigger && (
+        <button
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-[#335D9B]/75 hover:bg-[#335D9B] text-stone-300 hover:text-stone-100 w-full max-w-sm"
+        >
+          <Search className="w-4 h-4" />
+          <span className="flex-1 text-left">Search the website...</span>
+          <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </button>
+      )}
 
       {/* Command Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
