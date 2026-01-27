@@ -1,38 +1,61 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ViewCount from "../../components/ViewCount.tsx";
+import { getCollection } from "astro:content";
 
+const allProjects = await getCollection("projects");
+const projects = allProjects.sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const placeholderCount = Math.max(0, 6 - projects.length);
 ---
 
-<Layout>
+<Layout title="Projects | Daniel C Madeley">
     <h2 class="text-2xl font-bold pt-12">Projects</h2>
 
     <div class="flex py-4">
-        <div class="grid grid-cols-3 grid-rows-2 w-full border rounded-lg overflow-hidden">
-        <div class="border-r border-b p-4 relative aspect-square group">
-            <img src="/cadillac.png" alt="Work with me" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-[#525252]/30 z-[10] hover:bg-[#525252]/0 transition-all duration-300"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#525252] to-[#525252]/0 z-[5] "></div>
-            <span class="relative z-10">001</span>
+        <div class="grid grid-cols-3 grid-rows-2 w-full border border-neutral-800 rounded-lg overflow-hidden">
+            {projects.map((project, i) => (
+                <a
+                    href={`/projects/${project.id}`}
+                    class:list={[
+                        "relative aspect-square group overflow-hidden",
+                        i < 3 && "border-b border-neutral-800",
+                        (i % 3 !== 2) && "border-r border-neutral-800",
+                    ]}
+                >
+                    <img
+                        src={project.data.image}
+                        alt={project.data.title}
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 bg-neutral-900/40 group-hover:bg-neutral-900/10 transition-all duration-300 z-10" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent z-[5]" />
+                    <div class="absolute bottom-0 left-0 right-0 p-4 z-20">
+                        <span class="text-xs text-neutral-400 font-mono">
+                            {String(i + 1).padStart(3, "0")}
+                        </span>
+                        <h3 class="text-sm font-medium text-white mt-0.5">
+                            {project.data.title}
+                        </h3>
+                        <ViewCount client:load slug={`project-${project.id}`} />
+                    </div>
+                </a>
+            ))}
+            {Array.from({ length: placeholderCount }).map((_, i) => (
+                <div
+                    class:list={[
+                        "relative aspect-square flex items-start p-4",
+                        (projects.length + i) < 3 && "border-b border-neutral-800",
+                        ((projects.length + i) % 3 !== 2) && "border-r border-neutral-800",
+                    ]}
+                >
+                    <span class="text-xs text-neutral-600 font-mono">
+                        {String(projects.length + i + 1).padStart(3, "0")}
+                    </span>
+                </div>
+            ))}
         </div>
-        <div class="border-r border-b p-4 relative aspect-square group">
-            <img src="/williams-performance.png" alt="Work with me" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-[#525252]/30 z-[10] hover:bg-[#525252]/0 transition-all duration-300"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#525252] to-[#525252]/0 z-[5] "></div>
-            <span class="relative z-10">002</span>
-        </div>
-        <div class="border-r border-b p-4 relative aspect-square group">
-            <img src="/form+function.png" alt="Work with me" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-[#525252]/30 z-[10] hover:bg-[#525252]/0 transition-all duration-300"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#525252] to-[#525252]/0 z-[5] "></div>
-            <span class="relative z-10">003</span>
-        </div>
-       
-        <div class="border-r p-4 aspect-square">004</div>
-        <div class="border-r p-4 aspect-square">005</div>
-        <div class="p-4 aspect-square">006</div>
     </div>
-    </div>
-    
-    
-    
 </Layout>

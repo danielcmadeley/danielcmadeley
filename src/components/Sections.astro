@@ -1,3 +1,7 @@
+---
+import FeaturedProject from "./FeaturedProject.tsx";
+---
+
 <div class="grid grid-cols-3 grid-rows-2 w-full text-sm gap-12">
     <div class="col-span-2 row-span-2">
         <div class="grid grid-cols-2 grid-rows-2 gap-12 h-full">
@@ -20,8 +24,7 @@
             </a>
         </div>
     </div>
-    <div class="col-span-1 row-span-2 border rounded-md bg-[#335D9B]/3 backdrop-blur-md flex flex-col h-full p-4">
-        <h3 class="">Featured Project</h3>
-        <img src="/Development.svg" alt="Featured Project" class="object-cover mt-auto self-end">
+    <div class="col-span-1 row-span-2 border rounded-md bg-[#335D9B]/3 backdrop-blur-md flex flex-col h-full">
+        <FeaturedProject client:load />
     </div>
 </div>

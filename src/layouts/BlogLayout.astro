@@ -1,5 +1,6 @@
 ---
 import Layout from "./Layout.astro";
+import ViewTracker from "../components/ViewTracker.tsx";
 
 const {
     title,
@@ -85,6 +86,8 @@ const {
                             <span data-pagefind-meta="author">By {author}</span>
                         )
                     }
+
+                    <ViewTracker client:load slug={Astro.url.pathname.split("/").filter(Boolean).pop() || ""} />
 
                     {
                         tags.length > 0 && (

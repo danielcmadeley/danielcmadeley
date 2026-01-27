@@ -1,6 +1,7 @@
 ---
 import type { BlogPost } from "../lib/blog-utils";
 import { formatDate, formatCompactDate } from "../lib/blog-utils";
+import ViewCount from "./ViewCount.tsx";
 
 interface Props {
     post: BlogPost;
@@ -148,7 +149,10 @@ const accentClass = accentColors[firstTag] || "bg-stone-500";
                         <time datetime={post.pubDate}>
                             {formatCompactDate(post.pubDate)}
                         </time>
-                        <span>{post.readingTime} min</span>
+                        <div class="flex items-center gap-2">
+                            <ViewCount client:load slug={post.slug} />
+                            <span>{post.readingTime} min</span>
+                        </div>
                     </div>
                 </div>
             </div>
