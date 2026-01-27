@@ -1,10 +1,19 @@
 import * as React from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { Search, FileText } from "lucide-react";
+import {
+  Search,
+  FileText,
+  Home,
+  Briefcase,
+  PenTool,
+  FolderOpen,
+  MapPin,
+  Rss,
+  ArrowRight,
+} from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -23,85 +32,101 @@ interface SearchResult {
   };
 }
 
-interface BlogPost {
-  id: string;
+interface QuickLink {
+  label: string;
   url: string;
-  title: string;
+  icon: React.ReactNode;
   description: string;
-  tags: string[];
-  date: string;
 }
 
-export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean }) {
+interface RecentPost {
+  title: string;
+  url: string;
+  date: string;
+  description: string;
+}
+
+const QUICK_LINKS: QuickLink[] = [
+  {
+    label: "Home",
+    url: "/",
+    icon: <Home className="w-4 h-4" />,
+    description: "Back to homepage",
+  },
+  {
+    label: "Thoughts & Writings",
+    url: "/thoughts-and-writings",
+    icon: <PenTool className="w-4 h-4" />,
+    description: "Blog posts and articles",
+  },
+  {
+    label: "Projects",
+    url: "/projects",
+    icon: <FolderOpen className="w-4 h-4" />,
+    description: "Featured work and projects",
+  },
+  {
+    label: "Work with Me",
+    url: "/work-with-me",
+    icon: <Briefcase className="w-4 h-4" />,
+    description: "CV and experience",
+  },
+  {
+    label: "Work Experience",
+    url: "/work-experience",
+    icon: <MapPin className="w-4 h-4" />,
+    description: "Interactive work map",
+  },
+  {
+    label: "Feeds",
+    url: "/feeds",
+    icon: <Rss className="w-4 h-4" />,
+    description: "RSS and JSON feeds",
+  },
+];
+
+const RECENT_POSTS: RecentPost[] = [
+  {
+    title: "Automating Structural Engineering Workflows with Python",
+    url: "/thoughts-and-writings/python-automation-structural-engineering",
+    date: "2026-01-25",
+    description:
+      "How I use Python to automate repetitive calculations, generate reports, and streamline BIM workflows.",
+  },
+  {
+    title: "Getting Started with Grasshopper for Structural Engineers",
+    url: "/thoughts-and-writings/grasshopper-parametric-structural-design",
+    date: "2026-01-20",
+    description:
+      "A practical introduction to parametric design using Grasshopper, with structural engineering examples.",
+  },
+  {
+    title: "BIM Coordination: A Structural Engineer's Perspective",
+    url: "/thoughts-and-writings/bim-coordination-structural-engineers",
+    date: "2026-01-15",
+    description:
+      "Lessons learned from coordinating structural models with architects, MEP engineers, and contractors.",
+  },
+];
+
+export function CommandSearch({
+  showTrigger = true,
+}: {
+  showTrigger?: boolean;
+}) {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<SearchResult[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [pagefind, setPagefind] = React.useState<any>(null);
-  const [randomPosts, setRandomPosts] = React.useState<BlogPost[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
-
-  // Load random blog posts
-  React.useEffect(() => {
-    const loadRandomPosts = async () => {
-      try {
-        const posts: BlogPost[] = [
-          {
-            id: "1",
-            url: "/thoughts-and-writings/javascript-frameworks-2025",
-            title: "JavaScript Frameworks in 2025: A Senior Engineer's Guide",
-            description:
-              "A comprehensive guide to the current state of JavaScript frameworks",
-            tags: ["javascript", "frameworks", "react"],
-            date: "2025-07-20",
-          },
-          {
-            id: "2",
-            url: "/thoughts-and-writings/steel-beam-design-to-eurocode-3",
-            title: "How to Design a Steel Beam to Eurocode 3",
-            description: "Complete step-by-step guide for steel beam design",
-            tags: ["eurocode3", "steel-design", "engineering"],
-            date: "2025-07-20",
-          },
-          {
-            id: "3",
-            url: "/thoughts-and-writings/stiffness-matrix-analysis",
-            title: "Understanding the Stiffness Matrix",
-            description:
-              "A foundation of structural analysis with mathematical formulations",
-            tags: ["structural-engineering", "mathematics"],
-            date: "2024-01-25",
-          },
-          {
-            id: "4",
-            url: "/thoughts-and-writings/modern-web-development",
-            title: "Modern Web Development: Embracing the Future",
-            description:
-              "Exploring the latest trends and technologies in web development",
-            tags: ["web-development", "javascript"],
-            date: "2024-01-15",
-          },
-        ];
-
-        // Shuffle and take 3
-        const shuffled = posts.sort(() => 0.5 - Math.random());
-        setRandomPosts(shuffled.slice(0, 3));
-      } catch (error) {
-        console.error("Failed to load random posts:", error);
-      }
-    };
-
-    loadRandomPosts();
-  }, []);
 
   // Initialize Pagefind
   React.useEffect(() => {
     const initPagefind = async () => {
       try {
-        // Only run on client side
         if (typeof window === "undefined") return;
 
-        // Check if pagefind is already loaded
         // @ts-ignore
         if (window.pagefind) {
           // @ts-ignore
@@ -109,7 +134,6 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
           return;
         }
 
-        // Load pagefind via script tag since it's in /public
         const script = document.createElement("script");
         script.type = "module";
         script.textContent = `
@@ -119,7 +143,6 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
           window.dispatchEvent(new CustomEvent('pagefindLoaded'));
         `;
 
-        // Wait for pagefind to load
         await new Promise((resolve, reject) => {
           const timeout = setTimeout(() => {
             reject(new Error("Pagefind loading timeout"));
@@ -152,19 +175,17 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
     initPagefind();
   }, []);
 
-  // Hotkey to open command palette
+  // Hotkey to open
   useHotkeys(
     "mod+k",
     (e) => {
       e.preventDefault();
       setOpen(true);
     },
-    {
-      enableOnFormTags: true,
-    },
+    { enableOnFormTags: true },
   );
 
-  // Listen for external open trigger
+  // External open trigger
   React.useEffect(() => {
     const handler = () => setOpen(true);
     window.addEventListener("openCommandSearch", handler);
@@ -181,10 +202,7 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
         setResults([]);
       }
     },
-    {
-      enableOnFormTags: true,
-      enabled: open,
-    },
+    { enableOnFormTags: true, enabled: open },
   );
 
   // Debounced search
@@ -205,16 +223,13 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
           return;
         }
 
-        // Use regular search with manual debouncing for better UI control
         const search = await pagefind.search(query);
-
         const searchResults: SearchResult[] = [];
 
         if (search?.results && search.results.length > 0) {
           for (const result of search.results.slice(0, 8)) {
             try {
               const data = await result.data();
-
               searchResults.push({
                 id: result.id,
                 url: data.url,
@@ -229,8 +244,8 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
                   author: data.meta?.author,
                 },
               });
-            } catch (resultError) {
-              console.error("Error processing result:", resultError);
+            } catch (e) {
+              console.error("Error processing result:", e);
             }
           }
         }
@@ -244,7 +259,6 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
       }
     };
 
-    // Manual debouncing for better UI control
     const timeoutId = setTimeout(searchFn, 300);
     return () => clearTimeout(timeoutId);
   }, [query, pagefind]);
@@ -256,12 +270,10 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
     setResults([]);
   };
 
-  // Keep input focused when results update
+  // Keep input focused
   React.useEffect(() => {
     if (open && inputRef.current) {
-      const timeoutId = setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
+      const timeoutId = setTimeout(() => inputRef.current?.focus(), 0);
       return () => clearTimeout(timeoutId);
     }
   }, [open, results]);
@@ -271,12 +283,24 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
       return new Date(dateString).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
-        year: "numeric",
       });
     } catch {
       return dateString;
     }
   };
+
+  // Filter quick links by query when searching
+  const filteredQuickLinks = query.trim()
+    ? QUICK_LINKS.filter(
+        (link) =>
+          link.label.toLowerCase().includes(query.toLowerCase()) ||
+          link.description.toLowerCase().includes(query.toLowerCase()),
+      )
+    : QUICK_LINKS;
+
+  const hasQuery = query.trim().length > 0;
+  const hasResults = results.length > 0;
+  const hasFilteredLinks = filteredQuickLinks.length > 0;
 
   return (
     <>
@@ -296,151 +320,176 @@ export function CommandSearch({ showTrigger = true }: { showTrigger?: boolean })
 
       {/* Command Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-stone-900 border-stone-700">
+        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-neutral-950 border border-neutral-800 shadow-2xl shadow-black/50 rounded-xl overflow-hidden">
           <DialogTitle className="sr-only">Search</DialogTitle>
           <Command
-            className="rounded-lg border-0 shadow-lg bg-stone-900 [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-stone-800 [&_[cmdk-item]:hover]:bg-stone-800"
+            className="rounded-xl border-0 bg-neutral-950 [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-white/[0.06] [&_[cmdk-item]:hover]:bg-white/[0.06]"
             shouldFilter={false}
           >
-            <div className="flex items-center border-b border-stone-700 px-4">
-              <Search className="mr-3 h-4 w-4 shrink-0 text-stone-400" />
+            {/* Search Input */}
+            <div className="flex items-center gap-3 px-4 border-b border-neutral-800">
+              <Search className="h-4 w-4 shrink-0 text-neutral-500" />
               <CommandInput
                 ref={inputRef}
-                placeholder="Search the website..."
+                placeholder="Type a command or search..."
                 value={query}
                 onValueChange={setQuery}
-                className="flex h-14 w-full rounded-md bg-transparent py-3 text-stone-200 outline-none placeholder:text-stone-500 disabled:cursor-not-allowed disabled:opacity-50 border-0 focus:ring-0"
+                className="flex h-12 w-full bg-transparent text-sm text-neutral-200 outline-none placeholder:text-neutral-500 border-0 focus:ring-0"
                 autoFocus
               />
+              <kbd className="hidden sm:inline-flex shrink-0 h-5 select-none items-center rounded bg-neutral-800 px-1.5 font-mono text-[10px] text-neutral-500">
+                ESC
+              </kbd>
             </div>
-            <CommandList className="max-h-[400px] sm:max-h-[500px] overflow-y-auto">
+
+            <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
+              {/* Loading State */}
               {loading && (
-                <div className="py-8 text-center text-sm text-stone-400">
+                <div className="py-10 text-center text-sm text-neutral-500">
                   <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-stone-600 border-t-stone-400 rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-neutral-700 border-t-neutral-400 rounded-full animate-spin" />
                     Searching...
                   </div>
                 </div>
               )}
 
-              {!loading && query && results.length === 0 && pagefind && (
-                <div className="py-8 text-center text-stone-500">
-                  <p>No results found for "{query}"</p>
+              {/* No Results */}
+              {!loading && hasQuery && !hasResults && !hasFilteredLinks && pagefind && (
+                <div className="py-10 text-center text-neutral-500 text-sm">
+                  No results found for &ldquo;{query}&rdquo;
                 </div>
               )}
 
-              {!pagefind && query && (
-                <div className="py-8 text-center text-stone-500">
-                  <p>Search is not available.</p>
+              {/* Pagefind unavailable */}
+              {!pagefind && hasQuery && !hasFilteredLinks && (
+                <div className="py-10 text-center text-neutral-500 text-sm">
+                  Search is not available.
                 </div>
               )}
 
-              {!loading && results.length > 0 && (
+              {/* Search Results */}
+              {!loading && hasResults && (
                 <CommandGroup>
-                  <div className="px-4 py-2 text-xs font-medium text-stone-400 uppercase tracking-wider">
-                    Search Results
+                  <div className="px-4 pt-3 pb-1.5 text-[11px] font-medium text-neutral-500 uppercase tracking-widest">
+                    Results
                   </div>
                   {results.map((result) => (
                     <CommandItem
                       key={result.id}
                       value={result.title}
                       onSelect={() => handleSelect(result.url)}
-                      className="mx-2 mb-2 p-3 rounded-lg cursor-pointer border border-transparent hover:border-stone-700 hover:bg-stone-800 transition-colors data-[selected=true]:bg-stone-800 data-[selected=true]:border-stone-700"
+                      className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
                     >
-                      <div className="flex items-start gap-3 w-full">
-                        <FileText className="h-4 w-4 text-stone-400 mt-1 shrink-0" />
-                        <div className="flex-1 space-y-1 min-w-0">
-                          <div className="font-medium text-stone-100 leading-tight">
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 shrink-0">
+                          <FileText className="w-4 h-4 text-neutral-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-neutral-200 truncate">
                             {result.title}
                           </div>
-                          <div className="text-sm text-stone-400 leading-relaxed line-clamp-2">
-                            {result.excerpt}
-                          </div>
-                          <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
-                            {result.meta?.date && (
-                              <span>{formatDate(result.meta.date)}</span>
-                            )}
-                            {result.meta?.tags && (
-                              <div className="flex gap-1 flex-wrap">
-                                {result.meta.tags
-                                  .split(",")
-                                  .slice(0, 2)
-                                  .map((tag: string, i: number) => (
-                                    <span
-                                      key={i}
-                                      className="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs"
-                                    >
-                                      {tag.trim()}
-                                    </span>
-                                  ))}
-                              </div>
-                            )}
+                          <div className="text-xs text-neutral-500 truncate mt-0.5">
+                            {result.excerpt.replace(/<[^>]*>/g, "").slice(0, 80)}
                           </div>
                         </div>
+                        {result.meta?.date && (
+                          <span className="text-xs text-neutral-600 shrink-0">
+                            {formatDate(result.meta.date)}
+                          </span>
+                        )}
                       </div>
                     </CommandItem>
                   ))}
                 </CommandGroup>
               )}
 
-              {!query && randomPosts.length > 0 && (
+              {/* Quick Links - filtered when searching */}
+              {!loading && hasFilteredLinks && (
                 <CommandGroup>
-                  <div className="px-4 py-2 text-xs font-medium text-stone-400 uppercase tracking-wider">
+                  <div className="px-4 pt-3 pb-1.5 text-[11px] font-medium text-neutral-500 uppercase tracking-widest">
+                    {hasQuery ? "Pages" : "Quick Links"}
+                  </div>
+                  {filteredQuickLinks.map((link) => (
+                    <CommandItem
+                      key={link.url}
+                      value={link.label}
+                      onSelect={() => handleSelect(link.url)}
+                      className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 text-neutral-400 shrink-0">
+                          {link.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-neutral-200">
+                            {link.label}
+                          </div>
+                          <div className="text-xs text-neutral-500 mt-0.5">
+                            {link.description}
+                          </div>
+                        </div>
+                        <ArrowRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+
+              {/* Recent Posts - only when no query */}
+              {!hasQuery && (
+                <CommandGroup>
+                  <div className="px-4 pt-3 pb-1.5 text-[11px] font-medium text-neutral-500 uppercase tracking-widest">
                     Recent Posts
                   </div>
-                  {randomPosts.map((post) => (
+                  {RECENT_POSTS.map((post) => (
                     <CommandItem
-                      key={post.id}
+                      key={post.url}
                       value={post.title}
                       onSelect={() => handleSelect(post.url)}
-                      className="mx-2 mb-2 p-3 rounded-lg cursor-pointer border border-transparent hover:border-stone-700 hover:bg-stone-800 transition-colors data-[selected=true]:bg-stone-800 data-[selected=true]:border-stone-700"
+                      className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
                     >
-                      <div className="flex items-start gap-3 w-full">
-                        <FileText className="h-4 w-4 text-stone-400 mt-1 shrink-0" />
-                        <div className="flex-1 space-y-1 min-w-0">
-                          <div className="font-medium text-stone-100 leading-tight">
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 shrink-0">
+                          <FileText className="w-4 h-4 text-neutral-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-neutral-200 truncate">
                             {post.title}
                           </div>
-                          <div className="text-sm text-stone-400 leading-relaxed">
+                          <div className="text-xs text-neutral-500 truncate mt-0.5">
                             {post.description}
                           </div>
-                          <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
-                            <span>{formatDate(post.date)}</span>
-                            <div className="flex gap-1 flex-wrap">
-                              {post.tags.slice(0, 2).map((tag, i) => (
-                                <span
-                                  key={i}
-                                  className="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
                         </div>
+                        <span className="text-xs text-neutral-600 shrink-0">
+                          {formatDate(post.date)}
+                        </span>
                       </div>
                     </CommandItem>
                   ))}
                 </CommandGroup>
               )}
 
-              {!query && randomPosts.length === 0 && (
-                <div className="py-8 text-center text-stone-500">
-                  <div className="space-y-3">
-                    <p>Start typing to search the website...</p>
-                    <div className="flex justify-center gap-4 text-xs">
-                      <kbd className="px-2 py-1 bg-stone-800 border border-stone-700 rounded text-stone-300">
-                        ⌘K
-                      </kbd>
-                      <span className="text-stone-600">to open</span>
-                      <kbd className="px-2 py-1 bg-stone-800 border border-stone-700 rounded text-stone-300">
-                        ESC
-                      </kbd>
-                      <span className="text-stone-600">to close</span>
-                    </div>
-                  </div>
+              {/* Footer hint */}
+              <div className="px-4 py-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-600">
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-1 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↑</kbd>
+                    <kbd className="px-1 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↓</kbd>
+                    navigate
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↵</kbd>
+                    select
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">esc</kbd>
+                    close
+                  </span>
                 </div>
-              )}
+                <span className="text-neutral-700">
+                  Powered by Pagefind
+                </span>
+              </div>
             </CommandList>
           </Command>
         </DialogContent>
