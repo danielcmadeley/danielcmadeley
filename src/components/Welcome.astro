@@ -1,24 +1,28 @@
 ---
 import { CommandSearch } from "./CommandSearch";
+import { WeatherLocation } from "./WeatherLocation";
 import Cal from "./cal";
 ---
 
+<div
+    class="border-b pb-8 border-neutral-200 flex flex-col md:flex-row justify-between md:items-end gap-6"
+>
+    <div class="flex flex-col gap-4 w-full">
+        <h2
+            class="text-2xl font-bold text-neutral-400 font-mono inline-flex items-center"
+        >
+            Daniel Charles Madeley<span class="cursor-block" aria-hidden="true"
+            ></span>
+        </h2>
+        <h1 class="text-xl text-neutral-100">Computational Engineer</h1>
+        <p class="text-xs text-neutral-200 max-w-[500px]">
+            I apply computational thinking and programming skills to design
+            challenges, combining my structural engineering background with
+            self-taught software development expertise in Python and TypeScript.
+            I bridge traditional engineering design with modern computational
+            tools, creating both physical structures and digital solutions.
+        </p>
 
-<div class="border-b pb-8 border-neutral-200 flex flex-col md:flex-row justify-between md:items-end gap-6">
-<div class="flex flex-col gap-4 w-full">
-    <h2 class="text-2xl font-bold text-neutral-400 font-mono inline-flex items-center">
-        Daniel Charles Madeley<span class="cursor-block" aria-hidden="true"></span>
-    </h2>
-    <h1 class="text-xl text-neutral-100">Computational Engineer</h1>
-    <p class="text-xs text-neutral-200 max-w-[500px]">
-        I apply computational thinking and programming skills to design
-        challenges, combining my structural engineering background with
-        self-taught software development expertise in Python and TypeScript. I
-        bridge traditional engineering design with modern computational tools,
-        creating both physical structures and digital solutions.
-    </p>
-    
-       
         <div class="flex items-center gap-4 text-xs">
             <Cal client:load />
             <a
@@ -35,13 +39,12 @@ import Cal from "./cal";
             >
                 github.md
             </a>
-      
+        </div>
     </div>
-   
-</div>
-<div class="w-full flex md:justify-end">
-    <CommandSearch client:load />
-</div>
+    <div class="w-full flex md:justify-end flex-col items-end gap-4">
+        <WeatherLocation client:load />
+        <CommandSearch client:load />
+    </div>
 </div>
 
 <style>
@@ -55,7 +58,12 @@ import Cal from "./cal";
         animation: blink 1s step-end infinite;
     }
     @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
     }
 </style>

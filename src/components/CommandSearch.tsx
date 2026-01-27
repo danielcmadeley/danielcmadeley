@@ -12,10 +12,10 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
+import { Command as CommandPrimitive } from "cmdk";
 import {
   Command,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "./ui/command";
@@ -292,10 +292,10 @@ export function CommandSearch({
   // Filter quick links by query when searching
   const filteredQuickLinks = query.trim()
     ? QUICK_LINKS.filter(
-        (link) =>
-          link.label.toLowerCase().includes(query.toLowerCase()) ||
-          link.description.toLowerCase().includes(query.toLowerCase()),
-      )
+      (link) =>
+        link.label.toLowerCase().includes(query.toLowerCase()) ||
+        link.description.toLowerCase().includes(query.toLowerCase()),
+    )
     : QUICK_LINKS;
 
   const hasQuery = query.trim().length > 0;
@@ -310,7 +310,7 @@ export function CommandSearch({
           onClick={() => setOpen(true)}
           className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-neutral-600 bg-base-gradient-heavy text-neutral-300 hover:text-neutral-100 w-full max-w-sm"
         >
-          <Search className="w-4 h-4" />
+          <Search className="w-4 h-4 text-neutral-200" />
           <span className="flex-1 text-left">Search the website...</span>
           <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-neutral-600 bg-neutral-700 px-1.5 font-mono text-[10px] font-medium text-neutral-400">
             <span className="text-xs">⌘</span>K
@@ -323,26 +323,26 @@ export function CommandSearch({
         <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-base-gradient-heavy border border-neutral-800 shadow-2xl shadow-black/50 rounded-xl overflow-hidden">
           <DialogTitle className="sr-only">Search</DialogTitle>
           <Command
-            className="rounded-xl border-0 bg-transparent [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-white/[0.06] [&_[cmdk-item]:hover]:bg-white/[0.06]"
+            className="w-full flex flex-col rounded-xl border-0 bg-transparent [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-white/[0.06] [&_[cmdk-item]:hover]:bg-white/[0.06]"
             shouldFilter={false}
           >
             {/* Search Input */}
             <div className="flex items-center gap-3 px-4 border-b border-neutral-800">
-              <Search className="h-4 w-4 shrink-0 text-neutral-500" />
-              <CommandInput
+              <Search className="h-4 w-4 shrink-0 text-neutral-200" />
+              <CommandPrimitive.Input
                 ref={inputRef}
                 placeholder="Type a command or search..."
                 value={query}
                 onValueChange={setQuery}
-                className="flex h-12 w-full bg-transparent text-sm text-neutral-200 outline-none placeholder:text-neutral-500 border-0 focus:ring-0"
+                className="flex h-12 w-full bg-transparent text-sm text-neutral-200 outline-none placeholder:text-neutral-500"
                 autoFocus
               />
-              <kbd className="hidden sm:inline-flex shrink-0 h-5 select-none items-center rounded bg-neutral-800 px-1.5 font-mono text-[10px] text-neutral-500">
+              <kbd className="hidden sm:inline-flex shrink-0 h-5 select-none items-center rounded bg-neutral-200 px-1.5 font-mono text-[10px] text-neutral-500">
                 ESC
               </kbd>
             </div>
 
-            <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
+            <CommandList className="flex-1 max-h-[min(60vh,480px)] overflow-y-auto">
               {/* Loading State */}
               {loading && (
                 <div className="py-10 text-center text-sm text-neutral-500">
@@ -382,7 +382,7 @@ export function CommandSearch({
                     >
                       <div className="flex items-center gap-3 w-full">
                         <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 shrink-0">
-                          <FileText className="w-4 h-4 text-neutral-400" />
+                          <FileText className="w-4 h-4 text-neutral-200" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium text-neutral-200 truncate">
@@ -417,7 +417,7 @@ export function CommandSearch({
                       className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
                     >
                       <div className="flex items-center gap-3 w-full">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 text-neutral-400 shrink-0">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-200 text-neutral-400 shrink-0">
                           {link.icon}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -428,7 +428,7 @@ export function CommandSearch({
                             {link.description}
                           </div>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
+                        <ArrowRight className="w-3.5 h-3.5 text-neutral-200 shrink-0" />
                       </div>
                     </CommandItem>
                   ))}
@@ -449,7 +449,7 @@ export function CommandSearch({
                       className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
                     >
                       <div className="flex items-center gap-3 w-full">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 shrink-0">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-200 shrink-0">
                           <FileText className="w-4 h-4 text-neutral-400" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -469,28 +469,29 @@ export function CommandSearch({
                 </CommandGroup>
               )}
 
-              {/* Footer hint */}
-              <div className="px-4 py-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-600">
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↑</kbd>
-                    <kbd className="px-1 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↓</kbd>
-                    navigate
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">↵</kbd>
-                    select
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-500 font-mono">esc</kbd>
-                    close
-                  </span>
-                </div>
-                <span className="text-neutral-700">
-                  Powered by Pagefind
+            </CommandList>
+
+            {/* Footer hint */}
+            <div className="px-4 py-3 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-600 shrink-0">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1 py-0.5 rounded bg-neutral-200 text-neutral-500 font-mono">↑</kbd>
+                  <kbd className="px-1 py-0.5 rounded bg-neutral-200 text-neutral-500 font-mono">↓</kbd>
+                  <h2 className="text-neutral-400">navigate</h2>
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 rounded bg-neutral-200 text-neutral-500 font-mono">↵</kbd>
+                  <h2 className="text-neutral-400">select</h2>
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 rounded bg-neutral-200 text-neutral-500 font-mono">esc</kbd>
+                  <h2 className="text-neutral-400">close</h2>
                 </span>
               </div>
-            </CommandList>
+              <span className="text-neutral-400">
+                Powered by Pagefind
+              </span>
+            </div>
           </Command>
         </DialogContent>
       </Dialog>
