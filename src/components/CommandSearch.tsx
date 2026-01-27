@@ -308,11 +308,11 @@ export function CommandSearch({
       {showTrigger && (
         <button
           onClick={() => setOpen(true)}
-          className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-stone-600 bg-[#335D9B]/75 hover:bg-[#335D9B] text-stone-300 hover:text-stone-100 w-full max-w-sm"
+          className="inline-flex items-center gap-3 px-4 py-2 text-sm transition-colors rounded-lg border border-neutral-600 bg-base-gradient-heavy text-neutral-300 hover:text-neutral-100 w-full max-w-sm"
         >
           <Search className="w-4 h-4" />
           <span className="flex-1 text-left">Search the website...</span>
-          <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-stone-600 bg-stone-700 px-1.5 font-mono text-[10px] font-medium text-stone-400">
+          <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-neutral-600 bg-neutral-700 px-1.5 font-mono text-[10px] font-medium text-neutral-400">
             <span className="text-xs">⌘</span>K
           </kbd>
         </button>
@@ -320,10 +320,10 @@ export function CommandSearch({
 
       {/* Command Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-neutral-950 border border-neutral-800 shadow-2xl shadow-black/50 rounded-xl overflow-hidden">
+        <DialogContent className="max-w-2xl mx-4 sm:mx-auto p-0 gap-0 bg-base-gradient-heavy border border-neutral-800 shadow-2xl shadow-black/50 rounded-xl overflow-hidden">
           <DialogTitle className="sr-only">Search</DialogTitle>
           <Command
-            className="rounded-xl border-0 bg-neutral-950 [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-white/[0.06] [&_[cmdk-item]:hover]:bg-white/[0.06]"
+            className="rounded-xl border-0 bg-transparent [&_[cmdk-item]]:bg-transparent [&_[cmdk-item][data-selected='true']]:bg-white/[0.06] [&_[cmdk-item]:hover]:bg-white/[0.06]"
             shouldFilter={false}
           >
             {/* Search Input */}

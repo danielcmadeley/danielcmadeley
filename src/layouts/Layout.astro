@@ -12,6 +12,7 @@ export interface Props {
     keywords?: string;
     image?: string;
     showFooter?: boolean;
+    neutralBg?: boolean;
 }
 
 const {
@@ -21,11 +22,12 @@ const {
     keywords = "Daniel Madeley, web developer, designer, full-stack developer, React, Vue, Angular, TypeScript",
     image = "https://danielcmadeley.com/favicon.svg",
     showFooter = true,
+    neutralBg = false,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class:list={["min-h-full", isHomepage ? "bg-checkered-gradient" : "bg-neutral-900"]}>
+<html lang="en" class:list={["min-h-full", isHomepage ? "bg-checkered-gradient" : neutralBg ? "bg-neutral-900" : "bg-base-gradient"]}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -113,10 +115,10 @@ const {
             trackOutgoingLinks={true}
         />
     </head>
-    <body class=" text-stone-200 font-sans">
+    <body class=" text-neutral-200 font-sans">
         <!-- <Navbar /> -->
         <main
-            class:list={["max-w-5xl mx-auto px-12 py-36 min-h-screen flex flex-col gap-8", !isHomepage && ""]}
+            class:list={["max-w-5xl mx-auto px-4 sm:px-8 md:px-12 py-16 sm:py-24 md:py-36 min-h-screen flex flex-col gap-8", !isHomepage && ""]}
         >
             {!isHomepage && <PageHeader />}
             <slot />

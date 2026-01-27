@@ -2,9 +2,9 @@
 import FeaturedProject from "./FeaturedProject.tsx";
 ---
 
-<div class="grid grid-cols-3 grid-rows-2 w-full text-sm gap-12">
-    <div class="col-span-2 row-span-2">
-        <div class="grid grid-cols-2 grid-rows-2 gap-12 h-full">
+<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 w-full text-sm gap-6 md:gap-12">
+    <div class="md:col-span-2 md:row-span-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 h-full">
             <a href="/thoughts-and-writings" class="border-gradient rounded-md p-4 bg-[#E5E5E5]/3 backdrop-blur-xl flex flex-col h-full"> 
                 <h2>Thoughts and Writings</h2>
                 <img src="/Notebook.svg" alt="Thoughts and Writings" class="object-cover mt-auto self-end">
@@ -24,7 +24,7 @@ import FeaturedProject from "./FeaturedProject.tsx";
             </a>
         </div>
     </div>
-    <div class="col-span-1 row-span-2 border rounded-md bg-[#335D9B]/3 backdrop-blur-md flex flex-col h-full">
+    <div class="md:col-span-1 md:row-span-2 border rounded-md bg-[#335D9B]/3 backdrop-blur-md flex flex-col h-full min-h-[200px]">
         <FeaturedProject client:load />
     </div>
 </div>

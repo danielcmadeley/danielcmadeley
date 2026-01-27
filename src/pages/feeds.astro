@@ -52,7 +52,7 @@ const lastUpdated =
         <nav class="mb-8">
             <a
                 href="/"
-                class="inline-flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors"
+                class="inline-flex items-center gap-2 text-neutral-400 hover:text-neutral-100 transition-colors"
             >
                 <svg
                     class="w-4 h-4"
@@ -82,9 +82,9 @@ const lastUpdated =
                         d="M3.429 2.857c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V2.857zM3.429 6.286c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V6.286zM3.429 9.714c0-.158.127-.286.285-.286h.857c.158 0 .286.128.286.286v.857c0 .158-.128.286-.286.286h-.857c-.158 0-.285-.128-.285-.286V9.714zM7.143 2.857c0-.158.127-.286.286-.286h.857c.158 0 .285.128.285.286v.857c0 .158-.127.286-.285.286h-.857c-.159 0-.286-.128-.286-.286V2.857zM7.143 6.286c0-.158.127-.286.286-.286h.857c.158 0 .285.128.285.286v.857c0 .158-.127.286-.285.286h-.857c-.159 0-.286-.128-.286-.286V6.286z"
                     ></path>
                 </svg>
-                <h1 class="text-4xl font-bold text-stone-100">RSS Feeds</h1>
+                <h1 class="text-4xl font-bold text-neutral-100">RSS Feeds</h1>
             </div>
-            <p class="text-xl text-stone-400">
+            <p class="text-xl text-neutral-400">
                 Subscribe to my blog and stay updated with the latest posts on
                 web development, design, and engineering.
             </p>
@@ -92,23 +92,23 @@ const lastUpdated =
 
         <!-- What is RSS -->
         <section
-            class="mb-12 p-6 bg-stone-800 rounded-lg border border-stone-700"
+            class="mb-12 p-6 bg-neutral-800 rounded-lg border border-neutral-700"
         >
-            <h2 class="text-2xl font-bold text-stone-100 mb-4">
+            <h2 class="text-2xl font-bold text-neutral-100 mb-4">
                 📖 What is RSS?
             </h2>
-            <p class="text-stone-300 mb-4">
+            <p class="text-neutral-300 mb-4">
                 RSS (Really Simple Syndication) is a web feed format that allows
                 you to stay up-to-date with websites you care about. Instead of
                 manually visiting each site, you can use an RSS reader to
                 automatically check for new content.
             </p>
-            <p class="text-stone-300 mb-4">Popular RSS readers include:</p>
-            <ul class="list-disc list-inside text-stone-300 space-y-1">
+            <p class="text-neutral-300 mb-4">Popular RSS readers include:</p>
+            <ul class="list-disc list-inside text-neutral-300 space-y-1">
                 <li>
                     <a
                         href="https://feedly.com"
-                        class="text-stone-100 hover:text-stone-300 underline"
+                        class="text-neutral-100 hover:text-neutral-300 underline"
                         target="_blank"
                         rel="noopener noreferrer">Feedly</a
                     >
@@ -116,7 +116,7 @@ const lastUpdated =
                 <li>
                     <a
                         href="https://www.inoreader.com"
-                        class="text-stone-100 hover:text-stone-300 underline"
+                        class="text-neutral-100 hover:text-neutral-300 underline"
                         target="_blank"
                         rel="noopener noreferrer">Inoreader</a
                     >
@@ -124,7 +124,7 @@ const lastUpdated =
                 <li>
                     <a
                         href="https://newsblur.com"
-                        class="text-stone-100 hover:text-stone-300 underline"
+                        class="text-neutral-100 hover:text-neutral-300 underline"
                         target="_blank"
                         rel="noopener noreferrer">NewsBlur</a
                     >
@@ -132,7 +132,7 @@ const lastUpdated =
                 <li>
                     <a
                         href="https://reeder.app"
-                        class="text-stone-100 hover:text-stone-300 underline"
+                        class="text-neutral-100 hover:text-neutral-300 underline"
                         target="_blank"
                         rel="noopener noreferrer">Reeder</a
                     > (iOS/macOS)
@@ -142,19 +142,19 @@ const lastUpdated =
 
         <!-- Main RSS Feed -->
         <section class="mb-12">
-            <h2 class="text-2xl font-bold text-stone-100 mb-6">🌟 Main Feed</h2>
-            <div class="p-6 bg-stone-800 rounded-lg border border-stone-700">
+            <h2 class="text-2xl font-bold text-neutral-100 mb-6">🌟 Main Feed</h2>
+            <div class="p-6 bg-neutral-800 rounded-lg border border-neutral-700">
                 <div class="flex items-start justify-between mb-4">
                     <div>
-                        <h3 class="text-xl font-semibold text-stone-100 mb-2">
+                        <h3 class="text-xl font-semibold text-neutral-100 mb-2">
                             All Posts
                         </h3>
-                        <p class="text-stone-400 mb-2">
+                        <p class="text-neutral-400 mb-2">
                             Complete feed with all blog posts from every
                             category
                         </p>
                         <div
-                            class="flex items-center gap-4 text-sm text-stone-500"
+                            class="flex items-center gap-4 text-sm text-neutral-500"
                         >
                             <span>📊 {totalPosts} posts</span>
                             <span
@@ -204,7 +204,7 @@ const lastUpdated =
                             JSON
                         </a>
                         <button
-                            class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-4 py-2 rounded-lg transition-colors"
+                            class="inline-flex items-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-200 px-4 py-2 rounded-lg transition-colors"
                             onclick="copyToClipboard('/rss.xml')"
                         >
                             <svg
@@ -223,7 +223,7 @@ const lastUpdated =
                             Copy RSS
                         </button>
                         <button
-                            class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-4 py-2 rounded-lg transition-colors"
+                            class="inline-flex items-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-200 px-4 py-2 rounded-lg transition-colors"
                             onclick="copyToClipboard('/feed.json')"
                         >
                             <svg
@@ -244,12 +244,12 @@ const lastUpdated =
                     </div>
                 </div>
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-stone-500 font-mono"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-neutral-500 font-mono"
                 >
-                    <div class="bg-stone-900 p-2 rounded">
+                    <div class="bg-neutral-900 p-2 rounded">
                         RSS: {Astro.site}rss.xml
                     </div>
-                    <div class="bg-stone-900 p-2 rounded">
+                    <div class="bg-neutral-900 p-2 rounded">
                         JSON: {Astro.site}feed.json
                     </div>
                 </div>
@@ -260,7 +260,7 @@ const lastUpdated =
         {
             sortedTags.length > 0 && (
                 <section class="mb-12">
-                    <h2 class="text-2xl font-bold text-stone-100 mb-6">
+                    <h2 class="text-2xl font-bold text-neutral-100 mb-6">
                         🏷️ Category Feeds
                     </h2>
                     <div class="grid gap-4">
@@ -269,17 +269,17 @@ const lastUpdated =
                             const postCount = categoryStats[tag];
 
                             return (
-                                <div class="p-4 bg-stone-800 rounded-lg border border-stone-700">
+                                <div class="p-4 bg-neutral-800 rounded-lg border border-neutral-700">
                                     <div class="flex items-start justify-between">
                                         <div>
-                                            <h3 class="text-lg font-semibold text-stone-100 mb-1">
+                                            <h3 class="text-lg font-semibold text-neutral-100 mb-1">
                                                 {tag}
                                             </h3>
-                                            <p class="text-stone-400 text-sm mb-2">
+                                            <p class="text-neutral-400 text-sm mb-2">
                                                 Posts specifically about{" "}
                                                 {tag.toLowerCase()}
                                             </p>
-                                            <div class="flex items-center gap-4 text-sm text-stone-500">
+                                            <div class="flex items-center gap-4 text-sm text-neutral-500">
                                                 <span>
                                                     📊 {postCount} posts
                                                 </span>
@@ -288,7 +288,7 @@ const lastUpdated =
                                         <div class="flex gap-2">
                                             <a
                                                 href={`/rss/${categorySlug}.xml`}
-                                                class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-3 py-1 rounded transition-colors text-sm"
+                                                class="inline-flex items-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-200 px-3 py-1 rounded transition-colors text-sm"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
@@ -302,7 +302,7 @@ const lastUpdated =
                                                 Subscribe
                                             </a>
                                             <button
-                                                class="inline-flex items-center gap-2 bg-stone-700 hover:bg-stone-600 text-stone-200 px-3 py-1 rounded transition-colors text-sm"
+                                                class="inline-flex items-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-200 px-3 py-1 rounded transition-colors text-sm"
                                                 onclick={`copyToClipboard('/rss/${categorySlug}.xml')`}
                                             >
                                                 <svg
@@ -332,14 +332,14 @@ const lastUpdated =
 
         <!-- How to Subscribe -->
         <section
-            class="mb-12 p-6 bg-stone-800 rounded-lg border border-stone-700"
+            class="mb-12 p-6 bg-neutral-800 rounded-lg border border-neutral-700"
         >
-            <h2 class="text-2xl font-bold text-stone-100 mb-4">
+            <h2 class="text-2xl font-bold text-neutral-100 mb-4">
                 🔧 How to Subscribe
             </h2>
-            <div class="space-y-4 text-stone-300">
+            <div class="space-y-4 text-neutral-300">
                 <div>
-                    <h3 class="font-semibold text-stone-100 mb-2">
+                    <h3 class="font-semibold text-neutral-100 mb-2">
                         Method 1: RSS Reader
                     </h3>
                     <p class="mb-2">
@@ -348,7 +348,7 @@ const lastUpdated =
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-stone-100 mb-2">
+                    <h3 class="font-semibold text-neutral-100 mb-2">
                         Method 2: Browser
                     </h3>
                     <p class="mb-2">
@@ -358,7 +358,7 @@ const lastUpdated =
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-stone-100 mb-2">
+                    <h3 class="font-semibold text-neutral-100 mb-2">
                         Method 3: Direct Link
                     </h3>
                     <p class="mb-2">
@@ -370,20 +370,20 @@ const lastUpdated =
         </section>
 
         <!-- Additional Links -->
-        <section class="border-t border-stone-800 pt-8">
-            <div class="flex items-center justify-center gap-6 text-stone-400">
-                <a href="/blog" class="hover:text-stone-100 transition-colors">
+        <section class="border-t border-neutral-800 pt-8">
+            <div class="flex items-center justify-center gap-6 text-neutral-400">
+                <a href="/blog" class="hover:text-neutral-100 transition-colors">
                     📚 All Posts
                 </a>
                 <a
                     href="/sitemap-index.xml"
-                    class="hover:text-stone-100 transition-colors"
+                    class="hover:text-neutral-100 transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     🗺️ Sitemap
                 </a>
-                <a href="/" class="hover:text-stone-100 transition-colors">
+                <a href="/" class="hover:text-neutral-100 transition-colors">
                     🏠 Home
                 </a>
             </div>

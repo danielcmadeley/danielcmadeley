@@ -13,17 +13,17 @@ const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = As
 <div class="space-y-12">
     <!-- Blog Header -->
     <header class="space-y-6">
-        <h1 class="text-4xl font-bold text-stone-100 leading-tight">
+        <h1 class="text-4xl font-bold text-neutral-100 leading-tight">
             {title}
         </h1>
 
         {description && (
-            <p class="text-xl text-stone-400 leading-relaxed">
+            <p class="text-xl text-neutral-400 leading-relaxed">
                 {description}
             </p>
         )}
 
-        <div class="flex flex-wrap items-center gap-4 text-sm text-stone-500">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-neutral-500">
             <time datetime={pubDate}>
                 {new Date(pubDate).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -37,7 +37,7 @@ const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = As
             {tags && tags.length > 0 && (
                 <div class="flex gap-2">
                     {tags.map((tag: string) => (
-                        <span class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs">
+                        <span class="px-2 py-1 bg-neutral-800 text-neutral-300 rounded-full text-xs">
                             {tag}
                         </span>
                     ))}
@@ -61,30 +61,30 @@ const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = As
 
     /* Headings */
     article h1 {
-        @apply text-3xl font-bold text-stone-100 mb-6 mt-12 leading-tight;
+        @apply text-3xl font-bold text-neutral-100 mb-6 mt-12 leading-tight;
     }
 
     article h2 {
-        @apply text-2xl font-bold text-stone-100 mb-4 mt-10 leading-tight;
+        @apply text-2xl font-bold text-neutral-100 mb-4 mt-10 leading-tight;
     }
 
     article h3 {
-        @apply text-xl font-semibold text-stone-200 mb-3 mt-8 leading-snug;
+        @apply text-xl font-semibold text-neutral-200 mb-3 mt-8 leading-snug;
     }
 
     article h4 {
-        @apply text-lg font-semibold text-stone-200 mb-2 mt-6 leading-snug;
+        @apply text-lg font-semibold text-neutral-200 mb-2 mt-6 leading-snug;
     }
 
     /* Paragraphs */
     article p {
-        @apply text-stone-300 text-lg leading-relaxed mb-6;
+        @apply text-neutral-300 text-lg leading-relaxed mb-6;
     }
 
     /* Lists */
     article ul,
     article ol {
-        @apply text-stone-300 text-lg leading-relaxed mb-6 ml-6;
+        @apply text-neutral-300 text-lg leading-relaxed mb-6 ml-6;
     }
 
     article li {
@@ -101,26 +101,26 @@ const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = As
 
     /* Links */
     article a {
-        @apply text-stone-100 hover:text-stone-300 transition-colors underline;
+        @apply text-neutral-100 hover:text-neutral-300 transition-colors underline;
     }
 
     /* Code blocks */
     article pre {
-        @apply bg-stone-800 text-stone-200 p-6 rounded-lg overflow-x-auto my-8;
+        @apply bg-neutral-800 text-neutral-200 p-6 rounded-lg overflow-x-auto my-8;
     }
 
     article code {
-        @apply bg-stone-800 text-stone-200 px-2 py-1 rounded text-sm;
+        @apply bg-neutral-800 text-neutral-200 px-2 py-1 rounded text-sm;
     }
 
     /* Blockquotes */
     article blockquote {
-        @apply border-l-4 border-stone-600 pl-6 italic text-stone-400 my-8;
+        @apply border-l-4 border-neutral-600 pl-6 italic text-neutral-400 my-8;
     }
 
     /* Strong/Bold */
     article strong {
-        @apply font-semibold text-stone-100;
+        @apply font-semibold text-neutral-100;
     }
 
     /* Images */
@@ -130,7 +130,7 @@ const { title, description, pubDate, author = "Daniel Madeley", tags = [] } = As
 
     /* Horizontal rules */
     article hr {
-        @apply border-stone-700 my-8;
+        @apply border-neutral-700 my-8;
     }
 
     /* First element after headings */

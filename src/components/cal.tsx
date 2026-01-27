@@ -7,7 +7,7 @@ export default function MyApp() {
       cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
     })();
   }, [])
-  return <button className="font-mono text-stone-400 hover:text-stone-100 underline underline-offset-2 transition-colors cursor-pointer" data-cal-namespace="30min"
+  return <button className="font-mono text-neutral-400 hover:text-neutral-100 underline underline-offset-2 transition-colors cursor-pointer" data-cal-namespace="30min"
     data-cal-link="madeleydesignstudio/30min"
     
     data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"auto"}'

@@ -1,29 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import BlogPostCard from "../../components/BlogPostCard.astro";
 import {
     processCollectionBlogPost,
     sortPostsByDate,
+    formatCompactDate,
 } from "../../lib/blog-utils";
 import { getCollection } from "astro:content";
+import ViewCount from "../../components/ViewCount.tsx";
 
-// Get all blog posts from the collection
 const allPosts = await getCollection("blog");
-
-// Transform and sort posts
 const blogPosts = allPosts.map(processCollectionBlogPost);
 const sortedPosts = sortPostsByDate(blogPosts);
 
-// Get featured post (most recent) and remaining posts
 const featuredPost = sortedPosts[0];
 const remainingPosts = sortedPosts.slice(1);
 
-// Extract all unique tags
 const allTags = Array.from(
     new Set(sortedPosts.flatMap((post) => post.tags))
 ).sort();
 
-// Serialize posts for client-side filtering
 const postsData = JSON.stringify(sortedPosts);
 ---
 
@@ -32,144 +27,153 @@ const postsData = JSON.stringify(sortedPosts);
     description="Exploring structural engineering, computational design, Python automation, and the intersection of engineering and technology."
     keywords="blog, structural engineering, computational design, Python, automation, BIM, FEA, Grasshopper"
 >
-    <!-- Hero Section -->
-    <header class="mb-12">
-        <div class="flex flex-col gap-4 mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-stone-100">
-                Thoughts & Writings
-            </h1>
-            <p class="text-lg text-stone-400 max-w-2xl">
-                Exploring the intersection of structural engineering, computational design, and software development.
-                Practical insights from building structures and writing code.
-            </p>
-        </div>
-
-        <!-- Stats Bar -->
-        <div class="flex flex-wrap items-center gap-6 py-4 border-y border-stone-800">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-stone-100">{sortedPosts.length}</span>
-                <span class="text-sm text-stone-500">Articles</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-stone-100">{allTags.length}</span>
-                <span class="text-sm text-stone-500">Topics</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-stone-100">{sortedPosts.reduce((acc, p) => acc + p.readingTime, 0)}</span>
-                <span class="text-sm text-stone-500">Minutes of reading</span>
-            </div>
-        </div>
+    <!-- Header -->
+    <header class="pt-12 pb-8">
+        <h1 class="text-5xl md:text-6xl font-bold text-neutral-100 mb-4">
+            News
+        </h1>
+        <p class="text-lg text-neutral-400 max-w-xl">
+            Thoughts on structural engineering, computational design, and software development.
+        </p>
     </header>
 
-    <!-- Filter Section -->
-    <nav class="mb-10">
-        <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide">
+    <!-- Filter pills -->
+    <nav class="mb-12 border-b border-neutral-800 pb-6">
+        <div class="flex items-center gap-3 overflow-x-auto scrollbar-hide">
             <button
                 data-filter="all"
-                class="filter-tag active px-4 py-2 text-sm rounded-full bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-stone-100 transition-all whitespace-nowrap"
+                class="filter-tag active px-4 py-1.5 text-sm rounded-full border border-neutral-700 text-neutral-100 bg-neutral-800 transition-all whitespace-nowrap"
             >
-                All Posts
+                All
             </button>
-            {allTags.map((tag) => {
-                const tagCount = sortedPosts.filter((post) => post.tags.includes(tag)).length;
-                return (
-                    <button
-                        data-filter={tag}
-                        data-count={tagCount}
-                        class="filter-tag px-4 py-2 text-sm rounded-full bg-stone-900 text-stone-400 hover:bg-stone-800 hover:text-stone-200 transition-all whitespace-nowrap border border-stone-800"
-                    >
-                        {tag}
-                        <span class="ml-1 text-stone-600">{tagCount}</span>
-                    </button>
-                );
-            })}
+            {allTags.map((tag) => (
+                <button
+                    data-filter={tag}
+                    class="filter-tag px-4 py-1.5 text-sm rounded-full border border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-600 transition-all whitespace-nowrap"
+                >
+                    {tag}
+                </button>
+            ))}
         </div>
     </nav>
 
-    <!-- Featured Post -->
+    <!-- Featured post -->
     {featuredPost && (
-        <section id="featured-section" class="mb-12">
-            <BlogPostCard post={featuredPost} variant="featured" showAuthor={false} maxTags={4} />
+        <section id="featured-section" class="mb-16">
+            <a href={`/thoughts-and-writings/${featuredPost.slug}`} class="group block">
+                <div class="border border-neutral-800 rounded-2xl p-8 md:p-10 transition-colors hover:border-neutral-600">
+                    <div class="flex items-center gap-3 text-sm text-neutral-500 mb-4">
+                        <time datetime={featuredPost.pubDate}>
+                            {formatCompactDate(featuredPost.pubDate)}
+                        </time>
+                        <span class="text-neutral-700">&middot;</span>
+                        <span>{featuredPost.readingTime} min read</span>
+                        {featuredPost.tags[0] && (
+                            <>
+                                <span class="text-neutral-700">&middot;</span>
+                                <span>{featuredPost.tags[0]}</span>
+                            </>
+                        )}
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-100 mb-4 group-hover:text-white transition-colors">
+                        {featuredPost.title}
+                    </h2>
+                    <p class="text-neutral-400 text-lg leading-relaxed max-w-3xl">
+                        {featuredPost.description}
+                    </p>
+                </div>
+            </a>
         </section>
     )}
 
-    <!-- Posts Grid -->
+    <!-- Post list -->
     <section>
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-semibold text-stone-200">Latest Articles</h2>
-            <span id="results-count" class="text-sm text-stone-500">
-                {remainingPosts.length} {remainingPosts.length === 1 ? 'article' : 'articles'}
-            </span>
-        </div>
-
-        <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div id="posts-container">
             {remainingPosts.map((post) => (
                 <div
                     class="post-item"
                     data-slug={post.slug}
                     data-tags={JSON.stringify(post.tags)}
                 >
-                    <BlogPostCard post={post} variant="grid" showAuthor={false} maxTags={2} />
+                    <a href={`/thoughts-and-writings/${post.slug}`} class="group block border-b border-neutral-800 py-6 hover:bg-neutral-800/20 transition-colors -mx-4 px-4 rounded">
+                        <div class="flex flex-col md:flex-row md:items-start md:gap-8">
+                            <div class="flex items-center gap-3 text-sm text-neutral-500 md:w-44 md:shrink-0 mb-2 md:mb-0 md:pt-1">
+                                <time datetime={post.pubDate} class="whitespace-nowrap">
+                                    {formatCompactDate(post.pubDate)}
+                                </time>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-semibold text-neutral-200 group-hover:text-white transition-colors mb-1">
+                                    {post.title}
+                                </h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2">
+                                    {post.description}
+                                </p>
+                                <div class="flex items-center gap-3 mt-2 text-xs text-neutral-600">
+                                    <span>{post.readingTime} min read</span>
+                                    <ViewCount client:load slug={post.slug} />
+                                    {post.tags.slice(0, 2).map((tag) => (
+                                        <span class="px-2 py-0.5 rounded-full border border-neutral-800 text-neutral-500">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             ))}
         </div>
-    </section>
 
-    <!-- All posts for filtering (hidden by default, shown when filtering) -->
-    <div id="filtered-posts-container" class="hidden">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <!-- Filtered posts container -->
+        <div id="filtered-posts-container" class="hidden">
             {sortedPosts.map((post) => (
                 <div
                     class="filtered-post-item"
                     data-slug={post.slug}
                     data-tags={JSON.stringify(post.tags)}
                 >
-                    <BlogPostCard post={post} variant="grid" showAuthor={false} maxTags={2} />
+                    <a href={`/thoughts-and-writings/${post.slug}`} class="group block border-b border-neutral-800 py-6 hover:bg-neutral-800/20 transition-colors -mx-4 px-4 rounded">
+                        <div class="flex flex-col md:flex-row md:items-start md:gap-8">
+                            <div class="flex items-center gap-3 text-sm text-neutral-500 md:w-44 md:shrink-0 mb-2 md:mb-0 md:pt-1">
+                                <time datetime={post.pubDate} class="whitespace-nowrap">
+                                    {formatCompactDate(post.pubDate)}
+                                </time>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-semibold text-neutral-200 group-hover:text-white transition-colors mb-1">
+                                    {post.title}
+                                </h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed line-clamp-2">
+                                    {post.description}
+                                </p>
+                                <div class="flex items-center gap-3 mt-2 text-xs text-neutral-600">
+                                    <span>{post.readingTime} min read</span>
+                                    <ViewCount client:load slug={post.slug} />
+                                    {post.tags.slice(0, 2).map((tag) => (
+                                        <span class="px-2 py-0.5 rounded-full border border-neutral-800 text-neutral-500">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             ))}
         </div>
-    </div>
-
-    <!-- Empty State -->
-    <div
-        id="empty-state"
-        class="text-center py-16 hidden"
-    >
-        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-800 flex items-center justify-center">
-            <svg class="w-8 h-8 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-        </div>
-        <p class="text-stone-300 text-lg mb-2">
-            No articles found
-        </p>
-        <p class="text-stone-500 text-sm">
-            Try selecting a different topic or <button id="clear-filter" class="text-stone-400 hover:text-stone-300 underline underline-offset-2">view all articles</button>
-        </p>
-    </div>
-
-    <!-- Newsletter CTA -->
-    <section class="mt-16 py-12 border-t border-stone-800">
-        <div class="text-center">
-            <h3 class="text-2xl font-bold text-stone-100 mb-3">Stay Updated</h3>
-            <p class="text-stone-400 mb-6 max-w-md mx-auto">
-                Follow my journey exploring engineering, code, and computational design.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a
-                    href="https://dub.sh/github-madeley"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 border border-stone-700 hover:border-stone-600 text-stone-300 rounded-lg transition-colors"
-                >
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    Follow on GitHub
-                </a>
-            </div>
-        </div>
     </section>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="text-center py-20 hidden">
+        <p class="text-neutral-400 text-lg mb-2">No articles found</p>
+        <p class="text-neutral-600 text-sm">
+            Try a different topic or
+            <button id="clear-filter" class="text-neutral-400 hover:text-neutral-200 underline underline-offset-2">
+                view all
+            </button>
+        </p>
+    </div>
 
     <script define:vars={{ postsData, allTags }}>
         const allPosts = JSON.parse(postsData);
@@ -179,7 +183,6 @@ const postsData = JSON.stringify(sortedPosts);
         const postsContainer = document.getElementById("posts-container");
         const filteredContainer = document.getElementById("filtered-posts-container");
         const emptyState = document.getElementById("empty-state");
-        const resultsCount = document.getElementById("results-count");
         const clearFilterBtn = document.getElementById("clear-filter");
         const filterButtons = document.querySelectorAll(".filter-tag");
         const filteredPostItems = document.querySelectorAll(".filtered-post-item");
@@ -188,36 +191,23 @@ const postsData = JSON.stringify(sortedPosts);
             activeFilter = tag;
 
             if (tag === "all") {
-                // Show default layout
                 if (featuredSection) featuredSection.style.display = "block";
-                postsContainer.style.display = "grid";
+                postsContainer.style.display = "block";
                 filteredContainer.classList.add("hidden");
                 emptyState.classList.add("hidden");
-
-                const count = allPosts.length - 1; // minus featured
-                resultsCount.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
             } else {
-                // Show filtered layout
                 if (featuredSection) featuredSection.style.display = "none";
                 postsContainer.style.display = "none";
                 filteredContainer.classList.remove("hidden");
 
                 const filteredPosts = allPosts.filter(post => post.tags.includes(tag));
 
-                // Show/hide posts based on filter
                 filteredPostItems.forEach(item => {
                     const tags = JSON.parse(item.dataset.tags || "[]");
-                    if (tags.includes(tag)) {
-                        item.style.display = "block";
-                    } else {
-                        item.style.display = "none";
-                    }
+                    item.style.display = tags.includes(tag) ? "block" : "none";
                 });
 
-                const count = filteredPosts.length;
-                resultsCount.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
-
-                if (count === 0) {
+                if (filteredPosts.length === 0) {
                     filteredContainer.classList.add("hidden");
                     emptyState.classList.remove("hidden");
                 } else {
@@ -226,45 +216,46 @@ const postsData = JSON.stringify(sortedPosts);
             }
         }
 
-        // Filter button handlers
         filterButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
                 filterButtons.forEach((b) => {
-                    b.classList.remove("active", "bg-stone-800", "text-stone-300");
-                    b.classList.add("bg-stone-900", "text-stone-400", "border", "border-stone-800");
+                    b.classList.remove("active", "bg-neutral-800", "text-neutral-100", "border-neutral-700");
+                    b.classList.add("text-neutral-400", "border-neutral-800");
                 });
-                btn.classList.add("active", "bg-stone-800", "text-stone-300");
-                btn.classList.remove("bg-stone-900", "text-stone-400", "border", "border-stone-800");
-                const filter = btn.dataset.filter;
-                filterPosts(filter);
+                btn.classList.add("active", "bg-neutral-800", "text-neutral-100", "border-neutral-700");
+                btn.classList.remove("text-neutral-400", "border-neutral-800");
+                filterPosts(btn.dataset.filter);
             });
         });
 
-        // Clear filter handler
         if (clearFilterBtn) {
             clearFilterBtn.addEventListener("click", () => {
                 const allBtn = document.querySelector('[data-filter="all"]');
-                if (allBtn) {
-                    allBtn.click();
-                }
+                if (allBtn) allBtn.click();
             });
         }
     </script>
 
     <style>
         .filter-tag.active {
-            background-color: rgb(41 37 36) !important;
-            color: rgb(214 211 209) !important;
-            border-color: rgb(68 64 60) !important;
+            background-color: rgb(38 38 38) !important;
+            color: rgb(245 245 245) !important;
+            border-color: rgb(64 64 64) !important;
         }
 
         .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     </style>
 </Layout>

@@ -8,8 +8,8 @@ const query = Astro.url.searchParams.get("q") ?? "";
 <Layout title="Search - Daniel Madeley">
     <div class="max-w-4xl mx-auto">
         <header class="mb-12">
-            <h1 class="text-4xl font-bold text-stone-100 mb-4">Search</h1>
-            <p class="text-xl text-stone-400">
+            <h1 class="text-4xl font-bold text-neutral-100 mb-4">Search</h1>
+            <p class="text-xl text-neutral-400">
                 Find articles, projects, and content across the site.
             </p>
         </header>
@@ -19,10 +19,10 @@ const query = Astro.url.searchParams.get("q") ?? "";
         </div>
 
         <div class="prose prose-stone prose-invert max-w-none">
-            <p class="text-stone-400">
+            <p class="text-neutral-400">
                 Use the search box above to find content. You can search for:
             </p>
-            <ul class="text-stone-300">
+            <ul class="text-neutral-300">
                 <li>
                     Blog posts about web development, design systems, and
                     JavaScript frameworks
@@ -42,7 +42,7 @@ const query = Astro.url.searchParams.get("q") ?? "";
     }
 
     .prose ul li {
-        color: #d6d3d1;
+        color: #d4d4d4;
         margin-bottom: 0.5rem;
     }
 </style>

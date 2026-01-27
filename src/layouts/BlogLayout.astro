@@ -21,99 +21,97 @@ const {
     <!-- Reading Progress Indicator -->
     <div
         id="reading-progress"
-        class="fixed top-0 left-0 h-[3px] bg-stone-400 z-[9999]"
+        class="fixed top-0 left-0 h-[2px] bg-neutral-400 z-[9999]"
         style="width: 0%; opacity: 0;"
         aria-hidden="true"
     ></div>
 
     <div data-pagefind-body>
-        <nav class="mb-8">
+        <!-- Back nav -->
+        <nav class="mb-10">
             <a
                 href="/thoughts-and-writings"
-                class="inline-flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors"
+                class="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-200 transition-colors"
             >
-                <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 19l-7-7 7-7"></path>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
-                Thoughts & Writings
+                Back to all posts
             </a>
         </nav>
 
-        <div class="max-w-4xl mx-auto">
-            <header class="mb-12">
-                <h1
-                    class="text-4xl font-bold text-stone-100 mb-4"
-                    data-pagefind-meta="title"
-                >
-                    {title}
-                </h1>
+        <!-- Article header -->
+        <header class="mb-12 max-w-3xl">
+            <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-500 mb-6">
+                <time datetime={pubDate} data-pagefind-meta="date">
+                    {
+                        new Date(pubDate).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        })
+                    }
+                </time>
 
-                {
-                    description && (
-                        <p
-                            class="text-xl text-stone-400 mb-6"
-                            data-pagefind-meta="description"
+                {author && (
+                    <>
+                        <span class="text-neutral-700">&middot;</span>
+                        <span data-pagefind-meta="author">{author}</span>
+                    </>
+                )}
+
+                <span class="text-neutral-700">&middot;</span>
+                <ViewTracker client:load slug={Astro.url.pathname.split("/").filter(Boolean).pop() || ""} />
+            </div>
+
+            <h1
+                class="text-4xl md:text-5xl font-bold text-neutral-100 leading-tight mb-6"
+                data-pagefind-meta="title"
+            >
+                {title}
+            </h1>
+
+            {description && (
+                <p class="text-xl text-neutral-400 leading-relaxed" data-pagefind-meta="description">
+                    {description}
+                </p>
+            )}
+
+            {tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-6">
+                    <div class="hidden" data-pagefind-meta="tags">{tags.join(", ")}</div>
+                    {tags.map((tag: string) => (
+                        <span
+                            class="px-3 py-1 text-xs rounded-full border border-neutral-800 text-neutral-400"
+                            data-pagefind-filter="tag"
                         >
-                            {description}
-                        </p>
-                    )
-                }
-
-                <div
-                    class="flex flex-wrap items-center gap-4 text-sm text-stone-500"
-                >
-                    <time datetime={pubDate} data-pagefind-meta="date">
-                        {
-                            new Date(pubDate).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                            })
-                        }
-                    </time>
-
-                    {
-                        author && (
-                            <span data-pagefind-meta="author">By {author}</span>
-                        )
-                    }
-
-                    <ViewTracker client:load slug={Astro.url.pathname.split("/").filter(Boolean).pop() || ""} />
-
-                    {
-                        tags.length > 0 && (
-                            <>
-                                <div class="hidden" data-pagefind-meta="tags">
-                                    {tags.join(", ")}
-                                </div>
-                                <div class="flex gap-2">
-                                    {tags.map((tag: string) => (
-                                        <span
-                                            class="px-2 py-1 bg-stone-800 text-stone-300 rounded-full text-xs"
-                                            data-pagefind-filter="tag"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            </>
-                        )
-                    }
+                            {tag}
+                        </span>
+                    ))}
                 </div>
-            </header>
+            )}
+        </header>
 
-            <article class="space-y-8">
+        <hr class="border-neutral-800 mb-12" />
+
+        <!-- Two-column layout: content + TOC -->
+        <div class="flex gap-16">
+            <!-- Article content -->
+            <article class="flex-1 min-w-0 max-w-3xl" id="article-content">
                 <slot />
             </article>
+
+            <!-- Table of Contents sidebar -->
+            <aside class="hidden lg:block w-56 shrink-0">
+                <div class="sticky top-24">
+                    <h4 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">
+                        On this page
+                    </h4>
+                    <nav id="toc" class="space-y-1" aria-label="Table of contents">
+                        <!-- Populated by JS -->
+                    </nav>
+                </div>
+            </aside>
         </div>
     </div>
 </Layout>
@@ -151,281 +149,352 @@ const {
 />
 
 <style>
-    /* Global spacing for all direct children */
-    article > * {
+    /* Article typography */
+    article > :global(*) {
         margin-bottom: 2rem;
     }
 
-    article h1 {
+    article :global(h1) {
         font-size: 2.25rem;
         font-weight: 700;
-        color: #f5f5f4;
+        color: #f5f5f5;
         margin-bottom: 1.5rem;
         margin-top: 3rem;
         line-height: 1.25;
     }
 
-    article h2 {
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: #f5f5f4;
-        margin-bottom: 1.5rem;
-        margin-top: 4rem;
-        line-height: 1.25;
-    }
-
-    article h3 {
+    article :global(h2) {
         font-size: 1.5rem;
-        font-weight: 600;
-        color: #e7e5e4;
+        font-weight: 700;
+        color: #f5f5f5;
         margin-bottom: 1rem;
         margin-top: 3rem;
+        line-height: 1.3;
+        padding-top: 1rem;
+    }
+
+    article :global(h3) {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #e5e5e5;
+        margin-bottom: 0.75rem;
+        margin-top: 2.5rem;
         line-height: 1.375;
     }
 
-    article h4 {
-        font-size: 1.25rem;
+    article :global(h4) {
+        font-size: 1.125rem;
         font-weight: 600;
-        color: #e7e5e4;
-        margin-bottom: 0.75rem;
+        color: #e5e5e5;
+        margin-bottom: 0.5rem;
         margin-top: 2rem;
         line-height: 1.375;
     }
 
-    article p {
-        color: #d6d3d1;
-        font-size: 1.125rem;
-        line-height: 1.625;
+    article :global(p) {
+        color: #d4d4d4;
+        font-size: 1.0625rem;
+        line-height: 1.75;
         margin-bottom: 1.5rem;
     }
 
-    article ul,
-    article ol {
-        color: #d6d3d1;
-        font-size: 1.125rem;
-        line-height: 1.625;
+    article :global(ul),
+    article :global(ol) {
+        color: #d4d4d4;
+        font-size: 1.0625rem;
+        line-height: 1.75;
         margin-bottom: 1.5rem;
         margin-left: 1.5rem;
     }
 
-    article li {
+    article :global(li) {
         margin-bottom: 0.5rem;
     }
 
-    article ul li {
+    article :global(ul li) {
         list-style-type: disc;
     }
 
-    article ol li {
+    article :global(ol li) {
         list-style-type: decimal;
     }
 
-    article a {
-        color: #f5f5f4;
+    article :global(a) {
+        color: #f5f5f5;
         text-decoration: underline;
-        transition: color 0.2s ease;
+        text-underline-offset: 3px;
+        text-decoration-color: #525252;
+        transition: text-decoration-color 0.2s ease;
     }
 
-    article a:hover {
-        color: #d6d3d1;
+    article :global(a:hover) {
+        text-decoration-color: #d4d4d4;
     }
 
-    article code {
-        background-color: #292524;
-        color: #e7e5e4;
-        padding: 0.25rem 0.5rem;
+    article :global(code) {
+        background-color: #262626;
+        color: #e5e5e5;
+        padding: 0.2rem 0.4rem;
         border-radius: 0.25rem;
         font-size: 0.875rem;
     }
 
-    article pre {
-        background-color: #292524;
-        color: #e7e5e4;
+    article :global(pre) {
+        background-color: #171717;
+        color: #e5e5e5;
         padding: 1.5rem;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         overflow-x: auto;
         margin-top: 2rem;
         margin-bottom: 2rem;
+        border: 1px solid #262626;
     }
 
-    article pre code {
+    article :global(pre code) {
         background-color: transparent;
         padding: 0;
     }
 
-    article blockquote {
-        border-left: 4px solid #57534e;
+    article :global(blockquote) {
+        border-left: 3px solid #404040;
         padding-left: 1.5rem;
         font-style: italic;
-        color: #a8a29e;
+        color: #a3a3a3;
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
 
-    article strong {
+    article :global(strong) {
         font-weight: 600;
-        color: #f5f5f4;
+        color: #f5f5f5;
     }
 
-    article img {
-        border-radius: 0.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    article :global(img) {
+        border-radius: 0.75rem;
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
 
-    article hr {
-        border-color: #57534e;
+    article :global(hr) {
+        border-color: #262626;
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
 
-    /* First heading should have no top margin */
-    article > h1:first-child,
-    article > h2:first-child,
-    article > h3:first-child {
+    /* First heading no top margin */
+    article > :global(h1:first-child),
+    article > :global(h2:first-child),
+    article > :global(h3:first-child) {
         margin-top: 0;
+        padding-top: 0;
     }
 
-    /* Better spacing after headings */
-    article h1 + p,
-    article h2 + p,
-    article h3 + p,
-    article h4 + p {
-        margin-top: 0.5rem;
-    }
-
-    /* Override global spacing for specific combinations */
-    article h1 + *,
-    article h2 + *,
-    article h3 + *,
-    article h4 + * {
+    /* Spacing after headings */
+    article :global(h1 + *),
+    article :global(h2 + *),
+    article :global(h3 + *),
+    article :global(h4 + *) {
         margin-top: 1rem;
     }
 
-    article p + ul,
-    article p + ol {
+    article :global(p + ul),
+    article :global(p + ol) {
         margin-top: 0;
     }
 
-    article ul + p,
-    article ol + p {
+    article :global(ul + p),
+    article :global(ol + p) {
         margin-top: 1.5rem;
     }
 
-    /* MathJax styling for rehype-mathjax output */
-    article mjx-container {
+    /* MathJax */
+    article :global(mjx-container) {
         margin: 0.5rem 0;
     }
 
-    article mjx-container[display="block"] {
+    article :global(mjx-container[display="block"]) {
         margin: 2rem 0;
         text-align: center;
         display: block;
     }
 
-    article mjx-container[display="inline"] {
+    article :global(mjx-container[display="inline"]) {
         margin: 0 0.2rem;
         display: inline;
     }
 
-    article mjx-container svg {
+    article :global(mjx-container svg) {
         display: inline !important;
-        color: #f5f5f4;
+        color: #f5f5f5;
     }
 
-    /* Math block spacing */
-    article p + mjx-container[display="block"] {
+    article :global(p + mjx-container[display="block"]) {
         margin-top: 1.5rem;
     }
 
-    article mjx-container[display="block"] + p {
+    article :global(mjx-container[display="block"] + p) {
         margin-top: 1.5rem;
     }
 
-    /* Ensure math text is readable */
-    article mjx-math {
-        color: #f5f5f4 !important;
+    article :global(mjx-math) {
+        color: #f5f5f5 !important;
     }
 
-    /* Table styling using standard CSS for Tailwind CSS v4 */
-    article table {
+    /* Tables */
+    article :global(table) {
         width: 100%;
         border-collapse: collapse;
         margin: 2rem 0;
-        background-color: #292524; /* stone-800 */
-        border-radius: 0.5rem;
+        background-color: #171717;
+        border-radius: 0.75rem;
         overflow: hidden;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #262626;
     }
 
-    article th,
-    article td {
-        padding: 1rem 1.5rem;
+    article :global(th),
+    article :global(td) {
+        padding: 0.75rem 1rem;
         text-align: left;
-        border-bottom: 1px solid #57534e; /* stone-600 */
-        color: #e7e5e4; /* stone-200 */
+        border-bottom: 1px solid #262626;
+        color: #e5e5e5;
     }
 
-    article th {
-        background-color: #1c1917; /* stone-900 */
+    article :global(th) {
+        background-color: #0a0a0a;
         font-weight: 600;
-        color: #f5f5f4; /* stone-100 */
-        border-bottom: 2px solid #57534e; /* stone-600 */
+        color: #f5f5f5;
+        border-bottom: 1px solid #404040;
     }
 
-    article tr:last-child td {
+    article :global(tr:last-child td) {
         border-bottom: none;
     }
 
-    article tr:hover {
-        background-color: rgba(68, 64, 60, 0.5); /* stone-700/50 */
+    article :global(tr:hover) {
+        background-color: rgba(64, 64, 64, 0.3);
     }
 
-    article tbody tr:nth-child(even) {
-        background-color: rgba(41, 37, 36, 0.5); /* stone-800/50 */
-    }
-
-    /* Handle table overflow on mobile */
     @media (max-width: 768px) {
-        article table {
+        article :global(table) {
             font-size: 0.875rem;
         }
 
-        article th,
-        article td {
+        article :global(th),
+        article :global(td) {
             padding: 0.5rem 0.75rem;
         }
+    }
+
+    /* TOC link styles */
+    #toc :global(a) {
+        display: block;
+        padding: 0.25rem 0;
+        padding-left: 0.75rem;
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: #737373;
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: all 0.15s ease;
+    }
+
+    #toc :global(a:hover) {
+        color: #d4d4d4;
+    }
+
+    #toc :global(a.active) {
+        color: #f5f5f5;
+        border-left-color: #f5f5f5;
+    }
+
+    #toc :global(a.toc-h3) {
+        padding-left: 1.5rem;
+        font-size: 0.75rem;
     }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const progressBar = document.getElementById("reading-progress") as HTMLElement | null;
-        if (!progressBar) return;
+    document.addEventListener("DOMContentLoaded", function () {
+        // Reading progress
+        const progressBar = document.getElementById("reading-progress");
+        if (progressBar) {
+            function updateProgress() {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight;
+                const winHeight = window.innerHeight;
+                const scrollableHeight = docHeight - winHeight;
 
-        const bar = progressBar;
+                if (scrollableHeight <= 0) {
+                    progressBar.style.width = "100%";
+                    progressBar.style.opacity = "1";
+                    return;
+                }
 
-        function updateProgress() {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight;
-            const winHeight = window.innerHeight;
-            const scrollableHeight = docHeight - winHeight;
-            
-            if (scrollableHeight <= 0) {
-                bar.style.width = "100%";
-                bar.style.opacity = "1";
-                return;
+                const progress = Math.min(100, (scrollTop / scrollableHeight) * 100);
+                progressBar.style.width = `${progress}%`;
+                progressBar.style.opacity = scrollTop > 50 ? "1" : "0";
             }
-            
-            const progress = Math.min(100, (scrollTop / scrollableHeight) * 100);
-            
-            bar.style.width = `${progress}%`;
-            bar.style.opacity = scrollTop > 50 ? "1" : "0";
+
+            window.addEventListener("scroll", updateProgress, { passive: true });
+            window.addEventListener("resize", updateProgress, { passive: true });
+            updateProgress();
         }
 
-        window.addEventListener("scroll", updateProgress, { passive: true });
-        window.addEventListener("resize", updateProgress, { passive: true });
-        updateProgress();
+        // Table of Contents generation
+        const article = document.getElementById("article-content");
+        const tocNav = document.getElementById("toc");
+        if (!article || !tocNav) return;
+
+        const headings = article.querySelectorAll("h2, h3");
+        if (headings.length === 0) {
+            const aside = tocNav.closest("aside");
+            if (aside) aside.style.display = "none";
+            return;
+        }
+
+        const tocLinks: HTMLAnchorElement[] = [];
+
+        headings.forEach((heading, i) => {
+            // Ensure heading has an id
+            if (!heading.id) {
+                heading.id = `heading-${i}`;
+            }
+
+            const link = document.createElement("a");
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent || "";
+            if (heading.tagName === "H3") {
+                link.classList.add("toc-h3");
+            }
+
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", `#${heading.id}`);
+            });
+
+            tocNav.appendChild(link);
+            tocLinks.push(link);
+        });
+
+        // Intersection observer for active state
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        tocLinks.forEach((link) => {
+                            link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+                        });
+                    }
+                });
+            },
+            {
+                rootMargin: "-80px 0px -70% 0px",
+                threshold: 0,
+            }
+        );
+
+        headings.forEach((heading) => observer.observe(heading));
     });
 </script>

@@ -65,20 +65,20 @@ function CityPanelContent({ city }: { city: City }) {
     return (
       <div className="space-y-4">
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-base mb-2">
+          <h3 className="text-neutral-100 font-semibold text-base mb-2">
             Leeds Beckett University
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             BEng (Hons) Civil Engineering — a degree focused on the design,
             construction, and maintenance of infrastructure and the built
             environment.
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             About the university
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             Leeds Beckett University is a modern university in Leeds with a
             strong reputation in the built environment and engineering. The
             School of the Built Environment offers accredited civil and
@@ -87,10 +87,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             Civil &amp; structural engineering
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             Civil and structural engineering covers the design and construction
             of buildings, bridges, roads, water and transport systems, and other
             infrastructure. The discipline combines mechanics, materials, and
@@ -104,16 +104,16 @@ function CityPanelContent({ city }: { city: City }) {
     return (
       <div className="space-y-4">
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-base mb-2">
+          <h3 className="text-neutral-100 font-semibold text-base mb-2">
             The Austin Partnership
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             I moved to Cardiff and joined{" "}
             <a
               href="https://austinpartnership.co.uk"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-100 underline hover:text-white transition-colors"
+              className="text-neutral-100 underline hover:text-white transition-colors"
             >
               The Austin Partnership
             </a>
@@ -122,10 +122,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             About the company
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             Established in 1991, Austin Partnership is a small practice with a
             strong local presence, led by structural engineer directors. The firm
             is known for responsive, professional service and practical design
@@ -134,10 +134,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             Services &amp; projects
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             The consultancy delivers structural design (new build, conversion,
             restoration, alterations, FEA, reinforced concrete and steelwork),
             civil engineering (drainage, SuDS, highways, retaining structures,
@@ -153,16 +153,16 @@ function CityPanelContent({ city }: { city: City }) {
     return (
       <div className="space-y-4">
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-base mb-2">
+          <h3 className="text-neutral-100 font-semibold text-base mb-2">
             O&apos;Connor Sutton Cronin (OCSC)
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             I joined the London office of{" "}
             <a
               href="https://ocsc.ie/london/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-100 underline hover:text-white transition-colors"
+              className="text-neutral-100 underline hover:text-white transition-colors"
             >
               O&apos;Connor Sutton Cronin
             </a>
@@ -171,10 +171,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             London office
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             The OCSC London office was established in 2005 and is in Clerkenwell,
             with strong transport links from Farringdon. The office runs a hybrid
             working model and has a strong management team focused on developing
@@ -183,10 +183,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             Projects &amp; expertise
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             The London team delivers structural, civil, MEP, and multidisciplinary
             work across residential, commercial, retail, hotel, healthcare, and
             education. High-profile projects include Royal Academy of Dance
@@ -203,16 +203,16 @@ function CityPanelContent({ city }: { city: City }) {
     return (
       <div className="space-y-4">
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-base mb-2">
+          <h3 className="text-neutral-100 font-semibold text-base mb-2">
             Ridge and Partners LLP
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             I joined{" "}
             <a
               href="https://ridge.co.uk/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-100 underline hover:text-white transition-colors"
+              className="text-neutral-100 underline hover:text-white transition-colors"
             >
               Ridge and Partners
             </a>{" "}
@@ -221,10 +221,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             About Ridge
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             Ridge is a multidisciplinary built environment consultancy, ranked
             15th in Building Magazine&apos;s Top 150 Consultants. The practice
             combines architecture, structural and civil engineering, building
@@ -233,10 +233,10 @@ function CityPanelContent({ city }: { city: City }) {
           </p>
         </section>
         <section className={panelSection}>
-          <h3 className="text-stone-100 font-semibold text-sm uppercase tracking-wider mb-2">
+          <h3 className="text-neutral-100 font-semibold text-sm uppercase tracking-wider mb-2">
             Sectors &amp; expertise
           </h3>
-          <p className="text-stone-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-sm leading-relaxed">
             Ridge works across education, healthcare, infrastructure, data
             centres, residential and regeneration, science and research, sport
             and leisure, and museums and theatres. Notable work includes
@@ -249,7 +249,7 @@ function CityPanelContent({ city }: { city: City }) {
     );
   }
   return (
-    <p className="text-sm text-stone-400">Location selected on the map.</p>
+    <p className="text-sm text-neutral-400">Location selected on the map.</p>
   );
 }
 
@@ -281,14 +281,14 @@ export default function UKMapWithLeeds() {
         >
           <div className="flex items-center justify-between gap-3 p-5 border-b border-neutral-700">
             <div className="flex items-center gap-3 min-w-0">
-              <h2 className="text-xl font-semibold text-stone-100 truncate">
+              <h2 className="text-xl font-semibold text-neutral-100 truncate">
                 {selectedCity.name}
               </h2>
               <span
                 className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${
                   CITY_DURATIONS[selectedCity.name] === "Current"
                     ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                    : "bg-neutral-700/80 text-stone-300 border border-neutral-600/60"
+                    : "bg-neutral-700/80 text-neutral-300 border border-neutral-600/60"
                 }`}
               >
                 {CITY_DURATIONS[selectedCity.name]}
@@ -297,7 +297,7 @@ export default function UKMapWithLeeds() {
             <button
               type="button"
               onClick={() => setSelectedCity(null)}
-              className="rounded p-1.5 text-stone-400 hover:text-stone-100 hover:bg-neutral-800 transition-colors"
+              className="rounded p-1.5 text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors"
               aria-label="Close"
             >
               <svg
@@ -354,7 +354,7 @@ export default function UKMapWithLeeds() {
           showCompass
           showLocate
           showFullscreen
-          className="[&>div]:!bg-neutral-900 [&>div]:!border-neutral-700 [&_button]:!text-stone-200 [&_button:hover]:!bg-neutral-800 [&_svg]:text-stone-200"
+          className="[&>div]:!bg-neutral-900 [&>div]:!border-neutral-700 [&_button]:!text-neutral-200 [&_button:hover]:!bg-neutral-800 [&_svg]:text-neutral-200"
         />
       </Map>
     </div>
