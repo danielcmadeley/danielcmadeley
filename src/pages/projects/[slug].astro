@@ -22,7 +22,7 @@ const formatDate = (date: Date) =>
 ---
 
 <Layout title={`${project.data.title} | Daniel C Madeley`} description={project.data.description}>
-    <article class="pt-12">
+    <article class="pt-12" data-pagefind-body>
         <!-- Hero image -->
         <div class="relative w-full aspect-[21/9] rounded-xl overflow-hidden border border-neutral-800 mb-8">
             <img
@@ -56,8 +56,8 @@ const formatDate = (date: Date) =>
                 )}
             </div>
 
-            <h1 class="text-4xl font-bold text-white">{project.data.title}</h1>
-            <p class="text-lg text-neutral-400 max-w-2xl">{project.data.description}</p>
+            <h1 class="text-4xl font-bold text-white" data-pagefind-meta="title">{project.data.title}</h1>
+            <p class="text-lg text-neutral-400 max-w-2xl" data-pagefind-meta="description">{project.data.description}</p>
 
             {project.data.tags && project.data.tags.length > 0 && (
                 <div class="flex flex-wrap gap-2">

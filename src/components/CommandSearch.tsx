@@ -10,6 +10,7 @@ import {
   MapPin,
   Rss,
   ArrowRight,
+  Layers,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { Command as CommandPrimitive } from "cmdk";
@@ -37,9 +38,18 @@ interface QuickLink {
   url: string;
   icon: React.ReactNode;
   description: string;
+  shortcut: string;
+  shortcutLabel: string;
 }
 
 interface RecentPost {
+  title: string;
+  url: string;
+  date: string;
+  description: string;
+}
+
+interface RecentProject {
   title: string;
   url: string;
   date: string;
@@ -52,36 +62,48 @@ const QUICK_LINKS: QuickLink[] = [
     url: "/",
     icon: <Home className="w-4 h-4" />,
     description: "Back to homepage",
+    shortcut: "g h",
+    shortcutLabel: "G H",
   },
   {
     label: "Thoughts & Writings",
     url: "/thoughts-and-writings",
     icon: <PenTool className="w-4 h-4" />,
     description: "Blog posts and articles",
+    shortcut: "g t",
+    shortcutLabel: "G T",
   },
   {
     label: "Projects",
     url: "/projects",
     icon: <FolderOpen className="w-4 h-4" />,
     description: "Featured work and projects",
+    shortcut: "g p",
+    shortcutLabel: "G P",
   },
   {
     label: "Work with Me",
     url: "/work-with-me",
     icon: <Briefcase className="w-4 h-4" />,
     description: "CV and experience",
+    shortcut: "g c",
+    shortcutLabel: "G C",
   },
   {
     label: "Work Experience",
     url: "/work-experience",
     icon: <MapPin className="w-4 h-4" />,
     description: "Interactive work map",
+    shortcut: "g w",
+    shortcutLabel: "G W",
   },
   {
     label: "Feeds",
     url: "/feeds",
     icon: <Rss className="w-4 h-4" />,
     description: "RSS and JSON feeds",
+    shortcut: "g f",
+    shortcutLabel: "G F",
   },
 ];
 
@@ -106,6 +128,30 @@ const RECENT_POSTS: RecentPost[] = [
     date: "2026-01-15",
     description:
       "Lessons learned from coordinating structural models with architects, MEP engineers, and contractors.",
+  },
+];
+
+const RECENT_PROJECTS: RecentProject[] = [
+  {
+    title: "Form + Function",
+    url: "/projects/form-function",
+    date: "2025-10-01",
+    description:
+      "Where structural engineering principles meet modern web design.",
+  },
+  {
+    title: "Williams Performance",
+    url: "/projects/williams-performance",
+    date: "2025-08-01",
+    description:
+      "Performance engineering meets digital design — a web experience for Williams.",
+  },
+  {
+    title: "Cadillac",
+    url: "/projects/cadillac",
+    date: "2025-06-01",
+    description:
+      "A design project exploring luxury automotive branding and digital presence.",
   },
 ];
 
@@ -204,6 +250,40 @@ export function CommandSearch({
     },
     { enableOnFormTags: true, enabled: open },
   );
+
+  // Global navigation shortcuts (g then letter)
+  const [gPressed, setGPressed] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if (e.key === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        setGPressed(true);
+        // Reset after 1 second if no second key pressed
+        setTimeout(() => setGPressed(false), 1000);
+        return;
+      }
+
+      if (gPressed) {
+        setGPressed(false);
+        switch (e.key) {
+          case "h": window.location.href = "/"; break;
+          case "t": window.location.href = "/thoughts-and-writings"; break;
+          case "p": window.location.href = "/projects"; break;
+          case "c": window.location.href = "/work-with-me"; break;
+          case "w": window.location.href = "/work-experience"; break;
+          case "f": window.location.href = "/feeds"; break;
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [gPressed]);
 
   // Debounced search
   React.useEffect(() => {
@@ -342,6 +422,24 @@ export function CommandSearch({
               </kbd>
             </div>
 
+            {/* Quick Links Bar */}
+            <div className="px-4 py-2 border-b border-neutral-800 flex items-center gap-2 overflow-x-auto">
+              {QUICK_LINKS.map((link) => (
+                <button
+                  key={link.url}
+                  onClick={() => handleSelect(link.url)}
+                  className="group inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-neutral-800/50 text-neutral-400 hover:text-neutral-200 hover:bg-neutral-700/50 transition-colors whitespace-nowrap"
+                  title={`${link.description} (${link.shortcutLabel})`}
+                >
+                  {link.icon}
+                  <span>{link.label}</span>
+                  <kbd className="hidden sm:inline-flex ml-1 px-1 py-0.5 text-[9px] font-mono rounded bg-neutral-700/50 text-neutral-500 group-hover:text-neutral-400">
+                    {link.shortcutLabel}
+                  </kbd>
+                </button>
+              ))}
+            </div>
+
             <CommandList className="flex-1 max-h-[min(60vh,480px)] overflow-y-auto">
               {/* Loading State */}
               {loading && (
@@ -403,11 +501,11 @@ export function CommandSearch({
                 </CommandGroup>
               )}
 
-              {/* Quick Links - filtered when searching */}
-              {!loading && hasFilteredLinks && (
+              {/* Quick Links - only show filtered results when searching */}
+              {!loading && hasQuery && hasFilteredLinks && (
                 <CommandGroup>
                   <div className="px-4 pt-3 pb-1.5 text-[11px] font-medium text-neutral-500 uppercase tracking-widest">
-                    {hasQuery ? "Pages" : "Quick Links"}
+                    Pages
                   </div>
                   {filteredQuickLinks.map((link) => (
                     <CommandItem
@@ -417,7 +515,7 @@ export function CommandSearch({
                       className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
                     >
                       <div className="flex items-center gap-3 w-full">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-200 text-neutral-400 shrink-0">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-800/80 text-neutral-400 shrink-0">
                           {link.icon}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -428,7 +526,7 @@ export function CommandSearch({
                             {link.description}
                           </div>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-neutral-200 shrink-0" />
+                        <ArrowRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
                       </div>
                     </CommandItem>
                   ))}
@@ -462,6 +560,40 @@ export function CommandSearch({
                         </div>
                         <span className="text-xs text-neutral-600 shrink-0">
                           {formatDate(post.date)}
+                        </span>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+
+              {/* Recent Projects - only when no query */}
+              {!hasQuery && (
+                <CommandGroup>
+                  <div className="px-4 pt-3 pb-1.5 text-[11px] font-medium text-neutral-500 uppercase tracking-widest">
+                    Recent Projects
+                  </div>
+                  {RECENT_PROJECTS.map((project) => (
+                    <CommandItem
+                      key={project.url}
+                      value={project.title}
+                      onSelect={() => handleSelect(project.url)}
+                      className="mx-1.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-200 shrink-0">
+                          <Layers className="w-4 h-4 text-neutral-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-neutral-200 truncate">
+                            {project.title}
+                          </div>
+                          <div className="text-xs text-neutral-500 truncate mt-0.5">
+                            {project.description}
+                          </div>
+                        </div>
+                        <span className="text-xs text-neutral-600 shrink-0">
+                          {formatDate(project.date)}
                         </span>
                       </div>
                     </CommandItem>
