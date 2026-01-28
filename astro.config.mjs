@@ -51,6 +51,10 @@ export default defineConfig({
       alias: {
         "@": path.resolve("./src"),
       },
+      dedupe: ["react", "react-dom"],
+    },
+    optimizeDeps: {
+      include: ["react", "react-dom"],
     },
   },
 

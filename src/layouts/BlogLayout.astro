@@ -61,7 +61,7 @@ const {
                 )}
 
                 <span class="text-neutral-700">&middot;</span>
-                <ViewTracker client:load slug={Astro.url.pathname.split("/").filter(Boolean).pop() || ""} />
+                <ViewTracker client:only="react" slug={Astro.url.pathname.split("/").filter(Boolean).pop() || ""} />
             </div>
 
             <h1

@@ -115,8 +115,7 @@ const {
             trackOutgoingLinks={true}
         />
     </head>
-    <body class=" text-neutral-200 font-sans">
-        <!-- <Navbar /> -->
+    <body class="text-neutral-200 font-sans">
         <main
             class:list={["max-w-5xl mx-auto px-4 sm:px-8 md:px-12 py-16 sm:py-24 md:py-36 min-h-screen flex flex-col gap-8", !isHomepage && ""]}
         >
@@ -124,7 +123,5 @@ const {
             <slot />
         </main>
         {showFooter && <img src="/London.svg" alt="London" class="mx-auto object-cover">}
-
-        <!-- <Footer /> -->
     </body>
 </html>

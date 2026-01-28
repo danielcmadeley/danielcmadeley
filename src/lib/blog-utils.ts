@@ -8,7 +8,7 @@ export interface BlogPost {
   readingTime: number;
 }
 
-export function calculateReadingTime(content: string): number {
+function calculateReadingTime(content: string): number {
   if (!content) return 1;
 
   const wordCount = content
@@ -50,25 +50,6 @@ export function processCollectionBlogPost(post: any): BlogPost {
   };
 }
 
-export function processAstroBlogPost(post: any): BlogPost {
-  const url =
-    post.url || post.file.replace(/.*\/pages/, "").replace(/\.md$/, "");
-
-  // Calculate reading time from markdown content
-  const content = post.rawContent ? post.rawContent() : "";
-  const readingTime = calculateReadingTime(content);
-
-  return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description,
-    pubDate: post.frontmatter.pubDate,
-    author: post.frontmatter.author || "Daniel Madeley",
-    tags: post.frontmatter.tags || [],
-    slug: url,
-    readingTime: readingTime,
-  };
-}
-
 export function sortPostsByDate(posts: BlogPost[]): BlogPost[] {
   return posts.sort(
     (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
@@ -80,9 +61,4 @@ export function getRecentPosts(
   limit: number = 3,
 ): BlogPost[] {
   return sortPostsByDate(posts).slice(0, limit);
-}
-
-export function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength).trim() + "...";
 }

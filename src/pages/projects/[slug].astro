@@ -40,7 +40,7 @@ const formatDate = (date: Date) =>
                     {formatDate(project.data.date)}
                 </time>
                 <span class="text-neutral-700">&middot;</span>
-                <ViewTracker client:load slug={`project-${project.id}`} />
+                <ViewTracker client:only="react" slug={`project-${project.id}`} />
                 {project.data.url && project.data.url !== "#" && (
                     <>
                         <span class="text-neutral-700">&middot;</span>

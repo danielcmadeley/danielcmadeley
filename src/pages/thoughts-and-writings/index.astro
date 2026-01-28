@@ -111,7 +111,7 @@ const postsData = JSON.stringify(sortedPosts);
                                 </p>
                                 <div class="flex items-center gap-3 mt-2 text-xs text-neutral-600">
                                     <span>{post.readingTime} min read</span>
-                                    <ViewCount client:load slug={post.slug} />
+                                    <ViewCount client:only="react" slug={post.slug} />
                                     {post.tags.slice(0, 2).map((tag) => (
                                         <span class="px-2 py-0.5 rounded-full border border-neutral-800 text-neutral-500">
                                             {tag}
@@ -149,7 +149,7 @@ const postsData = JSON.stringify(sortedPosts);
                                 </p>
                                 <div class="flex items-center gap-3 mt-2 text-xs text-neutral-600">
                                     <span>{post.readingTime} min read</span>
-                                    <ViewCount client:load slug={post.slug} />
+                                    <ViewCount client:only="react" slug={post.slug} />
                                     {post.tags.slice(0, 2).map((tag) => (
                                         <span class="px-2 py-0.5 rounded-full border border-neutral-800 text-neutral-500">
                                             {tag}

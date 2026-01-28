@@ -39,7 +39,7 @@ const placeholderCount = Math.max(0, 6 - projects.length);
                         <h3 class="text-sm font-medium text-white mt-0.5">
                             {project.data.title}
                         </h3>
-                        <ViewCount client:load slug={`project-${project.id}`} />
+                        <ViewCount client:only="react" slug={`project-${project.id}`} />
                     </div>
                 </a>
             ))}
