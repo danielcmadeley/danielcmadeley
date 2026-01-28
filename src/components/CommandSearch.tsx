@@ -167,6 +167,18 @@ export function CommandSearch({
   const [pagefind, setPagefind] = React.useState<any>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  // Normalize URLs from Pagefind by removing /client prefix and trailing slashes
+  const normalizeUrl = (url: string): string => {
+    if (!url) return url;
+    // Remove /client prefix if present
+    let normalized = url.startsWith("/client") ? url.slice(7) : url;
+    // Remove trailing slash (except for root)
+    if (normalized.length > 1 && normalized.endsWith("/")) {
+      normalized = normalized.slice(0, -1);
+    }
+    return normalized;
+  };
+
   // Initialize Pagefind
   React.useEffect(() => {
     const initPagefind = async () => {
@@ -312,7 +324,7 @@ export function CommandSearch({
               const data = await result.data();
               searchResults.push({
                 id: result.id,
-                url: data.url,
+                url: normalizeUrl(data.url),
                 title:
                   data.meta?.title ||
                   data.content?.split("\n")[0] ||
@@ -344,7 +356,7 @@ export function CommandSearch({
   }, [query, pagefind]);
 
   const handleSelect = (url: string) => {
-    window.location.href = url;
+    window.location.href = normalizeUrl(url);
     setOpen(false);
     setQuery("");
     setResults([]);
